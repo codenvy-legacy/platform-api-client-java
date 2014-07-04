@@ -1,0 +1,20 @@
+# MacOs
+.DS_Store
+
+# Eclipse
+.project
+.classpath
+.settings/
+
+# IntelliJ
+.idea/
+*.ipr
+*.iws
+*.iml
+
+# Maven
+patch.jar
+target/
+
+# Codenvy SDK
+org.exoplatform.logreader.logpath_IS_UNDEFINED/
