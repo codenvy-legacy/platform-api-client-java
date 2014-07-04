@@ -154,7 +154,7 @@
 				<extensions>true</extensions>
 				<configuration>
 					<instructions>
-						<Bundle-SymbolicName>${project.artifactId}</Bundle-SymbolicName>
+						<Bundle-SymbolicName>${project.groupId}</Bundle-SymbolicName>
 						<Export-Package>{local-packages}</Export-Package>
 						<Import-Package>org.glassfish.jersey.client,
 							org.glassfish.jersey.message.internal, *</Import-Package>
