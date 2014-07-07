@@ -55,7 +55,7 @@
 	</developers>
 	
 	<modules>
-		<module>platform-api-client-java</module>
+		<module>core</module>
 	</modules>
 
 	<properties>
