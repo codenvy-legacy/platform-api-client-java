@@ -21,8 +21,8 @@
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java</artifactId>
     <version>1.0.0-SNAPSHOT</version>
-    <name>Codenvy Platform API Client</name>
     <packaging>bundle</packaging>
+    <name>Codenvy Platform API Client</name>
     
     <licenses>
         <license>
