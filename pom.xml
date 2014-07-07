@@ -22,6 +22,8 @@
     <artifactId>codenvy-platform-api-client-java</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <name>Codenvy Platform API Client</name>
+    <packaging>bundle</packaging>
+    
     <licenses>
         <license>
             <name>Eclipse Public License</name>
