@@ -135,7 +135,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test(expected = NullPointerException.class)
     public void testImportArchiveWithNullProject() {
         codenvy.project()
-               .importArchive(defaultWorkspace,
+               .importArchive(defaultWorkspace.id,
                               null,
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();
@@ -144,7 +144,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test(expected = NullPointerException.class)
     public void testImportArchiveWithNullInputStream() {
         codenvy.project()
-               .importArchive(defaultWorkspace,
+               .importArchive(defaultWorkspace.id,
                               projectPrj1,
                               null)
                .execute();
@@ -153,7 +153,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testImportArchive() throws FileNotFoundException, IOException {
         codenvy.project()
-               .importArchive(defaultWorkspace,
+               .importArchive(defaultWorkspace.id,
                               projectPrj1,
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();

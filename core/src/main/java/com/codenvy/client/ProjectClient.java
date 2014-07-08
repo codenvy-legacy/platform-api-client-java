@@ -30,7 +30,6 @@ import javax.ws.rs.core.Response.Status;
 import com.codenvy.client.RequestResponseAdaptor.Adaptor;
 import com.codenvy.client.auth.AuthenticationManager;
 import com.codenvy.client.model.Project;
-import com.codenvy.client.model.Workspace.WorkspaceRef;
 
 /**
  * The Codenvy project API client.
@@ -122,18 +121,18 @@ public class ProjectClient extends AbstractClient {
     /**
      * Upload a local ZIP folder.
      *
-     * @param workspace the {@link WorkspaceRef} in which the ZIP folder will be imported.
+     * @param workspaceId the workspace id in which the ZIP folder will be imported.
      * @param project the pre-exisiting {@link Project} in which the archive content should be imported.
      * @param archiveInputStream the archive {@link InputStream}.
      * @return the {@link Request} pointing to a {@link Void} result.
-     * @throws NullPointerException if workspace, projectName or archiveInputStrem parameters are {@code null}.
+     * @throws NullPointerException if workspaceId, projectName or archiveInputStrem parameters are {@code null}.
      */
-    public Request<Void> importArchive(WorkspaceRef workspace, Project project, InputStream archiveInputStream) {
-        checkNotNull(workspace);
+    public Request<Void> importArchive(String workspaceId, Project project, InputStream archiveInputStream) {
+        checkNotNull(workspaceId);
         checkNotNull(project);
         checkNotNull(archiveInputStream);
 
-        final Invocation request = getWebTarget().path(workspace.id)
+        final Invocation request = getWebTarget().path(workspaceId)
                                                  .path("import")
                                                  .path(project.name)
                                                  .request()
