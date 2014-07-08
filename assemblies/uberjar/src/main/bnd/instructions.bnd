@@ -1,0 +1,30 @@
+Import-Package !com.sun.jdi.*, \
+               !sun.misc.*, \
+			   ,*
+Export-Package com.codenvy.client*;version=${project.version}
+
+
+Private-Package org.glassfish.hk2*, \
+                org.jvnet.*, \
+                org.objectweb.asm.*
+
+Embed-Dependency codenvy-platform-api-client-java-core;inline=true, \
+                 jackson-annotations;inline=true, \
+                 jackson-databind;inline=true, \
+                 jackson-core;inline=true, \
+                 jackson-jaxrs-json-provider;inline=true, \
+                 guava;inline=true, \
+                 javax.ws.rs-api;inline=true, \
+                 jersey-client;inline=true, \
+                 jersey-common;inline=true, \
+                 jackson-jaxrs-base;inline=true, \
+                 jackson-module-jaxb-annotations;inline=true, \
+                 hk2-api;inline=true, \
+                 hk2-utils;inline=true, \
+                 javax.inject;inline=true, \
+                 jersey-guava;inline=true, \
+                 aopalliance-repackaged;inline=true, \
+                 osgi-resource-locator;inline=true, \
+                 javassist;inline=true, \
+                 javax.annotation-api;inline=true
+
