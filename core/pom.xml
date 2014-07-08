@@ -78,20 +78,6 @@
         </testResources>
         <plugins>
             <plugin>
-                <groupId>org.apache.felix</groupId>
-                <artifactId>maven-bundle-plugin</artifactId>
-                <version>${version.maven-bundle-plugin}</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <instructions>
-                        <Export-Package>{local-packages}</Export-Package>
-                        <Import-Package>org.glassfish.jersey.client,
-                            org.glassfish.jersey.message.internal, *</Import-Package>
-                        <Bundle-ClassPath>patch.jar, .</Bundle-ClassPath>
-                    </instructions>
-                </configuration>
-            </plugin>
-            <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>build-helper-maven-plugin</artifactId>
                 <version>${version.build-helper-maven-plugin}</version>
