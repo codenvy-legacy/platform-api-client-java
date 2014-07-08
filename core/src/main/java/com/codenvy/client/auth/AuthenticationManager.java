@@ -114,7 +114,7 @@ public class AuthenticationManager {
         }
 
         if (token == null) {
-            throw new AuthenticationException("Unable to negociate a token for authentication");
+            throw new AuthenticationException("Unable to negotiate a token for authentication :" + response.getStatusInfo().toString());
         }
 
         return token;
