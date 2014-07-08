@@ -123,7 +123,6 @@ public class AuthenticationManager {
     /**
      * Retrieves the stored Codenvy API {@link Token} for the given user.
      * 
-     * @param username the user name.
      * @return the {@link Token} or {@code null} if none.
      */
     public Token getToken() {
