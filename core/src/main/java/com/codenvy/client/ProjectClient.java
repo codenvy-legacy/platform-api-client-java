@@ -50,10 +50,10 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Retrieves all workspace projects.
+     * Retrieves all workspace {@link Project}.
      *
      * @param workspaceId the workspace id.
-     * @return the workspace project list never {@code null}.
+     * @return the workspace {@link Project} list never {@code null}.
      * @throws NullPointerException if workspaceId parameter is {@code null}.
      * @throws CodenvyException if something goes wrong with the API call.
      */
@@ -70,10 +70,10 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Creates a project in the given workspace.
+     * Creates a {@link Project} in the given workspace.
      *
-     * @param project the project to create.
-     * @return the new project, never {@code null}.
+     * @param project the {@link Project} to create.
+     * @return the new {@link Project}, never {@code null}.
      * @throws NullPointerException if project parameter is {@code null}.
      * @throws CodenvyException if something goes wrong with the API call.
      */
@@ -90,9 +90,9 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Exports a resource in the given project.
+     * Exports a resource in the given {@link Project}.
      *
-     * @param project the project.
+     * @param project the {@link Project}.
      * @param resourcePath the path of the resource to export, must be a folder.
      * @return the resource {@link ZipInputStream} or {@code null} if the resource is not found.
      * @throws NullPointerException if project parameter is {@code null}.
@@ -119,6 +119,27 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
+     * Deletes a resource in the given {@link Project}.
+     * 
+     * @param project the {@link Project}.
+     * @param resourcePath the path of the resource to delete.
+     * @return the {@link Request} pointing to a {@link Void} result.
+     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws CodenvyException if something goes wrong with the API call.
+     */
+    public Request<Void> deleteResources(Project project, String resourcePath) throws CodenvyException {
+        checkNotNull(project);
+
+        final Invocation request = getWebTarget().path(project.workspaceId)
+                                                 .path(project.name)
+                                                 .path(resourcePath == null ? "" : resourcePath)
+                                                 .request()
+                                                 .buildDelete();
+
+        return new SimpleRequest<>(request, Void.class, getAuthenticationManager());
+    }
+
+    /**
      * Upload a local ZIP folder.
      *
      * @param workspaceId the workspace id in which the ZIP folder will be imported.
@@ -142,9 +163,9 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Updates a resource in the given project.
+     * Updates a resource in the given {@link Project}.
      *
-     * @param project the project.
+     * @param project the {@link Project}.
      * @param filePath the path to the file to update.
      * @param fileInputStream the file {@link InputStream}.
      * @throws NullPointerException if project, filePath or fileInputStream parameter is {@code null}.
@@ -166,9 +187,9 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Gets file content in the given project.
+     * Gets file content in the given {@link Project}.
      *
-     * @param project the project.
+     * @param project the {@link Project}.
      * @param filePath the file path.
      * @return the file {@link InputStream} or {@code null} if not found.
      * @throws CodenvyException if something goes wrong with the API call.
@@ -189,9 +210,9 @@ public class ProjectClient extends AbstractClient {
     }
 
     /**
-     * Returns if the given resource exists in the given Codenvy project.
+     * Returns if the given resource exists in the given {@link Project}.
      *
-     * @param project the Codenvy project.
+     * @param project the {@link Project}.
      * @param resource the resource path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.

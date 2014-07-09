@@ -80,6 +80,12 @@ public class ProjectClientIT extends AbstractIT {
                  .request()
                  .post(Entity.text(ProjectClientIT.class.getResourceAsStream("/file.txt")));
 
+        webTarget.path(projectPrj1.workspaceId)
+                 .path("file")
+                 .path(projectPrj1.name)
+                 .queryParam("name", "src/file2.txt")
+                 .request()
+                 .post(Entity.text(ProjectClientIT.class.getResourceAsStream("/file.txt")));
     }
 
     @Test(expected = NullPointerException.class)
@@ -124,6 +130,14 @@ public class ProjectClientIT extends AbstractIT {
     }
 
     @Test(expected = NullPointerException.class)
+    public void testDeleteResourcesWithNullProject() {
+        codenvy.project()
+               .deleteResources(null, null)
+               .execute();
+    }
+
+
+    @Test(expected = NullPointerException.class)
     public void testImportArchiveWithNullWorkspace() {
         codenvy.project()
                .importArchive(null,
@@ -160,7 +174,6 @@ public class ProjectClientIT extends AbstractIT {
 
         Assert.assertTrue(codenvy.project().isResource(projectPrj1, "/fileToImport.txt").execute());
     }
-
 
     @Test(expected = NullPointerException.class)
     public void testUpdateFileWithNullProject() {
@@ -242,5 +255,18 @@ public class ProjectClientIT extends AbstractIT {
                                       .execute();
 
         Assert.assertTrue(result);
+    }
+
+    @Test
+    public void testDeleteAndIsResources() {
+        codenvy.project()
+               .deleteResources(projectPrj1, "src/file2.txt")
+               .execute();
+
+        final boolean exists = codenvy.project()
+                                      .isResource(projectPrj1, "src/file2.txt")
+                                      .execute();
+
+        Assert.assertFalse(exists);
     }
 }
