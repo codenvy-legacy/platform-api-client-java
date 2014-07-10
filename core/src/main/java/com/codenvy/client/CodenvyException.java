@@ -10,7 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client;
 
-import javax.ws.rs.ProcessingException;
 
 /**
  * The base Codenvy exception.
@@ -21,12 +20,12 @@ public class CodenvyException extends RuntimeException {
     private static final long serialVersionUID = 197371454259368237L;
 
     /**
-     * Constructs an instance of {@link CodenvyException} from a {@link ProcessingException}.
+     * Constructs an instance of {@link CodenvyException} from an {@link Exception}.
      * 
-     * @param e the {@link ProcessingException} instance.
+     * @param e the {@link Exception} instance.
      * @return the created {@link CodenvyException}.
      */
-    public static CodenvyException from(ProcessingException e) {
+    public static CodenvyException from(Exception e) {
         return new CodenvyException(e.getMessage(), e.getCause());
     }
 
