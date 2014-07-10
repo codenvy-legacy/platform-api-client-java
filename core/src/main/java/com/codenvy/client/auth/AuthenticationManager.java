@@ -76,9 +76,9 @@ public class AuthenticationManager {
      * Authorises the contextual user with the Codenvy platform.
      * 
      * @return the authentication {@link Token}.
-     * @throws AuthenticationException if there is a problem during the token negociation.
+     * @throws CodenvyAuthenticationException if there is a problem during the token negociation.
      */
-    public Token authorize() throws AuthenticationException {
+    public Token authorize() throws CodenvyAuthenticationException {
         return authorize(credentials);
     }
 
@@ -87,15 +87,15 @@ public class AuthenticationManager {
      * 
      * @param credentials the user {@link Credentials}.
      * @return the authentication {@link Token}.
-     * @throws AuthenticationException if there is a problem during the token negociation.
+     * @throws CodenvyAuthenticationException if there is a problem during the token negociation.
      */
-    private Token authorize(Credentials credentials) throws AuthenticationException {
+    private Token authorize(Credentials credentials) throws CodenvyAuthenticationException {
         if (credentials == null || credentials.password == null) {
             if (credentialsProvider != null) {
                 credentials = credentialsProvider.getCredentials(username);
             }
             if (credentials == null || credentials.password == null) {
-                throw new AuthenticationException("No credentials provided for authentication");
+                throw new CodenvyAuthenticationException("No credentials provided for authentication");
             }
         }
 
@@ -114,7 +114,7 @@ public class AuthenticationManager {
         }
 
         if (token == null) {
-            throw new AuthenticationException("Unable to negotiate a token for authentication :" + response.getStatusInfo().toString());
+            throw new CodenvyAuthenticationException("Unable to negotiate a token for authentication :" + response.getStatusInfo().toString());
         }
 
         return token;
@@ -143,9 +143,9 @@ public class AuthenticationManager {
      * 
      * @param username the user name.
      * @return the {@link Token}.
-     * @throws AuthenticationException if there is a problem during the token negotiation.
+     * @throws CodenvyAuthenticationException if there is a problem during the token negotiation.
      */
-    public Token refreshToken() throws AuthenticationException {
+    public Token refreshToken() throws CodenvyAuthenticationException {
         return authorize(dataStore == null ? null : dataStore.get(username));
     }
 

@@ -26,9 +26,6 @@ import javax.ws.rs.client.ClientRequestContext;
 import org.junit.Assert;
 import org.junit.Test;
 
-import com.codenvy.client.auth.Token;
-import com.codenvy.client.auth.TokenInjectorFilter;
-
 /**
  * {@link TokenInjectorFilter} tests.
  * 

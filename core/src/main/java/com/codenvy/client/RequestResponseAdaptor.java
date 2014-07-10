@@ -12,8 +12,6 @@ package com.codenvy.client;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.codenvy.client.auth.AuthenticationException;
-
 /**
  * {@link Request} implementation adapting an API request response to another type.
  * 
@@ -22,7 +20,7 @@ import com.codenvy.client.auth.AuthenticationException;
  * @param <S> the {@linkplain java.lang.reflect.Type Type} of the request response to adapt.
  */
 public class RequestResponseAdaptor<T, S> implements Request<T> {
-    private final Request<S> adaptee;
+    private final Request<S>    adaptee;
     private final Adaptor<T, S> adaptor;
 
     /**
@@ -41,7 +39,7 @@ public class RequestResponseAdaptor<T, S> implements Request<T> {
     }
 
     @Override
-    public T execute() throws CodenvyException, AuthenticationException {
+    public T execute() throws CodenvyException {
         return adaptor.adapt(adaptee.execute());
     }
 

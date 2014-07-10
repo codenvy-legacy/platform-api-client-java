@@ -15,8 +15,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.store.DataStoreFactory;
-import com.codenvy.client.store.InMemoryDataStoreFactory;
 
 /**
  * {@link InMemoryDataStoreFactory} tests.

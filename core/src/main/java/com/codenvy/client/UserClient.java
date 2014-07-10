@@ -39,9 +39,8 @@ public class UserClient extends AbstractClient {
      * Returns the current user.
      * 
      * @return the current user.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<User> current() throws CodenvyException {
+    public Request<User> current() {
         final Invocation request = getWebTarget().request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();

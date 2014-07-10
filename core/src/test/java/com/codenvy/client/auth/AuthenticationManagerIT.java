@@ -22,11 +22,6 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.codenvy.client.AbstractIT;
-import com.codenvy.client.auth.AuthenticationException;
-import com.codenvy.client.auth.AuthenticationManager;
-import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.auth.CredentialsProvider;
-import com.codenvy.client.auth.Token;
 import com.codenvy.client.store.DataStore;
 
 /**
@@ -61,7 +56,7 @@ public class AuthenticationManagerIT extends AbstractIT {
         new AuthenticationManager(REST_API_URL, null, credentials, mock(CredentialsProvider.class), mock(DataStore.class));
     }
 
-    @Test(expected = AuthenticationException.class)
+    @Test(expected = CodenvyAuthenticationException.class)
     public void testAuthorizeWithNullDataStoreNullCredentialsAndNullCredentialsProvider() {
         final AuthenticationManager authenticationManager = new AuthenticationManager(REST_API_URL, DUMMY_USERNAME, null, null, null);
         authenticationManager.authorize();

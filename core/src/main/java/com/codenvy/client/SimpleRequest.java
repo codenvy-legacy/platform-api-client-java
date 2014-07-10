@@ -13,12 +13,14 @@ package com.codenvy.client;
 import static com.codenvy.client.auth.TokenInjectorFilter.TOKEN_PROPERTY_NAME;
 import static com.google.common.base.Preconditions.checkNotNull;
 
+import java.net.UnknownHostException;
+
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
-import com.codenvy.client.auth.AuthenticationException;
 import com.codenvy.client.auth.AuthenticationManager;
 import com.codenvy.client.auth.Token;
 
@@ -85,31 +87,40 @@ public class SimpleRequest<T> implements Request<T> {
     }
 
     @Override
-    public T execute() throws CodenvyException, AuthenticationException {
-        Token token = authenticationManager.getToken();
-        if (token == null) {
-            token = authenticationManager.authorize();
-        }
+    public T execute() throws CodenvyException {
+        try {
 
-        // set the token property for token injection
-        request.property(TOKEN_PROPERTY_NAME, token);
-
-        Response response = request.invoke();
-
-        if (Status.Family.CLIENT_ERROR == response.getStatusInfo().getFamily()) {
-            token = authenticationManager.refreshToken();
+            Token token = authenticationManager.getToken();
+            if (token == null) {
+                token = authenticationManager.authorize();
+            }
 
             // set the token property for token injection
             request.property(TOKEN_PROPERTY_NAME, token);
 
-            response = request.invoke();
-        }
+            Response response = request.invoke();
 
-        // read response
-        if (genericEntityType != null) {
-            return readEntity(response, genericEntityType);
+            if (Status.Family.CLIENT_ERROR == response.getStatusInfo().getFamily()) {
+                token = authenticationManager.refreshToken();
+
+                // set the token property for token injection
+                request.property(TOKEN_PROPERTY_NAME, token);
+
+                response = request.invoke();
+            }
+
+            // read response
+            if (genericEntityType != null) {
+                return readEntity(response, genericEntityType);
+            }
+            return entityType.equals(Response.class) ? entityType.cast(response) : readEntity(response, entityType);
+
+        } catch (ProcessingException e) {
+            if (e.getCause() instanceof UnknownHostException) {
+                throw CodenvyUnknownHostException.from((UnknownHostException)e.getCause());
+            }
+            throw CodenvyException.from(e);
         }
-        return entityType.equals(Response.class) ? entityType.cast(response) : readEntity(response, entityType);
     }
 
     /**
@@ -118,14 +129,14 @@ public class SimpleRequest<T> implements Request<T> {
      * @param response the API {@link Response}.
      * @param entityType the entity type to read in {@link Response} body.
      * @return the entity type instance.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @throws CodenvyErrorException if something goes wrong with the API call.
      */
-    private T readEntity(Response response, Class<T> entityType) throws CodenvyException {
+    private T readEntity(Response response, Class<T> entityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
             return response.readEntity(entityType);
         }
 
-        throw CodenvyException.from(response);
+        throw CodenvyErrorException.from(response);
     }
 
     /**
@@ -134,13 +145,13 @@ public class SimpleRequest<T> implements Request<T> {
      * @param response the API {@link Response}.
      * @param genericEntityType the entity type to read in {@link Response} body.
      * @return the entity type instance.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @throws CodenvyErrorException if something goes wrong with the API call.
      */
-    private T readEntity(Response response, GenericType<T> genericEntityType) throws CodenvyException {
+    private T readEntity(Response response, GenericType<T> genericEntityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
             return response.readEntity(genericEntityType);
         }
 
-        throw CodenvyException.from(response);
+        throw CodenvyErrorException.from(response);
     }
 }

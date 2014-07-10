@@ -16,7 +16,6 @@ import java.util.Properties;
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
-import com.codenvy.client.Codenvy;
 import com.codenvy.client.auth.Credentials;
 
 

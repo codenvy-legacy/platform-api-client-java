@@ -10,21 +10,22 @@
  *******************************************************************************/
 package com.codenvy.client.auth;
 
+import com.codenvy.client.CodenvyException;
 
 /**
  * Exception thrown if the user cannot be authenticated.
  * 
  * @author Kevin Pollet
  */
-public class AuthenticationException extends RuntimeException {
+public class CodenvyAuthenticationException extends CodenvyException {
     private static final long serialVersionUID = -700004295566607674L;
 
     /**
-     * Constructs an instance of {@link AuthenticationException}.
+     * Constructs an instance of {@link CodenvyAuthenticationException}.
      * 
      * @param message the exception message.
      */
-    public AuthenticationException(String message) {
+    public CodenvyAuthenticationException(String message) {
         super(message);
     }
 }

@@ -16,10 +16,6 @@ import org.junit.Test;
 
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.Token;
-import com.codenvy.client.store.DataStore;
-import com.codenvy.client.store.DataStoreFactory;
-import com.codenvy.client.store.InMemoryDataStore;
-import com.codenvy.client.store.InMemoryDataStoreFactory;
 
 /**
  * {@link InMemoryDataStore} tests.

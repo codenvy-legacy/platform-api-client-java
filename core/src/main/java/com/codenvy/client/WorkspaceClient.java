@@ -45,9 +45,8 @@ public class WorkspaceClient extends AbstractClient {
      * Retrieves all Codenvy workspaces of the user identified by the authentication token.
      * 
      * @return all Codenvy workspaces never {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<List<Workspace>> all() throws CodenvyException {
+    public Request<List<Workspace>> all() {
         final Invocation request = getWebTarget().path("all")
                                                  .request()
                                                  .accept(APPLICATION_JSON)
@@ -63,9 +62,8 @@ public class WorkspaceClient extends AbstractClient {
      * @param name the workspace name.
      * @return the Codenvy workspace or {@code null} if none.
      * @throws NullPointerException if name parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<WorkspaceRef> withName(String name) throws CodenvyException {
+    public Request<WorkspaceRef> withName(String name) {
         checkNotNull(name);
 
         final Invocation request = getWebTarget().queryParam("name", name)
@@ -82,9 +80,8 @@ public class WorkspaceClient extends AbstractClient {
      * @param workspaceRef the workspace to create.
      * @return the created workspace.
      * @throws NullPointerException if {@link WorkspaceRef} parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<WorkspaceRef> create(WorkspaceRef workspaceRef) throws CodenvyException {
+    public Request<WorkspaceRef> create(WorkspaceRef workspaceRef) {
         checkNotNull(workspaceRef);
 
         final Invocation request = getWebTarget().request()

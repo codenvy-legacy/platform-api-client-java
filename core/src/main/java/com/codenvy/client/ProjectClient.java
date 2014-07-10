@@ -55,9 +55,8 @@ public class ProjectClient extends AbstractClient {
      * @param workspaceId the workspace id.
      * @return the workspace {@link Project} list never {@code null}.
      * @throws NullPointerException if workspaceId parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<List<Project>> getWorkspaceProjects(String workspaceId) throws CodenvyException {
+    public Request<List<Project>> getWorkspaceProjects(String workspaceId) {
         checkNotNull(workspaceId);
 
         final Invocation request = getWebTarget().path(workspaceId)
@@ -75,9 +74,8 @@ public class ProjectClient extends AbstractClient {
      * @param project the {@link Project} to create.
      * @return the new {@link Project}, never {@code null}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<Project> create(Project project) throws CodenvyException {
+    public Request<Project> create(Project project) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -96,9 +94,8 @@ public class ProjectClient extends AbstractClient {
      * @param resourcePath the path of the resource to export, must be a folder.
      * @return the resource {@link ZipInputStream} or {@code null} if the resource is not found.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<ZipInputStream> exportResources(Project project, String resourcePath) throws CodenvyException {
+    public Request<ZipInputStream> exportResources(Project project, String resourcePath) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -125,9 +122,8 @@ public class ProjectClient extends AbstractClient {
      * @param resourcePath the path of the resource to delete.
      * @return the {@link Request} pointing to a {@link Void} result.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<Void> deleteResources(Project project, String resourcePath) throws CodenvyException {
+    public Request<Void> deleteResources(Project project, String resourcePath) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -169,9 +165,8 @@ public class ProjectClient extends AbstractClient {
      * @param filePath the path to the file to update.
      * @param fileInputStream the file {@link InputStream}.
      * @throws NullPointerException if project, filePath or fileInputStream parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<Void> updateFile(Project project, String filePath, InputStream fileInputStream) throws CodenvyException {
+    public Request<Void> updateFile(Project project, String filePath, InputStream fileInputStream) {
         checkNotNull(project);
         checkNotNull(filePath);
         checkNotNull(fileInputStream);
@@ -192,9 +187,8 @@ public class ProjectClient extends AbstractClient {
      * @param project the {@link Project}.
      * @param filePath the file path.
      * @return the file {@link InputStream} or {@code null} if not found.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<InputStream> getFile(Project project, String filePath) throws CodenvyException {
+    public Request<InputStream> getFile(Project project, String filePath) {
         checkNotNull(project);
         checkNotNull(filePath);
 
@@ -216,9 +210,8 @@ public class ProjectClient extends AbstractClient {
      * @param resource the resource path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<Boolean> isResource(Project project, String resourcePath) throws CodenvyException {
+    public Request<Boolean> isResource(Project project, String resourcePath) {
         checkNotNull(project);
         checkNotNull(resourcePath);
 

@@ -10,53 +10,42 @@
  *******************************************************************************/
 package com.codenvy.client;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.ws.rs.core.Response;
-
-import com.codenvy.client.model.Error;
+import javax.ws.rs.ProcessingException;
 
 /**
- * Exception thrown when something is wrong with the REST API.
+ * The base Codenvy exception.
  * 
  * @author Kevin Pollet
  */
 public class CodenvyException extends RuntimeException {
-    private static final long serialVersionUID = 7031838814322889179L;
+    private static final long serialVersionUID = 197371454259368237L;
 
     /**
-     * Reads the {@code Response} body and constructs an instance of {@link CodenvyException}.
+     * Constructs an instance of {@link CodenvyException} from a {@link ProcessingException}.
      * 
-     * @param response the rest API {@link Response}.
-     * @throws NullPointerException if response parameter is {@code null}.
+     * @param e the {@link ProcessingException} instance.
+     * @return the created {@link CodenvyException}.
      */
-    static CodenvyException from(Response response) {
-        checkNotNull(response);
-
-        final Error codenvyError = response.readEntity(Error.class);
-        return new CodenvyException(response.getStatus(), codenvyError.message);
+    public static CodenvyException from(ProcessingException e) {
+        return new CodenvyException(e.getMessage(), e.getCause());
     }
-
-    private final int status;
 
     /**
      * Constructs an instance of {@link CodenvyException}.
      * 
-     * @param status the HTTP status code.
-     * @param message the error message.
+     * @param message the exception message.
+     * @param cause the {@link Throwable} cause
      */
-    private CodenvyException(int status, String message) {
-        super(message);
-
-        this.status = status;
+    public CodenvyException(String message, Throwable cause) {
+        super(message, cause);
     }
 
     /**
-     * Returns the HTTP status code.
+     * Constructs an instance of {@link CodenvyException}.
      * 
-     * @return the HTTP status code.
+     * @param message the exception message.
      */
-    public int getStatus() {
-        return status;
+    public CodenvyException(String message) {
+        super(message);
     }
 }

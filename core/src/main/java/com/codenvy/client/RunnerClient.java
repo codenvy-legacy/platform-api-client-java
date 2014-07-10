@@ -43,9 +43,8 @@ public class RunnerClient extends AbstractClient {
      * @param project the project to run.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<RunnerStatus> run(Project project) throws CodenvyException {
+    public Request<RunnerStatus> run(Project project) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -65,9 +64,8 @@ public class RunnerClient extends AbstractClient {
      * @param processId the runner process id.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<RunnerStatus> stop(Project project, long processId) throws CodenvyException {
+    public Request<RunnerStatus> stop(Project project, long processId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -87,9 +85,8 @@ public class RunnerClient extends AbstractClient {
      * @param processId the runner process id.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<RunnerStatus> status(Project project, long processId) throws CodenvyException {
+    public Request<RunnerStatus> status(Project project, long processId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -109,9 +106,8 @@ public class RunnerClient extends AbstractClient {
      * @param processId the runner process id.
      * @return the runner logs.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<String> logs(Project project, long processId) throws CodenvyException {
+    public Request<String> logs(Project project, long processId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)

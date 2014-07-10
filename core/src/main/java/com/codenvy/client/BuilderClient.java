@@ -44,9 +44,8 @@ public class BuilderClient extends AbstractClient {
      * @param project the project to build.
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<BuilderStatus> build(Project project) throws CodenvyException {
+    public Request<BuilderStatus> build(Project project) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -66,9 +65,8 @@ public class BuilderClient extends AbstractClient {
      * @param taskId the builder task id.
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<BuilderStatus> status(Project project, long taskId) throws CodenvyException {
+    public Request<BuilderStatus> status(Project project, long taskId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -88,9 +86,8 @@ public class BuilderClient extends AbstractClient {
      * @param taskId the builder task id.
      * @return the builder logs.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<String> logs(Project project, long taskId) throws CodenvyException {
+    public Request<String> logs(Project project, long taskId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)
@@ -110,9 +107,8 @@ public class BuilderClient extends AbstractClient {
      * @param taskId the builder task id.
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
-     * @throws CodenvyException if something goes wrong with the API call.
      */
-    public Request<BuilderStatus> cancel(Project project, long taskId) throws CodenvyException {
+    public Request<BuilderStatus> cancel(Project project, long taskId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId)

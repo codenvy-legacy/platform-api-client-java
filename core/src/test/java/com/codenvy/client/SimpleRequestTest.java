@@ -17,19 +17,16 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-import java.net.URI;
 import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
-import javax.ws.rs.client.ClientRequestContext;
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 
 import org.junit.Test;
-import org.mockito.Mockito;
 
-import com.codenvy.client.SimpleRequest;
-import com.codenvy.client.auth.AuthenticationException;
 import com.codenvy.client.auth.AuthenticationManager;
 import com.codenvy.client.auth.Token;
 
@@ -72,7 +69,7 @@ public class SimpleRequestTest {
     }
 
     @Test
-    public void testExecuteWithStoredCredentials() throws AuthenticationException, URISyntaxException {
+    public void testExecuteWithStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
         when(response.getStatusInfo()).thenReturn(OK);
 
@@ -81,9 +78,6 @@ public class SimpleRequestTest {
 
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         when(authenticationManager.getToken()).thenReturn(new Token("123123"));
-
-        final ClientRequestContext clientRequestContext = Mockito.mock(ClientRequestContext.class);
-        when(clientRequestContext.getUri()).thenReturn(new URI("http://dummy.com"));
 
         final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
         simpleRequest.execute();
@@ -94,7 +88,7 @@ public class SimpleRequestTest {
     }
 
     @Test
-    public void testExecuteWithoutStoredCredentials() throws AuthenticationException, URISyntaxException {
+    public void testExecuteWithoutStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
         when(response.getStatusInfo()).thenReturn(OK);
 
@@ -105,9 +99,6 @@ public class SimpleRequestTest {
         when(authenticationManager.getToken()).thenReturn(null);
         when(authenticationManager.authorize()).thenReturn(new Token("123123"));
 
-        final ClientRequestContext clientRequestContext = Mockito.mock(ClientRequestContext.class);
-        when(clientRequestContext.getUri()).thenReturn(new URI("http://dummy.com"));
-
         final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
@@ -117,7 +108,7 @@ public class SimpleRequestTest {
     }
 
     @Test
-    public void testExecuteWithRefreshAndStoredCredentials() throws AuthenticationException, URISyntaxException {
+    public void testExecuteWithRefreshAndStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
         when(response.getStatusInfo()).thenReturn(UNAUTHORIZED);
 
@@ -126,9 +117,6 @@ public class SimpleRequestTest {
 
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         when(authenticationManager.getToken()).thenReturn(new Token("123123"));
-
-        final ClientRequestContext clientRequestContext = Mockito.mock(ClientRequestContext.class);
-        when(clientRequestContext.getUri()).thenReturn(new URI("http://dummy.com"));
 
         final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
         simpleRequest.execute();
@@ -139,7 +127,7 @@ public class SimpleRequestTest {
     }
 
     @Test
-    public void testExecuteWithRefreshAndWithoutStoredCredentials() throws AuthenticationException, URISyntaxException {
+    public void testExecuteWithRefreshAndWithoutStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
         when(response.getStatusInfo()).thenReturn(UNAUTHORIZED);
 
@@ -150,14 +138,23 @@ public class SimpleRequestTest {
         when(authenticationManager.getToken()).thenReturn(null);
         when(authenticationManager.authorize()).thenReturn(new Token("123123"));
 
-        final ClientRequestContext clientRequestContext = Mockito.mock(ClientRequestContext.class);
-        when(clientRequestContext.getUri()).thenReturn(new URI("http://dummy.com"));
-
         final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
         verify(authenticationManager, times(1)).getToken();
         verify(authenticationManager, times(1)).authorize();
         verify(authenticationManager, times(1)).refreshToken();
+    }
+
+    @Test(expected = CodenvyUnknownHostException.class)
+    public void testExecuteWithUnknownHostException() throws URISyntaxException {
+        final Invocation request = mock(Invocation.class);
+        when(request.invoke()).thenThrow(new ProcessingException(new UnknownHostException("unknown")));
+
+        final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
+        when(authenticationManager.getToken()).thenReturn(new Token("123123"));
+
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        simpleRequest.execute();
     }
 }
