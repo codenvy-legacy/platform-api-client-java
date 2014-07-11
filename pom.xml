@@ -55,6 +55,7 @@
     </developers>
 
     <modules>
+        <module>api</module>
         <module>core</module>
         <module>assemblies</module>
     </modules>

@@ -22,6 +22,21 @@
     <packaging>bundle</packaging>
     <name>Codenvy Platform API Client :: Core</name>
 
+    <dependencies>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>5.0.0</version>
+        </dependency>
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>codenvy-platform-api-client-java-api</artifactId>
+            <version>${project.version}</version>
+            <scope>provided</scope>
+        </dependency>
+    </dependencies>
+
+
     <build>
         <testResources>
             <!-- Exclude binary resources from filtering to prevent side effects -->

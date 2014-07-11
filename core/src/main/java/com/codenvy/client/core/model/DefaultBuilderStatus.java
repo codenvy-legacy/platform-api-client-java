@@ -1,0 +1,88 @@
+/*******************************************************************************
+ * Copyright (c) 2014 Codenvy, S.A.
+ * All rights reserved. This program and the accompanying materials
+ * are made available under the terms of the Eclipse Public License v1.0
+ * which accompanies this distribution, and is available at
+ * http://www.eclipse.org/legal/epl-v10.html
+ *
+ * Contributors:
+ *   Codenvy, S.A. - initial API and implementation
+ *******************************************************************************/
+package com.codenvy.client.core.model;
+
+import static com.codenvy.client.core.model.DefaultLink.DOWNLOAD_LINK_REL_ATTRIBUTE_VALUE;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import com.codenvy.client.model.BuilderState;
+import com.codenvy.client.model.BuilderStatus;
+import com.codenvy.client.model.Link;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableList;
+
+/**
+ * The codenvy runner object model.
+ * 
+ * @author Kevin Pollet
+ */
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DefaultBuilderStatus implements BuilderStatus {
+    private final long         taskId;
+    private final long         startTime;
+    private final BuilderState status;
+    private final List<Link>   links;
+
+    @JsonCreator
+    public DefaultBuilderStatus(@JsonProperty("taskId") long taskId,
+                                @JsonProperty("startTime") long startTime,
+                                @JsonProperty("status") BuilderState status,
+                                @JsonProperty("links") List<DefaultLink> links) {
+        this.taskId = taskId;
+        this.startTime = startTime;
+        this.status = status;
+        this.links = ImmutableList.copyOf(links == null ? new ArrayList<Link>() : links);
+    }
+
+    /**
+     * Gets the build result download {@link DefaultLink}.
+     *
+     * @return the download {@link DefaultLink}.
+     */
+    public Link getDownloadLink() {
+        for (Link oneLink : links) {
+            if (DOWNLOAD_LINK_REL_ATTRIBUTE_VALUE.equals(oneLink.rel())) {
+                return oneLink;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public String toString() {
+        return "CodenvyBuilderStatus [taskId=" + taskId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + "]";
+    }
+
+
+    @Override
+    public long taskId() {
+        return taskId;
+    }
+
+    @Override
+    public long startTime() {
+        return startTime;
+    }
+
+    @Override
+    public BuilderState status() {
+        return status;
+    }
+
+    @Override
+    public List<Link> links() {
+        return links;
+    }
+}

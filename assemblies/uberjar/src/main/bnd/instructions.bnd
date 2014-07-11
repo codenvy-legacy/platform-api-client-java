@@ -1,12 +1,27 @@
+#
+# Copyright (c) 2014 Codenvy, S.A.
+# All rights reserved. This program and the accompanying materials
+# are made available under the terms of the Eclipse Public License v1.0
+# which accompanies this distribution, and is available at
+# http://www.eclipse.org/legal/epl-v10.html
+#
+# Contributors:
+#   Codenvy, S.A. - initial API and implementation
+#
+
 Import-Package !com.sun.jdi.*, \
                !sun.misc.*, \
 			   ,*
-Export-Package com.codenvy.client*;version=${project.version}
+Export-Package com.codenvy.client;version=${project.version}, \
+               com.codenvy.client.auth;version=${project.version}, \
+               com.codenvy.client.model;version=${project.version}, \
+               com.codenvy.client.store;version=${project.version}
 
 
 Private-Package org.glassfish.hk2*, \
                 org.jvnet.*, \
-                org.objectweb.asm.*
+                org.objectweb.asm.*, \
+                com.codenvy.client.core.*
 
 Embed-Dependency codenvy-platform-api-client-java-core;inline=true, \
                  jackson-annotations;inline=true, \
@@ -28,3 +43,4 @@ Embed-Dependency codenvy-platform-api-client-java-core;inline=true, \
                  javassist;inline=true, \
                  javax.annotation-api;inline=true
 
+Bundle-Activator com.codenvy.client.core.Activator
