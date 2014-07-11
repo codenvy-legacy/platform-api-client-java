@@ -10,14 +10,14 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import com.codenvy.client.CodenvyAPI;
-import com.codenvy.client.CodenvyClient;
+import java.util.Dictionary;
+import java.util.Hashtable;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
+import com.codenvy.client.CodenvyAPI;
+import com.codenvy.client.CodenvyClient;
 
 /**
  * OSGi Activator that will register the Codenvy Client
@@ -28,6 +28,7 @@ public class Activator implements BundleActivator {
     /**
      * Bundle context.
      */
+    @SuppressWarnings("unused")
     private BundleContext bundleContext;
 
 

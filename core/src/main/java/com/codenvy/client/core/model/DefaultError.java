@@ -12,8 +12,6 @@ package com.codenvy.client.core.model;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
-
-import com.codenvy.client.model.*;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;

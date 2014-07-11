@@ -10,11 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import javax.ws.rs.core.Response;
-
-import com.codenvy.client.model.Error;
 
 /**
  * Exception thrown when something is wrong with the REST API.

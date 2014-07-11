@@ -28,7 +28,6 @@ import javax.ws.rs.core.Response;
 import org.junit.Test;
 
 import com.codenvy.client.CodenvyUnknownHostException;
-import com.codenvy.client.core.SimpleRequest;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.auth.DefaultToken;
 

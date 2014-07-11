@@ -15,7 +15,6 @@ import org.junit.Before;
 import org.junit.Test;
 
 import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.core.auth.DefaultCredentials;
 import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
 import com.codenvy.client.core.auth.DefaultToken;
 import com.codenvy.client.store.DataStore;

@@ -29,7 +29,6 @@ import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
-import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.core.model.DefaultProjectBuilder;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.WorkspaceRef;

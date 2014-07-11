@@ -10,17 +10,17 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
+
+import javax.ws.rs.client.Invocation;
+
 import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultBuilderStatus;
 import com.codenvy.client.model.Project;
-
-import javax.ws.rs.client.Invocation;
-
-import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 /**
  * The Codenvy builder API client.

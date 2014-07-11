@@ -10,14 +10,12 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.codenvy.client.model.Workspace;
 import com.codenvy.client.model.WorkspaceRef;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**

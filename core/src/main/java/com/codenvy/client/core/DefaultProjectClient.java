@@ -31,7 +31,6 @@ import com.codenvy.client.ProjectClient;
 import com.codenvy.client.Request;
 import com.codenvy.client.core.RequestResponseAdaptor.Adaptor;
 import com.codenvy.client.core.auth.AuthenticationManager;
-
 import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.model.Project;
 

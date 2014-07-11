@@ -22,10 +22,10 @@ import org.junit.Assert;
 import org.junit.Test;
 
 import com.codenvy.client.auth.CodenvyAuthenticationException;
-import com.codenvy.client.core.AbstractIT;
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.CredentialsProvider;
 import com.codenvy.client.auth.Token;
+import com.codenvy.client.core.AbstractIT;
 import com.codenvy.client.store.DataStore;
 
 /**

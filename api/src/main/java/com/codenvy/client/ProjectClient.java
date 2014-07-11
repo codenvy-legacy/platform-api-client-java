@@ -10,11 +10,11 @@
  *******************************************************************************/
 package com.codenvy.client;
 
-import com.codenvy.client.model.Project;
-
 import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipInputStream;
+
+import com.codenvy.client.model.Project;
 
 /**
  * @author Florent Benoit

@@ -15,8 +15,8 @@ import static org.mockito.Mockito.mock;
 import org.junit.Test;
 
 import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.auth.CredentialsProvider;
+import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
 
 /**

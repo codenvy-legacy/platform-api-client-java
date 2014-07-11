@@ -10,11 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client.model;
 
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The codenvy error envelope object model.

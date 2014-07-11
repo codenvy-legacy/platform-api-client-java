@@ -12,13 +12,6 @@ package com.codenvy.client.core.auth;
 
 import com.codenvy.client.auth.Token;
 import com.codenvy.client.auth.TokenBuilder;
-import com.codenvy.client.core.model.DefaultProject;
-import com.fasterxml.jackson.annotation.JsonCreator;
-import com.fasterxml.jackson.annotation.JsonProperty;
-
-import java.util.Date;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Token builder.

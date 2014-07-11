@@ -11,22 +11,15 @@
 package com.codenvy.client.core;
 
 
-import com.codenvy.client.CodenvyAPI;
-import com.codenvy.client.CodenvyClient;
-import com.codenvy.client.CodenvyException;
-
-import org.junit.Assert;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
-
-import java.net.URL;
-import java.net.URLClassLoader;
-
 import static org.junit.Assert.assertNotNull;
 import static org.junit.Assert.assertTrue;
-import static org.junit.Assert.fail;
+
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.runners.MockitoJUnitRunner;
+
+import com.codenvy.client.CodenvyAPI;
+import com.codenvy.client.CodenvyClient;
 
 /**
  * Test if API loading of {@link com.codenvy.client.CodenvyAPI} find our own implementation

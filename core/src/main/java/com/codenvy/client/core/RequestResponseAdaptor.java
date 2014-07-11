@@ -10,10 +10,10 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 import com.codenvy.client.CodenvyException;
 import com.codenvy.client.Request;
-
-import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link com.codenvy.client.Request} implementation adapting an API request response to another type.

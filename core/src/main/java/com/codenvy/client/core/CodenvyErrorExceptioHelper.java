@@ -10,12 +10,12 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import com.codenvy.client.CodenvyErrorException;
-import com.codenvy.client.core.model.DefaultError;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 import javax.ws.rs.core.Response;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.codenvy.client.CodenvyErrorException;
+import com.codenvy.client.core.model.DefaultError;
 
 /**
  * Helper class used to convert JAXRS exception into CodenvyException

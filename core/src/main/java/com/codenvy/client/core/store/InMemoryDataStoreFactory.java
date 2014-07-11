@@ -16,7 +16,6 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
 import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.core.auth.DefaultCredentials;
 import com.codenvy.client.store.DataStore;
 import com.codenvy.client.store.DataStoreFactory;
 
