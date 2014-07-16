@@ -30,6 +30,7 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
     private final String id;
     private final String name;
     private final String organizationId;
+    private boolean temporary;
 
     /**
      * Constructs an instance of {@linkplain WorkspaceRef}.
@@ -37,16 +38,19 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
      * @param id the workspace reference id.
      * @param name the workspace reference name.
      * @param organizationId the workspace organization.
+     * @param temporary true if the workspace is temporary
      * @throws NullPointerException if name parameter is {@code null}.
      */
     @JsonCreator
     public DefaultWorkspaceRef(@JsonProperty("id") String id, @JsonProperty("name") String name,
-                               @JsonProperty("organizationId") String organizationId) {
+                               @JsonProperty("organizationId") String organizationId,
+                               @JsonProperty("temporary") boolean temporary) {
         checkNotNull(name);
 
         this.id = id;
         this.name = name;
         this.organizationId = organizationId;
+        this.temporary = temporary;
     }
 
 
@@ -65,6 +69,10 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
         return organizationId;
     }
 
+    @Override
+    public boolean isTemporary() {
+        return temporary;
+    }
 
     @Override
     public int hashCode() {
@@ -100,6 +108,9 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
                 return false;
         } else if (!name.equals(other.name))
             return false;
+        if (other.temporary != temporary)
+                return false;
+
         return true;
     }
 

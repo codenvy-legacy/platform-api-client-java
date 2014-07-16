@@ -54,6 +54,7 @@ public class WorkspaceClientIT extends AbstractIT {
         Assert.assertNotNull(workspaceRef);
         Assert.assertNotNull(workspaceRef.id());
         Assert.assertNotNull(workspaceRef.name());
+        Assert.assertFalse(workspaceRef.isTemporary());
     }
 
     @Test(expected = NullPointerException.class)

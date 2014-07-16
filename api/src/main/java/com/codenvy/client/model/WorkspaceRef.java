@@ -19,4 +19,9 @@ public interface WorkspaceRef {
     String id();
     String name();
     String organizationId();
+
+    /**
+     * @return true if the workspace is a temporary workspace
+     */
+    boolean isTemporary();
 }
