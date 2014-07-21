@@ -13,6 +13,8 @@ package com.codenvy.client;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.RunnerStatus;
 
+import java.util.List;
+
 /**
  * @author Florent Benoit
  */
@@ -55,4 +57,14 @@ public interface RunnerClient {
      * @throws NullPointerException if project parameter is {@code null}.
      */
     Request<String> logs(Project project, long processId);
+
+    /**
+     * Gets the project processes for the given project
+     * @param project the project.
+     * @return the different statuses.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    Request<List<? extends RunnerStatus>> processes(Project project);
+
+
 }

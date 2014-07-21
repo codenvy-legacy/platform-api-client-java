@@ -15,13 +15,18 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
 
 import com.codenvy.client.Request;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultRunnerStatus;
+import com.codenvy.client.core.model.DefaultWorkspace;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.RunnerStatus;
+import com.codenvy.client.model.Workspace;
+
+import java.util.List;
 
 /**
  * The Codenvy runner API client.
@@ -81,6 +86,26 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .buildPost(null);
 
         return new SimpleRequest<>(request, DefaultRunnerStatus.class, getAuthenticationManager());
+    }
+
+
+    /**
+     * Gets the project processes for the given project
+     * @param project the project.
+     * @return the different statuses.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    public Request<List<? extends RunnerStatus>> processes(Project project) {
+        final Invocation request = getWebTarget().path(project.workspaceId())
+                                                 .path("processes")
+                                                 .queryParam("project", project.name())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+
+        return new SimpleRequest<List<? extends RunnerStatus>>(request, new GenericType<List<DefaultRunnerStatus>>() {}, getAuthenticationManager());
+
+
     }
 
     /**
