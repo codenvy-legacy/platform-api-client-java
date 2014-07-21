@@ -16,5 +16,5 @@ package com.codenvy.client.model;
  */
 public interface Workspace {
 
-   WorkspaceRef workspaceRef();
+   WorkspaceReference workspaceReference();
 }

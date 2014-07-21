@@ -13,7 +13,7 @@ package com.codenvy.client.core.model;
 import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceRef;
+import com.codenvy.client.model.WorkspaceReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -26,24 +26,24 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultWorkspace implements Workspace {
 
-    private final DefaultWorkspaceRef workspaceRef;
+    private final DefaultWorkspaceReference workspaceReference;
 
     /**
      * Constructs an instance of {@linkplain DefaultWorkspace}.
      *
-     * @param workspaceRef the workspace reference.
+     * @param workspaceReference the workspace reference.
      * @throws NullPointerException if workspaceRef parameter is {@code null}.
      */
     @JsonCreator
-    public DefaultWorkspace(@JsonProperty("workspaceRef") DefaultWorkspaceRef workspaceRef) {
-        checkNotNull(workspaceRef);
+    public DefaultWorkspace(@JsonProperty("workspaceReference") DefaultWorkspaceReference workspaceReference) {
+        checkNotNull(workspaceReference);
 
-        this.workspaceRef = workspaceRef;
+        this.workspaceReference = workspaceReference;
     }
 
     @Override
-    public WorkspaceRef workspaceRef() {
-        return workspaceRef;
+    public WorkspaceReference workspaceReference() {
+        return workspaceReference;
     }
 
     @Override
@@ -51,7 +51,7 @@ public class DefaultWorkspace implements Workspace {
         final int prime = 31;
         int result = 1;
         result = prime * result
-                 + ((workspaceRef == null) ? 0 : workspaceRef.hashCode());
+                 + ((workspaceReference == null) ? 0 : workspaceReference.hashCode());
         return result;
     }
 
@@ -64,10 +64,10 @@ public class DefaultWorkspace implements Workspace {
         if (getClass() != obj.getClass())
             return false;
         DefaultWorkspace other = (DefaultWorkspace)obj;
-        if (workspaceRef == null) {
-            if (other.workspaceRef != null)
+        if (workspaceReference == null) {
+            if (other.workspaceReference != null)
                 return false;
-        } else if (!workspaceRef.equals(other.workspaceRef))
+        } else if (!workspaceReference.equals(other.workspaceReference))
             return false;
         return true;
     }

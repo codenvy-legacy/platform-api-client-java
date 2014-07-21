@@ -14,7 +14,7 @@ package com.codenvy.client.model;
  * This interface represents the workspace reference resource on Codenvy.
  * @author Florent Benoit
  */
-public interface WorkspaceRef {
+public interface WorkspaceReference {
 
     String id();
     String name();

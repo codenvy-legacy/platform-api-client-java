@@ -13,7 +13,7 @@ package com.codenvy.client.core.model;
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 import static com.google.common.base.Preconditions.checkNotNull;
 
-import com.codenvy.client.model.WorkspaceRef;
+import com.codenvy.client.model.WorkspaceReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
@@ -26,14 +26,14 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
-public class DefaultWorkspaceRef implements WorkspaceRef {
+public class DefaultWorkspaceReference implements WorkspaceReference {
     private final String id;
     private final String name;
     private final String organizationId;
     private boolean temporary;
 
     /**
-     * Constructs an instance of {@linkplain WorkspaceRef}.
+     * Constructs an instance of {@linkplain com.codenvy.client.model.WorkspaceReference}.
      *
      * @param id the workspace reference id.
      * @param name the workspace reference name.
@@ -42,9 +42,9 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
      * @throws NullPointerException if name parameter is {@code null}.
      */
     @JsonCreator
-    public DefaultWorkspaceRef(@JsonProperty("id") String id, @JsonProperty("name") String name,
-                               @JsonProperty("organizationId") String organizationId,
-                               @JsonProperty("temporary") boolean temporary) {
+    public DefaultWorkspaceReference(@JsonProperty("id") String id, @JsonProperty("name") String name,
+                                     @JsonProperty("organizationId") String organizationId,
+                                     @JsonProperty("temporary") boolean temporary) {
         checkNotNull(name);
 
         this.id = id;
@@ -92,7 +92,7 @@ public class DefaultWorkspaceRef implements WorkspaceRef {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        DefaultWorkspaceRef other = (DefaultWorkspaceRef)obj;
+        DefaultWorkspaceReference other = (DefaultWorkspaceReference)obj;
         if (organizationId == null) {
             if (other.organizationId != null)
                 return false;

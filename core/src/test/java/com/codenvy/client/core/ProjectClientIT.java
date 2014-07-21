@@ -31,7 +31,7 @@ import org.junit.Test;
 
 import com.codenvy.client.core.model.DefaultProjectBuilder;
 import com.codenvy.client.model.Project;
-import com.codenvy.client.model.WorkspaceRef;
+import com.codenvy.client.model.WorkspaceReference;
 
 /**
  * {@linkplain com.codenvy.client.core.DefaultProjectClient ProjectService} tests.
@@ -40,8 +40,8 @@ import com.codenvy.client.model.WorkspaceRef;
  * @author Stéphane Daviet
  */
 public class ProjectClientIT extends AbstractIT {
-    private static WorkspaceRef   workspace;
-    private static Project projectPrj1;
+    private static WorkspaceReference workspace;
+    private static Project            projectPrj1;
 
     @BeforeClass
     public static void initialize() {
@@ -52,11 +52,11 @@ public class ProjectClientIT extends AbstractIT {
         Assert.assertNotNull(workspace);
 
         projectPrj1 = new DefaultProjectBuilder().withProjectTypeId("maven")
-                                                  .withName("prj1")
-                                                  .withDescription("description")
-                                                  .withWorkspaceId(workspace.id())
-                                                  .withWorkspaceName(workspace.name())
-                                                  .build();
+                                                 .withName("prj1")
+                                                 .withDescription("description")
+                                                 .withWorkspaceId(workspace.id())
+                                                 .withWorkspaceName(workspace.name())
+                                                 .build();
 
         codenvy.project()
                .create(projectPrj1)

@@ -23,9 +23,9 @@ import com.codenvy.client.Request;
 import com.codenvy.client.WorkspaceClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultWorkspace;
-import com.codenvy.client.core.model.DefaultWorkspaceRef;
+import com.codenvy.client.core.model.DefaultWorkspaceReference;
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceRef;
+import com.codenvy.client.model.WorkspaceReference;
 
 /**
  * The Codenvy workspace API client.
@@ -68,7 +68,7 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
      * @throws NullPointerException if name parameter is {@code null}.
      */
     @Override
-    public Request<DefaultWorkspaceRef> withName(String name) {
+    public Request<DefaultWorkspaceReference> withName(String name) {
         checkNotNull(name);
 
         final Invocation request = getWebTarget().queryParam("name", name)
@@ -76,25 +76,25 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<>(request, DefaultWorkspaceRef.class, getAuthenticationManager());
+        return new SimpleRequest<>(request, DefaultWorkspaceReference.class, getAuthenticationManager());
     }
 
     /**
      * Creates the given workspace.
      * 
-     * @param workspaceRef the workspace to create.
+     * @param workspaceReference the workspace to create.
      * @return the created workspace.
-     * @throws NullPointerException if {@link WorkspaceRef} parameter is {@code null}.
+     * @throws NullPointerException if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
      */
     @Override
-    public Request<DefaultWorkspaceRef> create(WorkspaceRef workspaceRef) {
-        checkNotNull(workspaceRef);
+    public Request<DefaultWorkspaceReference> create(WorkspaceReference workspaceReference) {
+        checkNotNull(workspaceReference);
 
         final Invocation request = getWebTarget().request()
                                                  .accept(APPLICATION_JSON)
-                                                 .buildPost(json(workspaceRef));
+                                                 .buildPost(json(workspaceReference));
 
-        return new SimpleRequest<>(request, DefaultWorkspaceRef.class, getAuthenticationManager());
+        return new SimpleRequest<>(request, DefaultWorkspaceReference.class, getAuthenticationManager());
 
     }
 }
