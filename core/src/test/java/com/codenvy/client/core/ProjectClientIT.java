@@ -33,6 +33,11 @@ import com.codenvy.client.core.model.DefaultProjectBuilder;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.WorkspaceReference;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertTrue;
+
 /**
  * {@linkplain com.codenvy.client.core.DefaultProjectClient ProjectService} tests.
  *
@@ -49,7 +54,7 @@ public class ProjectClientIT extends AbstractIT {
                            .withName(SDK_WORKSPACE_NAME)
                            .execute();
 
-        Assert.assertNotNull(workspace);
+        assertNotNull(workspace);
 
         projectPrj1 = new DefaultProjectBuilder().withProjectTypeId("maven")
                                                  .withName("prj1")
@@ -62,7 +67,7 @@ public class ProjectClientIT extends AbstractIT {
                .create(projectPrj1)
                .execute();
 
-        Assert.assertNotNull(projectPrj1);
+        assertNotNull(projectPrj1);
 
 
         final URI uri = UriBuilder.fromUri(REST_API_URL).path("api/project").build();
@@ -127,7 +132,7 @@ public class ProjectClientIT extends AbstractIT {
                                                      .exportResources(projectPrj1, null)
                                                      .execute();
 
-        Assert.assertNotNull(zipInputStream);
+        assertNotNull(zipInputStream);
     }
 
     @Test(expected = NullPointerException.class)
@@ -173,7 +178,7 @@ public class ProjectClientIT extends AbstractIT {
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();
 
-        Assert.assertTrue(codenvy.project().isResource(projectPrj1, "/fileToImport.txt").execute());
+        assertTrue(codenvy.project().isResource(projectPrj1, "/fileToImport.txt").execute());
     }
 
     @Test(expected = NullPointerException.class)
@@ -223,7 +228,7 @@ public class ProjectClientIT extends AbstractIT {
 
         final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
 
-        Assert.assertEquals("content2", reader.readLine());
+        assertEquals("content2", reader.readLine());
     }
 
     @Test(expected = NullPointerException.class)
@@ -246,7 +251,7 @@ public class ProjectClientIT extends AbstractIT {
                                       .isResource(projectPrj1, "src/file.txt")
                                       .execute();
 
-        Assert.assertTrue(result);
+        assertTrue(result);
     }
 
     @Test
@@ -255,7 +260,7 @@ public class ProjectClientIT extends AbstractIT {
                                       .isResource(projectPrj1, "src")
                                       .execute();
 
-        Assert.assertTrue(result);
+        assertTrue(result);
     }
 
     @Test
@@ -268,6 +273,6 @@ public class ProjectClientIT extends AbstractIT {
                                       .isResource(projectPrj1, "src/file2.txt")
                                       .execute();
 
-        Assert.assertFalse(exists);
+        assertFalse(exists);
     }
 }
