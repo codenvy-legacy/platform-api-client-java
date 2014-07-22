@@ -20,6 +20,7 @@ import com.codenvy.client.model.ProjectBuilder;
  * @author Kevin Pollet
  */
 public class DefaultProjectBuilder implements ProjectBuilder {
+    private String id;
     private String url;
     private String visibility;
     private String projectTypeId;
@@ -30,6 +31,11 @@ public class DefaultProjectBuilder implements ProjectBuilder {
     private String workspaceName;
     private String ideUrl;
 
+    @Override
+    public ProjectBuilder withId(String id) {
+        this.id = id;
+        return this;
+    }
     @Override
     public ProjectBuilder withUrl(String url) {
         this.url = url;
@@ -86,7 +92,7 @@ public class DefaultProjectBuilder implements ProjectBuilder {
 
     @Override
     public DefaultProject build() {
-        return new DefaultProject(url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName,
+        return new DefaultProject(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName,
                                   null, new Date(), ideUrl);
     }
 }

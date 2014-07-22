@@ -17,6 +17,10 @@ import java.util.Date;
  * @author Florent Benoit
  */
 public interface Project {
+    /**
+     * @return project ID
+     */
+    String id();
     String url();
     String visibility();
     String projectTypeId();

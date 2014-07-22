@@ -107,9 +107,13 @@ public class ProjectClientIT extends AbstractIT {
                                               .getWorkspaceProjects(workspace.id())
                                               .execute();
 
-        Assert.assertNotNull(projects);
-        Assert.assertFalse(projects.isEmpty());
-        Assert.assertTrue(projects.size() == 1);
+        assertNotNull(projects);
+        assertFalse(projects.isEmpty());
+        assertTrue(projects.size() == 1);
+        Project project = projects.get(0);
+        assertNotNull(project);
+        assertNotNull("id", project.id());
+        assertEquals("prj1", project.name());
     }
 
     @Test(expected = NullPointerException.class)

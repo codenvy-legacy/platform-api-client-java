@@ -28,6 +28,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultProject implements Project {
+    private final String id;
     private final String url;
     private final String visibility;
     private final String projectTypeId;
@@ -57,6 +58,7 @@ public class DefaultProject implements Project {
      */
     @JsonCreator
     public DefaultProject(
+            @JsonProperty("id") String id,
             @JsonProperty("url") String url,
             @JsonProperty("visibility") String visibility,
             @JsonProperty("projectTypeId") String projectTypeId,
@@ -69,6 +71,7 @@ public class DefaultProject implements Project {
             @JsonProperty("creationDate") Date creationDate,
             @JsonProperty("ideUrl") String ideUrl) {
 
+        this.id = id;
         this.url = url;
         this.visibility = visibility;
         this.projectTypeId = projectTypeId;
@@ -81,6 +84,13 @@ public class DefaultProject implements Project {
         this.creationDate = creationDate;
         this.ideUrl = ideUrl;
     }
+
+    @JsonProperty("id")
+    @Override
+    public String id() {
+        return id;
+    }
+
 
     @JsonProperty("url")
     @Override
@@ -180,6 +190,11 @@ public class DefaultProject implements Project {
             if (other.name != null)
                 return false;
         } else if (!name.equals(other.name))
+            return false;
+        if (id == null) {
+            if (other.id != null)
+                return false;
+        } else if (!id.equals(other.id))
             return false;
         if (projectTypeId == null) {
             if (other.projectTypeId != null)

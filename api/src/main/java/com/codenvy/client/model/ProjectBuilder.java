@@ -17,6 +17,8 @@ package com.codenvy.client.model;
  */
 public interface ProjectBuilder {
 
+    ProjectBuilder withId(String id);
+
     ProjectBuilder withUrl(String url);
 
     ProjectBuilder withVisibility(String visibility);
