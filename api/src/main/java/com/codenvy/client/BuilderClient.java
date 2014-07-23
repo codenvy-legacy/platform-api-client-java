@@ -14,6 +14,8 @@ package com.codenvy.client;
 import com.codenvy.client.model.BuilderStatus;
 import com.codenvy.client.model.Project;
 
+import java.util.List;
+
 /**
  * @author Florent Benoit
  */
@@ -56,4 +58,12 @@ public interface BuilderClient {
      * @throws NullPointerException if project parameter is {@code null}.
      */
     Request<? extends BuilderStatus> cancel(Project project, long taskId);
+
+    /**
+     * Gets the project builds for the given project
+     * @param project the project.
+     * @return the different statuses.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    Request<List<? extends BuilderStatus>> builds(Project project);
 }
