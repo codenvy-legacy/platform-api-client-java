@@ -53,9 +53,14 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
     public Request<DefaultBuilderStatus> build(Project project) {
         checkNotNull(project);
 
+        String projectPath = project.name();
+        if (!projectPath.startsWith("/")) {
+            projectPath = "/".concat(projectPath);
+        }
+
         final Invocation request = getWebTarget().path(project.workspaceId())
                                                  .path("build")
-                                                 .queryParam("project", project.name())
+                                                 .queryParam("project", projectPath)
                                                  .request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(null);
@@ -127,5 +132,24 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .buildGet();
 
         return new SimpleRequest<>(request, DefaultBuilderStatus.class, getAuthenticationManager());
+    }
+
+    /**
+     * Gets the project builds for the given project
+     * @param project the project.
+     * @return the different statuses.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    public Request<List<? extends BuilderStatus>> builds(Project project) {
+        final Invocation request = getWebTarget().path(project.workspaceId())
+                                                 .path("builds")
+                                                 .queryParam("project", project.name())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+
+        return new SimpleRequest<List<? extends BuilderStatus>>(request, new GenericType<List<DefaultBuilderStatus>>() {}, getAuthenticationManager());
+
+
     }
 }

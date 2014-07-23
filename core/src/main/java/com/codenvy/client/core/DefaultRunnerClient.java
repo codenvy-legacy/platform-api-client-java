@@ -56,9 +56,14 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
     public Request<DefaultRunnerStatus> run(Project project) {
         checkNotNull(project);
 
+        String projectPath = project.name();
+        if (!projectPath.startsWith("/")) {
+            projectPath = "/".concat(projectPath);
+        }
+
         final Invocation request = getWebTarget().path(project.workspaceId())
                                                  .path("run")
-                                                 .queryParam("project", project.name())
+                                                 .queryParam("project", projectPath)
                                                  .request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(null);
