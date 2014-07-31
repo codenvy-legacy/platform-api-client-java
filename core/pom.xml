@@ -103,7 +103,7 @@
                                 <artifactItem>
                                     <groupId>com.codenvy.sdk</groupId>
                                     <artifactId>assembly-sdk</artifactId>
-                                    <version>${version.assembly-sdk}</version>
+                                    <version>${codenvy.ide-sdk.version}</version>
                                     <type>zip</type>
                                 </artifactItem>
                             </artifactItems>
