@@ -18,15 +18,15 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>com.codenvy</groupId>
-        <version>1.8.3-SNAPSHOT</version>
-        <relativePath />
+        <version>1.8.7</version>
+        <relativePath/>
     </parent>
 
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java-parent</artifactId>
     <version>1.0.0-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>Codenvy Platform API Client :: Parent</name>
+    <name>Codenvy Platform API Client</name>
 
     <licenses>
         <license>
@@ -60,11 +60,17 @@
         <module>assemblies</module>
     </modules>
 
+    <scm>
+        <connection>scm:git:git@github.com:codenvyplatform-api-client-java.git</connection>
+        <developerConnection>scm:git:git@github.com:codenvy/platform-api-client-java.git</developerConnection>
+        <tag>HEAD</tag>
+    </scm>
+
     <properties>
         <codenvy.ide.path>${project.build.directory}/tomcat-ide</codenvy.ide.path>
         <license_years>2014</license_years>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <version.assembly-sdk>3.0.0-M19-SNAPSHOT</version.assembly-sdk>
+        <version.assembly-sdk>${codenvy.ide-sdk.version}</version.assembly-sdk>
         <version.build-helper-maven-plugin>1.8</version.build-helper-maven-plugin>
         <version.guava>15.0</version.guava>
         <version.hk2>2.2.0</version.hk2>
