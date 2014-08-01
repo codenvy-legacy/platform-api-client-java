@@ -10,6 +10,7 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
 import static javax.ws.rs.core.Response.Status.OK;
 import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
 import static org.mockito.Mockito.mock;
@@ -111,7 +112,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithRefreshAndStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(UNAUTHORIZED);
+        when(response.getStatusInfo()).thenReturn(FORBIDDEN);
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);
@@ -130,7 +131,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithRefreshAndWithoutStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(UNAUTHORIZED);
+        when(response.getStatusInfo()).thenReturn(FORBIDDEN);
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);

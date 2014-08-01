@@ -104,7 +104,9 @@ public class SimpleRequest<T> implements Request<T> {
 
             Response response = request.invoke();
 
-            if (Status.Family.CLIENT_ERROR == response.getStatusInfo().getFamily()) {
+            // Token should be refresh only when forbidden is returned (and not for the whole Status.Family.CLIENT_ERROR)
+            // else it will ask token when using hasResource method which return 404 error (which doesn't need to perform again the authentication)
+            if (Status.FORBIDDEN == response.getStatusInfo()) {
                 token = authenticationManager.refreshToken();
 
                 // set the token property for token injection
