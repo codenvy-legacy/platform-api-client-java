@@ -15,6 +15,7 @@ import java.util.List;
 import java.util.zip.ZipInputStream;
 
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.Visibility;
 
 /**
  * @author Florent Benoit
@@ -97,4 +98,13 @@ public interface ProjectClient {
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
     Request<Boolean> isResource(Project project, String resourcePath);
+
+    /**
+     * Switch visibility for a {@link Project} in the given workspace.
+     *
+     * @param project the {@link Project} to change visibility.
+     * @param visibility the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    Request<Void> switchVisibility(Project project, Visibility visibility);
 }

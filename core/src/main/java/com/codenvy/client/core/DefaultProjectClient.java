@@ -33,6 +33,7 @@ import com.codenvy.client.core.RequestResponseAdaptor.Adaptor;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.Visibility;
 
 /**
  * The Codenvy project API client.
@@ -90,6 +91,29 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .buildPost(json(project));
 
         return new SimpleRequest<>(request, DefaultProject.class, getAuthenticationManager());
+    }
+
+
+    /**
+     * Switch visibility for a {@link Project} in the given workspace.
+     *
+     * @param project the {@link Project} to change visibility.
+     * @param visibility the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
+     * @throws NullPointerException if project parameter is {@code null}.
+     */
+    @Override
+    public Request<Void> switchVisibility(Project project, Visibility visibility) {
+        checkNotNull(project);
+
+        final Invocation request = getWebTarget().path(project.workspaceId())
+                                                 .path("switch_visibility")
+                                                 .path(project.name())
+                                                 .queryParam("visibility", visibility.name().toLowerCase())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildPost(json(project));
+
+        return new SimpleRequest<>(request, Void.class, getAuthenticationManager());
     }
 
     /**
