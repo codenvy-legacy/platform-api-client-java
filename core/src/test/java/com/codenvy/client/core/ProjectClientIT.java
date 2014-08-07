@@ -182,7 +182,7 @@ public class ProjectClientIT extends AbstractIT {
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();
 
-        assertTrue(codenvy.project().isResource(projectPrj1, "/fileToImport.txt").execute());
+        assertTrue(codenvy.project().hasFile(projectPrj1, "/fileToImport.txt").execute());
     }
 
     @Test(expected = NullPointerException.class)
@@ -236,50 +236,65 @@ public class ProjectClientIT extends AbstractIT {
     }
 
     @Test(expected = NullPointerException.class)
-    public void testIsResourceWithNullProject() {
+    public void testHasFolderWithNullProject() {
         codenvy.project()
-               .isResource(null, "dummyPath")
+               .hasFolder(null, "dummyPath")
                .execute();
     }
 
     @Test(expected = NullPointerException.class)
-    public void testIsResourceWithNullResourcePath() {
+    public void testHasFileWithNullProject() {
         codenvy.project()
-               .isResource(projectPrj1, null)
+               .hasFile(null, "dummyPath")
+               .execute();
+    }
+
+
+    @Test(expected = NullPointerException.class)
+    public void testHasFolderWithNullResourcePath() {
+        codenvy.project()
+               .hasFolder(projectPrj1, null)
+               .execute();
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void testHasFileWithNullResourcePath() {
+        codenvy.project()
+               .hasFile(projectPrj1, null)
                .execute();
     }
 
     @Test
-    public void testIsResourceWithFile() {
+    public void testHasFile() {
         final boolean result = codenvy.project()
-                                      .isResource(projectPrj1, "src/file.txt")
+                                      .hasFile(projectPrj1, "src/file.txt")
                                       .execute();
 
         assertTrue(result);
     }
 
     @Test
-    public void testIsResourceWithFileNotExist() {
+    public void testHasFileNotExist() {
         final boolean result = codenvy.project()
-                                      .isResource(projectPrj1, "src/filedoesnotexit.txt")
+                                      .hasFile(projectPrj1, "src/filedoesnotexit.txt")
                                       .execute();
 
         assertFalse(result);
     }
 
     @Test
-    public void testIsResourceWithFolder() {
+    public void testHasFolder() {
         final boolean result = codenvy.project()
-                                      .isResource(projectPrj1, "src")
+                                      .hasFolder(projectPrj1, "src")
                                       .execute();
 
         assertTrue(result);
     }
 
     @Test
-    public void testIsResourceWithNotExistFolder() {
+    public void testHasFolderNotExist() {
         final boolean result = codenvy.project()
-                                      .isResource(projectPrj1, "doesnotexist")
+                                      .hasFolder(projectPrj1, "doesnotexist")
                                       .execute();
 
         assertFalse(result);
@@ -292,7 +307,7 @@ public class ProjectClientIT extends AbstractIT {
                .execute();
 
         final boolean exists = codenvy.project()
-                                      .isResource(projectPrj1, "src/file2.txt")
+                                      .hasFile(projectPrj1, "src/file2.txt")
                                       .execute();
 
         assertFalse(exists);

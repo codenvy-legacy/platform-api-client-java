@@ -18,6 +18,7 @@ import com.codenvy.client.model.Project;
 import com.codenvy.client.model.Visibility;
 
 /**
+ * Client API for dealing with Project REST API.
  * @author Florent Benoit
  */
 public interface ProjectClient {
@@ -90,14 +91,24 @@ public interface ProjectClient {
     Request<InputStream> getFile(Project project, String filePath);
 
     /**
-     * Returns if the given resource exists in the given {@link Project}.
+     * Returns if the given folder exists in the given {@link Project}.
      *
      * @param project the {@link Project}.
-     * @param resourcePath the resource path.
+     * @param folderPath the folder path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
-    Request<Boolean> isResource(Project project, String resourcePath);
+    Request<Boolean> hasFolder(Project project, String folderPath);
+
+    /**
+     * Returns if the given file exists in the given {@link Project}.
+     *
+     * @param project the {@link Project}.
+     * @param filePath the file path.
+     * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
+     * @throws NullPointerException if project or resourcePath parameter is {@code null}.
+     */
+    Request<Boolean> hasFile(Project project, String filePath);
 
     /**
      * Switch visibility for a {@link Project} in the given workspace.

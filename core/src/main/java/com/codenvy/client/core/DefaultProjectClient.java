@@ -236,22 +236,22 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Returns if the given resource exists in the given {@link Project}.
+     * Returns if the given file exists in the given {@link Project}.
      *
      * @param project the {@link Project}.
-     * @param resourcePath the resource path.
+     * @param filePath the file path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
     @Override
-    public Request<Boolean> isResource(Project project, String resourcePath) {
+    public Request<Boolean> hasFile(Project project, String filePath) {
         checkNotNull(project);
-        checkNotNull(resourcePath);
+        checkNotNull(filePath);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
                                                  .path("file")
                                                  .path(project.name())
-                                                 .path(resourcePath)
+                                                 .path(filePath)
                                                  .request()
                                                  .build("HEAD");
 
@@ -259,7 +259,40 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                             new Adaptor<Boolean, Response>() {
                                                 @Override
                                                 public Boolean adapt(Response response) {
-                                                    // If status is Not found, it's not here else it's there
+                                                    // If status is Not found, it's not there else it's there
+                                                    final Status status = fromStatusCode(response.getStatus());
+                                                    return status != Status.NOT_FOUND;
+                                                }
+                                            });
+    }
+
+
+
+    /**
+     * Returns if the given folder exists in the given {@link Project}.
+     *
+     * @param project the {@link Project}.
+     * @param folderPath the folder path.
+     * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
+     * @throws NullPointerException if project or resourcePath parameter is {@code null}.
+     */
+    @Override
+    public Request<Boolean> hasFolder(Project project, String folderPath) {
+        checkNotNull(project);
+        checkNotNull(folderPath);
+
+        final Invocation request = getWebTarget().path(project.workspaceId())
+                                                 .path("children")
+                                                 .path(project.name())
+                                                 .path(folderPath)
+                                                 .request()
+                                                 .build("HEAD");
+
+        return new RequestResponseAdaptor<>(new SimpleRequest<>(request, Response.class, getAuthenticationManager()),
+                                            new Adaptor<Boolean, Response>() {
+                                                @Override
+                                                public Boolean adapt(Response response) {
+                                                    // If status is Not found, it's not there else it's there
                                                     final Status status = fromStatusCode(response.getStatus());
                                                     return status != Status.NOT_FOUND;
                                                 }
