@@ -10,6 +10,21 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import com.codenvy.client.ProjectClient;
+import com.codenvy.client.Request;
+import com.codenvy.client.core.auth.AuthenticationManager;
+import com.codenvy.client.core.model.DefaultProject;
+import com.codenvy.client.model.Project;
+import com.codenvy.client.model.Visibility;
+
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import java.io.InputStream;
+import java.util.List;
+import java.util.zip.ZipInputStream;
+
 import static com.google.common.base.Preconditions.checkNotNull;
 import static javax.ws.rs.client.Entity.entity;
 import static javax.ws.rs.client.Entity.json;
@@ -17,23 +32,6 @@ import static javax.ws.rs.client.Entity.text;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 import static javax.ws.rs.core.Response.Status.fromStatusCode;
-
-import java.io.InputStream;
-import java.util.List;
-import java.util.zip.ZipInputStream;
-
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-
-import com.codenvy.client.ProjectClient;
-import com.codenvy.client.Request;
-import com.codenvy.client.core.RequestResponseAdaptor.Adaptor;
-import com.codenvy.client.core.auth.AuthenticationManager;
-import com.codenvy.client.core.model.DefaultProject;
-import com.codenvy.client.model.Project;
-import com.codenvy.client.model.Visibility;
 
 /**
  * The Codenvy project API client.
