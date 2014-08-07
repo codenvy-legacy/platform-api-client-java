@@ -259,9 +259,9 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                             new Adaptor<Boolean, Response>() {
                                                 @Override
                                                 public Boolean adapt(Response response) {
-                                                    // TODO check if better, bad request response is sent if resourcePath is a folder
+                                                    // If status is Not found, it's not here else it's there
                                                     final Status status = fromStatusCode(response.getStatus());
-                                                    return status == Status.OK || status == Status.BAD_REQUEST;
+                                                    return status != Status.NOT_FOUND;
                                                 }
                                             });
     }

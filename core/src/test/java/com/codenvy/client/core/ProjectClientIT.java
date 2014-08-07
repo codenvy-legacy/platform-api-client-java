@@ -259,12 +259,30 @@ public class ProjectClientIT extends AbstractIT {
     }
 
     @Test
+    public void testIsResourceWithFileNotExist() {
+        final boolean result = codenvy.project()
+                                      .isResource(projectPrj1, "src/filedoesnotexit.txt")
+                                      .execute();
+
+        assertFalse(result);
+    }
+
+    @Test
     public void testIsResourceWithFolder() {
         final boolean result = codenvy.project()
                                       .isResource(projectPrj1, "src")
                                       .execute();
 
         assertTrue(result);
+    }
+
+    @Test
+    public void testIsResourceWithNotExistFolder() {
+        final boolean result = codenvy.project()
+                                      .isResource(projectPrj1, "doesnotexist")
+                                      .execute();
+
+        assertFalse(result);
     }
 
     @Test
