@@ -10,28 +10,32 @@
  *******************************************************************************/
 package com.codenvy.client;
 
+import java.util.List;
+import java.util.Map;
+
 /**
- * The API request contract returned by the Codenvy client API.
+ * The API response returned by the Codenvy client API.
  * 
- * @author Kevin Pollet
+ * @author Florent Benoit
  * @param <T> the API request return {@linkplain java.lang.reflect.Type Type}
  */
-public interface Request<T> {
+public interface Response<T> {
 
     /**
-     * Executes the Codenvy API request.
-     * 
-     * @return the API request result.
-     * @throws CodenvyException if something goes wrong with the API call.
-     */
-    T execute() throws CodenvyException;
-
-    /**
-     * Executes the Codenvy API request and then return details on the response.
+     * Returns the wrapped value
      *
-     * @return the API response result.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @return the API request result.
      */
-    Response<T> response() throws CodenvyException;
+    T getValue();
+
+    /**
+     * @return the headers of the response
+     */
+    Map<String, List<Object>> getHeaders();
+
+    /**
+     * @return the status code of the response
+     */
+    int getStatusCode();
 
 }

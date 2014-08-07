@@ -18,22 +18,23 @@ import java.net.UnknownHostException;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 
 import com.codenvy.client.CodenvyErrorException;
 import com.codenvy.client.CodenvyException;
 import com.codenvy.client.CodenvyUnknownHostException;
 import com.codenvy.client.Request;
+import com.codenvy.client.Response;
 import com.codenvy.client.auth.Token;
 import com.codenvy.client.core.auth.AuthenticationManager;
 
 /**
- * {@link com.codenvy.client.Request} implementation reading the body of the {@link Response}.
+ * {@link com.codenvy.client.Request} implementation reading the body of the {@link javax.ws.rs.core.Response}.
  * 
  * @author Kevin Pollet
  * @author Stéphane Daviet
- * @param <T> the {@linkplain java.lang.reflect.Type Type} of the {@link Response} body.
+ * @author Florent Benoit
+ * @param <T> the {@linkplain java.lang.reflect.Type Type} of the {@link javax.ws.rs.core.Response} body.
  */
 public class SimpleRequest<T> implements Request<T> {
     private final Class<? extends T>              entityType;
@@ -90,8 +91,29 @@ public class SimpleRequest<T> implements Request<T> {
         this.authenticationManager = authenticationManager;
     }
 
+
+
+    /**
+     * Executes the Codenvy API request.
+     *
+     * @return the API request result.
+     * @throws CodenvyException if something goes wrong with the API call.
+     */
     @Override
     public T execute() throws CodenvyException {
+        // return the wrapped value
+        return response().getValue();
+    }
+
+    /**
+     * Executes the Codenvy API request and then return details on the response.
+     *
+     * @return the API response result.
+     * @throws com.codenvy.client.CodenvyException
+     *         if something goes wrong with the API call.
+     */
+    @Override
+    public Response<T> response() throws CodenvyException {
         try {
 
             Token token = authenticationManager.getToken();
@@ -102,7 +124,7 @@ public class SimpleRequest<T> implements Request<T> {
             // set the token property for token injection
             request.property(TOKEN_PROPERTY_NAME, token);
 
-            Response response = request.invoke();
+            javax.ws.rs.core.Response response = request.invoke();
 
             // Token should be refresh only when forbidden is returned (and not for the whole Status.Family.CLIENT_ERROR)
             // else it will ask token when using hasResource method which return 404 error (which doesn't need to perform again the authentication)
@@ -117,9 +139,9 @@ public class SimpleRequest<T> implements Request<T> {
 
             // read response
             if (genericEntityType != null) {
-                return readEntity(response, genericEntityType);
+                return new DefaultResponse(response, readEntity(response, genericEntityType));
             }
-            return entityType.equals(Response.class) ? entityType.cast(response) : readEntity(response, entityType);
+            return new DefaultResponse(response, entityType.equals(javax.ws.rs.core.Response.class) ? entityType.cast(response) : readEntity(response, entityType));
 
         } catch (ProcessingException e) {
             if (e.getCause() instanceof UnknownHostException) {
@@ -130,14 +152,14 @@ public class SimpleRequest<T> implements Request<T> {
     }
 
     /**
-     * Reads the API {@link Response} body entity.
+     * Reads the API {@link javax.ws.rs.core.Response} body entity.
      * 
-     * @param response the API {@link Response}.
-     * @param entityType the entity type to read in {@link Response} body.
+     * @param response the API {@link javax.ws.rs.core.Response}.
+     * @param entityType the entity type to read in {@link javax.ws.rs.core.Response} body.
      * @return the entity type instance.
      * @throws com.codenvy.client.CodenvyErrorException if something goes wrong with the API call.
      */
-    private T readEntity(Response response, Class<? extends T> entityType) throws CodenvyErrorException {
+    private T readEntity(javax.ws.rs.core.Response response, Class<? extends T> entityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
             return response.readEntity(entityType);
         }
@@ -146,14 +168,14 @@ public class SimpleRequest<T> implements Request<T> {
     }
 
     /**
-     * Reads the API {@link Response} body entity.
+     * Reads the API {@link javax.ws.rs.core.Response} body entity.
      * 
-     * @param response the API {@link Response}.
-     * @param genericEntityType the entity type to read in {@link Response} body.
+     * @param response the API {@link javax.ws.rs.core.Response}.
+     * @param genericEntityType the entity type to read in {@link javax.ws.rs.core.Response} body.
      * @return the entity type instance.
      * @throws CodenvyErrorException if something goes wrong with the API call.
      */
-    private T readEntity(Response response, GenericType<? extends T> genericEntityType) throws CodenvyErrorException {
+    private T readEntity(javax.ws.rs.core.Response response, GenericType<? extends T> genericEntityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
             return response.readEntity(genericEntityType);
         }

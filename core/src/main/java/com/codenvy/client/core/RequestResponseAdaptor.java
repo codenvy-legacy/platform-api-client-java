@@ -14,6 +14,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 import com.codenvy.client.CodenvyException;
 import com.codenvy.client.Request;
+import com.codenvy.client.Response;
 
 /**
  * {@link com.codenvy.client.Request} implementation adapting an API request response to another type.
@@ -46,20 +47,13 @@ public class RequestResponseAdaptor<T, S> implements Request<T> {
         return adaptor.adapt(adaptee.execute());
     }
 
-    /**
-     * The request response adaptor contract.
-     * 
-     * @author Kevin Pollet
-     * @param <T> the {@linkplain java.lang.reflect.Type Type} of the adapted request response
-     * @param <S> the {@linkplain java.lang.reflect.Type Type} of the request response to adapt.
-     */
-    public interface Adaptor<T, S> {
-        /**
-         * Adapts the request response.
-         * 
-         * @param response the request response to adapt
-         * @return the adapted response.
-         */
-        T adapt(S response);
+    @Override
+    public Response<T> response() throws CodenvyException {
+        Response<S> details = adaptee.response();
+
+        // adaptor is for the value
+        return new DefaultResponseAdaptor<T, S>(adaptor, details);
     }
+
+
 }
