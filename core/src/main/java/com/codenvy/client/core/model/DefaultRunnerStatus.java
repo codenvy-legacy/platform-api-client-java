@@ -18,6 +18,8 @@ import java.util.List;
 import com.codenvy.client.model.Link;
 import com.codenvy.client.model.RunnerState;
 import com.codenvy.client.model.RunnerStatus;
+import com.codenvy.client.model.builder.BuilderMetric;
+import com.codenvy.client.model.runner.RunnerMetric;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,13 +32,15 @@ import com.google.common.collect.ImmutableList;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultRunnerStatus implements RunnerStatus {
-    private final long              stopTime;
-    private final String            debugHost;
-    private final long              debugPort;
-    private final long              processId;
-    private final long              startTime;
-    private final RunnerState       status;
-    private final List<Link> links;
+    private final long                stopTime;
+    private final String              debugHost;
+    private final long                debugPort;
+    private final long                processId;
+    private final long                startTime;
+    private final RunnerState         status;
+    private final List<Link>          links;
+    private final List<RunnerMetric>  runnerMetrics;
+    private final List<BuilderMetric> builderMetrics;
 
     @JsonCreator
     public DefaultRunnerStatus(@JsonProperty("stopTime") long stopTime,
@@ -45,8 +49,10 @@ public class DefaultRunnerStatus implements RunnerStatus {
                                @JsonProperty("processId") long processId,
                                @JsonProperty("startTime") long startTime,
                                @JsonProperty("status") RunnerState status,
-                               @JsonProperty("links") List<DefaultLink> links) {
-
+                               @JsonProperty("links") List<DefaultLink> links,
+                               @JsonProperty("runStats") List<DefaultMetric> runnerMetrics,
+                               @JsonProperty("buildStats") List<DefaultMetric> builderMetrics
+                              ) {
         this.stopTime = stopTime;
         this.debugHost = debugHost;
         this.debugPort = debugPort;
@@ -54,6 +60,8 @@ public class DefaultRunnerStatus implements RunnerStatus {
         this.startTime = startTime;
         this.status = status;
         this.links = ImmutableList.copyOf(links == null ? new ArrayList<Link>() : links);
+        this.runnerMetrics = ImmutableList.copyOf(runnerMetrics == null ? new ArrayList<RunnerMetric>() : runnerMetrics);
+        this.builderMetrics = ImmutableList.copyOf(builderMetrics == null ? new ArrayList<BuilderMetric>() : builderMetrics);
     }
 
     @Override
@@ -91,6 +99,8 @@ public class DefaultRunnerStatus implements RunnerStatus {
         return links;
     }
 
+
+
     /**
      * Returns the web {@link DefaultLink}.
      *
@@ -106,10 +116,26 @@ public class DefaultRunnerStatus implements RunnerStatus {
         return null;
     }
 
+    /**
+     * @return statistics for the runner process
+     */
+    @Override
+    public List<RunnerMetric> getRunStats() {
+        return runnerMetrics;
+    }
+
+    /**
+     * @return statistics for the runner process on the build part
+     */
+    @Override
+    public List<BuilderMetric> getBuildStats() {
+        return builderMetrics;
+    }
+
     @Override
     public String toString() {
         return "CodenvyRunnerStatus [stopTime=" + stopTime + ", debugHost=" + debugHost + ", debugPort=" + debugPort + ", processId="
-               + processId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + "]";
+               + processId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + ", runStats=" + runnerMetrics + ", buildStats=" + builderMetrics + "]";
     }
 
 }

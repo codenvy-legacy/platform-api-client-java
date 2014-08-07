@@ -18,6 +18,7 @@ import java.util.List;
 import com.codenvy.client.model.BuilderState;
 import com.codenvy.client.model.BuilderStatus;
 import com.codenvy.client.model.Link;
+import com.codenvy.client.model.builder.BuilderMetric;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -30,20 +31,24 @@ import com.google.common.collect.ImmutableList;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultBuilderStatus implements BuilderStatus {
-    private final long         taskId;
-    private final long         startTime;
-    private final BuilderState status;
-    private final List<Link>   links;
+    private final long                taskId;
+    private final long                startTime;
+    private final BuilderState        status;
+    private final List<Link>          links;
+    private final List<BuilderMetric> builderMetrics;
 
     @JsonCreator
     public DefaultBuilderStatus(@JsonProperty("taskId") long taskId,
                                 @JsonProperty("startTime") long startTime,
                                 @JsonProperty("status") BuilderState status,
-                                @JsonProperty("links") List<DefaultLink> links) {
+                                @JsonProperty("links") List<DefaultLink> links,
+                                @JsonProperty("buildStats") List<DefaultMetric> builderMetrics
+                               ) {
         this.taskId = taskId;
         this.startTime = startTime;
         this.status = status;
         this.links = ImmutableList.copyOf(links == null ? new ArrayList<Link>() : links);
+        this.builderMetrics = ImmutableList.copyOf(builderMetrics == null ? new ArrayList<BuilderMetric>() : builderMetrics);
     }
 
     /**
@@ -62,9 +67,16 @@ public class DefaultBuilderStatus implements BuilderStatus {
 
     @Override
     public String toString() {
-        return "CodenvyBuilderStatus [taskId=" + taskId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + "]";
+        return "CodenvyBuilderStatus [taskId=" + taskId + ", startTime=" + startTime + ", status=" + status + ", links=" + links  + ", buildStats=" + builderMetrics + "]";
     }
 
+    /**
+     * @return statistics for the runner process on the build part
+     */
+    @Override
+    public List<BuilderMetric> getBuildStats() {
+        return builderMetrics;
+    }
 
     @Override
     public long taskId() {

@@ -11,7 +11,7 @@
 
 Export-Package com.codenvy.client;version=${project.version}, \
                com.codenvy.client.auth;version=${project.version}, \
-               com.codenvy.client.model;version=${project.version}, \
+               com.codenvy.client.model.*;version=${project.version}, \
                com.codenvy.client.store;version=${project.version}
 
 Private-Package com.codenvy.client.core.*

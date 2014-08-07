@@ -10,6 +10,9 @@
  *******************************************************************************/
 package com.codenvy.client.model;
 
+import com.codenvy.client.model.builder.BuilderMetric;
+import com.codenvy.client.model.runner.RunnerMetric;
+
 import java.util.List;
 
 /**
@@ -39,4 +42,15 @@ public interface RunnerStatus {
      * @return the web {@link Link} or {@code null}.
      */
     Link getWebLink();
+
+    /**
+     * @return statistics for the runner process
+     */
+    List<RunnerMetric> getRunStats();
+
+    /**
+     * @return statistics for the runner process on the build part
+     */
+    List<BuilderMetric> getBuildStats();
+
 }

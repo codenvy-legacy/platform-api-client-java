@@ -10,31 +10,24 @@
  *******************************************************************************/
 package com.codenvy.client.model;
 
-import com.codenvy.client.model.builder.BuilderMetric;
-
-import java.util.List;
-
 /**
- * The codenvy builder object model.
- *
+ * Metrics are used for example in runners and builders.
  * @author Florent Benoit
  */
-public interface BuilderStatus {
-    long       taskId();
-    long       startTime();
-    BuilderState status();
-    List<Link> links();
+public interface Metric {
 
     /**
-     * Gets the build result download {@link Link}.
-     *
-     * @return the download {@link Link}.
+     * Name of the metric.
      */
-    Link getDownloadLink();
+    String getName();
 
     /**
-     * @return statistics for the runner process on the build part
+     * Value of the metric.
      */
-    List<BuilderMetric> getBuildStats();
+    String getValue();
 
+    /**
+     * Description of the metric.
+     */
+    String getDescription();
 }
