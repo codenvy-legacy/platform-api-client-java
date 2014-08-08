@@ -29,7 +29,7 @@ public interface ProjectClient {
      * @return the workspace {@link Project} list never {@code null}.
      * @throws NullPointerException if workspaceId parameter is {@code null}.
      */
-    Request<List<? extends Project>> getWorkspaceProjects(String workspaceId);
+    Request<List<Project>> getWorkspaceProjects(String workspaceId);
 
     /**
      * Creates a {@link Project} in the given workspace.
@@ -38,7 +38,7 @@ public interface ProjectClient {
      * @return the new {@link Project}, never {@code null}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends Project> create(Project project);
+    Request<Project> create(Project project);
 
     /**
      * Exports a resource in the given {@link Project}.

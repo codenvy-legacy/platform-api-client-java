@@ -26,7 +26,7 @@ public interface RunnerClient {
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends RunnerStatus> run(Project project);
+    Request<RunnerStatus> run(Project project);
 
     /**
      * Stops the project runner with the given process id.
@@ -36,7 +36,7 @@ public interface RunnerClient {
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends RunnerStatus> stop(Project project, long processId);
+    Request<RunnerStatus> stop(Project project, long processId);
 
     /**
      * Gets the project runner status with the given process id.
@@ -46,7 +46,7 @@ public interface RunnerClient {
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends RunnerStatus> status(Project project, long processId);
+    Request<RunnerStatus> status(Project project, long processId);
 
     /**
      * Gets the project runner logs with the given process id.
@@ -64,7 +64,7 @@ public interface RunnerClient {
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<List<? extends RunnerStatus>> processes(Project project);
+    Request<List<RunnerStatus>> processes(Project project);
 
 
 }

@@ -16,12 +16,14 @@ import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.Visibility;
+import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
 import java.io.InputStream;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -59,7 +61,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      * @throws NullPointerException if workspaceId parameter is {@code null}.
      */
     @Override
-    public Request<List<? extends Project>> getWorkspaceProjects(String workspaceId) {
+    public Request<List<Project>> getWorkspaceProjects(String workspaceId) {
         checkNotNull(workspaceId);
 
         final Invocation request = getWebTarget().path(workspaceId)
@@ -67,8 +69,8 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<List<? extends Project>>(request, new GenericType<List<DefaultProject>>() {
-        }, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultProject>>(){}.getType();
+        return new SimpleRequest<>(request, new GenericType<List<Project>>(collectionType) { }, getAuthenticationManager());
     }
 
     /**
@@ -79,7 +81,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<? extends Project> create(Project project) {
+    public Request<Project> create(Project project) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
@@ -88,7 +90,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(json(project));
 
-        return new SimpleRequest<>(request, DefaultProject.class, getAuthenticationManager());
+        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
     }
 
 

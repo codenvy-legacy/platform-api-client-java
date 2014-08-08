@@ -26,7 +26,7 @@ public interface WorkspaceClient {
      *
      * @return all Codenvy workspaces never {@code null}.
      */
-    Request<List<? extends Workspace>> all();
+    Request<List<Workspace>> all();
 
     /**
      * Retrieves a Codenvy workspace by it's name.
@@ -35,7 +35,7 @@ public interface WorkspaceClient {
      * @return the Codenvy workspace or {@code null} if none.
      * @throws NullPointerException if name parameter is {@code null}.
      */
-    Request<? extends WorkspaceReference> withName(String name);
+    Request<WorkspaceReference> withName(String name);
 
     /**
      * Creates the given workspace.
@@ -44,5 +44,5 @@ public interface WorkspaceClient {
      * @return the created workspace.
      * @throws NullPointerException if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
      */
-    Request<? extends WorkspaceReference> create(WorkspaceReference workspaceReference);
+    Request<WorkspaceReference> create(WorkspaceReference workspaceReference);
 }

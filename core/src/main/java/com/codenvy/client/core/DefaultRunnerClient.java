@@ -13,12 +13,15 @@ package com.codenvy.client.core;
 import com.codenvy.client.Request;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
+import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.core.model.DefaultRunnerStatus;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.RunnerStatus;
+import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -50,7 +53,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultRunnerStatus> run(Project project) {
+    public Request<RunnerStatus> run(Project project) {
         checkNotNull(project);
 
         String projectPath = project.name();
@@ -65,7 +68,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(null);
 
-        return new SimpleRequest<>(request, DefaultRunnerStatus.class, getAuthenticationManager());
+        return new SimpleRequest<RunnerStatus>(request, DefaultRunnerStatus.class, getAuthenticationManager());
     }
 
     /**
@@ -77,7 +80,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultRunnerStatus> stop(Project project, long processId) {
+    public Request<RunnerStatus> stop(Project project, long processId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
@@ -87,7 +90,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(null);
 
-        return new SimpleRequest<>(request, DefaultRunnerStatus.class, getAuthenticationManager());
+        return new SimpleRequest<RunnerStatus>(request, DefaultRunnerStatus.class, getAuthenticationManager());
     }
 
 
@@ -97,7 +100,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    public Request<List<? extends RunnerStatus>> processes(Project project) {
+    public Request<List<RunnerStatus>> processes(Project project) {
         final Invocation request = getWebTarget().path(project.workspaceId())
                                                  .path("processes")
                                                  .queryParam("project", project.name())
@@ -105,7 +108,9 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<List<? extends RunnerStatus>>(request, new GenericType<List<DefaultRunnerStatus>>() {}, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultRunnerStatus>>(){}.getType();
+
+        return new SimpleRequest<>(request, new GenericType<List<RunnerStatus>>(collectionType) {}, getAuthenticationManager());
 
 
     }
@@ -119,7 +124,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultRunnerStatus> status(Project project, long processId) {
+    public Request<RunnerStatus> status(Project project, long processId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
@@ -129,7 +134,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<>(request, DefaultRunnerStatus.class, getAuthenticationManager());
+        return new SimpleRequest<RunnerStatus>(request, DefaultRunnerStatus.class, getAuthenticationManager());
     }
 
     /**

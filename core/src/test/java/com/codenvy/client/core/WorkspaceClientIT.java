@@ -31,7 +31,7 @@ import static org.junit.Assert.assertNull;
 public class WorkspaceClientIT extends AbstractIT {
     @Test
     public void testGetAllWorkspaces() {
-        final List<? extends Workspace> workspaces = codenvy.workspace()
+        final List<Workspace> workspaces = codenvy.workspace()
                                                   .all()
                                                   .execute();
 

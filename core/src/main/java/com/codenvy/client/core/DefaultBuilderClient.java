@@ -14,11 +14,14 @@ import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultBuilderStatus;
+import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.model.BuilderStatus;
 import com.codenvy.client.model.Project;
+import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
+import java.lang.reflect.Type;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -50,7 +53,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultBuilderStatus> build(Project project) {
+    public Request<BuilderStatus> build(Project project) {
         checkNotNull(project);
 
         String projectPath = project.name();
@@ -65,7 +68,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(null);
 
-        return new SimpleRequest<>(request, DefaultBuilderStatus.class, getAuthenticationManager());
+        return new SimpleRequest<BuilderStatus>(request, DefaultBuilderStatus.class, getAuthenticationManager());
     }
 
     /**
@@ -77,7 +80,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultBuilderStatus> status(Project project, long taskId) {
+    public Request<BuilderStatus> status(Project project, long taskId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
@@ -87,7 +90,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<>(request, DefaultBuilderStatus.class, getAuthenticationManager());
+        return new SimpleRequest<BuilderStatus>(request, DefaultBuilderStatus.class, getAuthenticationManager());
     }
 
     /**
@@ -121,7 +124,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<DefaultBuilderStatus> cancel(Project project, long taskId) {
+    public Request<BuilderStatus> cancel(Project project, long taskId) {
         checkNotNull(project);
 
         final Invocation request = getWebTarget().path(project.workspaceId())
@@ -131,7 +134,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<>(request, DefaultBuilderStatus.class, getAuthenticationManager());
+        return new SimpleRequest<BuilderStatus>(request, DefaultBuilderStatus.class, getAuthenticationManager());
     }
 
     /**
@@ -140,7 +143,7 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    public Request<List<? extends BuilderStatus>> builds(Project project) {
+    public Request<List<BuilderStatus>> builds(Project project) {
         final Invocation request = getWebTarget().path(project.workspaceId())
                                                  .path("builds")
                                                  .queryParam("project", project.name())
@@ -148,7 +151,8 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<List<? extends BuilderStatus>>(request, new GenericType<List<DefaultBuilderStatus>>() {}, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultBuilderStatus>>(){}.getType();
+        return new SimpleRequest<>(request, new GenericType<List<BuilderStatus>>(collectionType) {}, getAuthenticationManager());
 
 
     }

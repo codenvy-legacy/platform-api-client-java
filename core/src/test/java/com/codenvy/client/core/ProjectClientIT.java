@@ -100,7 +100,7 @@ public class ProjectClientIT extends AbstractIT {
 
     @Test
     public void testGetWorkspaceProjects() {
-        final List<? extends Project> projects = codenvy.project()
+        final List<Project> projects = codenvy.project()
                                               .getWorkspaceProjects(workspace.id())
                                               .execute();
 

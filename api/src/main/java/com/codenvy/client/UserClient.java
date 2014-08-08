@@ -23,5 +23,5 @@ public interface UserClient {
      *
      * @return the current user.
      */
-    Request<? extends User> current();
+    Request<User> current();
 }

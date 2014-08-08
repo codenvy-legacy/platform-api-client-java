@@ -27,7 +27,7 @@ public interface BuilderClient {
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends BuilderStatus> build(Project project);
+    Request<BuilderStatus> build(Project project);
 
     /**
      * Gets the status of the builder with the given task id.
@@ -37,7 +37,7 @@ public interface BuilderClient {
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends BuilderStatus> status(Project project, long taskId);
+    Request<BuilderStatus> status(Project project, long taskId);
 
     /**
      * Gets the logs of the builder with the given task id.
@@ -57,7 +57,7 @@ public interface BuilderClient {
      * @return the {@link BuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<? extends BuilderStatus> cancel(Project project, long taskId);
+    Request<BuilderStatus> cancel(Project project, long taskId);
 
     /**
      * Gets the project builds for the given project
@@ -65,5 +65,5 @@ public interface BuilderClient {
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<List<? extends BuilderStatus>> builds(Project project);
+    Request<List<BuilderStatus>> builds(Project project);
 }

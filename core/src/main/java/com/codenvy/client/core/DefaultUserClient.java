@@ -14,6 +14,7 @@ import com.codenvy.client.Request;
 import com.codenvy.client.UserClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultUser;
+import com.codenvy.client.model.User;
 
 import javax.ws.rs.client.Invocation;
 
@@ -42,11 +43,11 @@ public class DefaultUserClient extends AbstractClient implements UserClient {
      * 
      * @return the current user.
      */
-    public Request<DefaultUser> current() {
+    public Request<User> current() {
         final Invocation request = getWebTarget().request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<>(request, DefaultUser.class, getAuthenticationManager());
+        return new SimpleRequest<User>(request, DefaultUser.class, getAuthenticationManager());
     }
 }
