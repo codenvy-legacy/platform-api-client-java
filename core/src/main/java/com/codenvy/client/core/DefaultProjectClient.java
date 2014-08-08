@@ -14,7 +14,9 @@ import com.codenvy.client.ProjectClient;
 import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultProject;
+import com.codenvy.client.core.model.DefaultProjectReference;
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
 import com.google.common.reflect.TypeToken;
 
@@ -54,14 +56,14 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Retrieves all workspace {@link Project}.
+     * Retrieves all workspace {@link com.codenvy.client.model.ProjectReference}.
      *
      * @param workspaceId the workspace id.
-     * @return the workspace {@link Project} list never {@code null}.
+     * @return the workspace {@link com.codenvy.client.model.ProjectReference} list never {@code null}.
      * @throws NullPointerException if workspaceId parameter is {@code null}.
      */
     @Override
-    public Request<List<Project>> getWorkspaceProjects(String workspaceId) {
+    public Request<List<ProjectReference>> getWorkspaceProjects(String workspaceId) {
         checkNotNull(workspaceId);
 
         final Invocation request = getWebTarget().path(workspaceId)
@@ -69,68 +71,112 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        Type collectionType = new TypeToken<List<DefaultProject>>(){}.getType();
-        return new SimpleRequest<>(request, new GenericType<List<Project>>(collectionType) { }, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultProjectReference>>(){}.getType();
+        return new SimpleRequest<>(request, new GenericType<List<ProjectReference>>(collectionType) { }, getAuthenticationManager());
     }
 
     /**
-     * Creates a {@link Project} in the given workspace.
+     * Retrieves project workspace {@link com.codenvy.client.model.Project}.
      *
-     * @param project the {@link Project} to create.
-     * @return the new {@link Project}, never {@code null}.
+     * @param workspaceId the workspace id.
+     * @param resourcePath the resource path
+     * @return the workspace {@link com.codenvy.client.model.Project}
+     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     */
+    @Override
+    public Request<Project> getProject(String workspaceId, String resourcePath) {
+        checkNotNull(workspaceId);
+        checkNotNull(resourcePath);
+
+        final Invocation request = getWebTarget().path(workspaceId)
+                                                 .path(resourcePath)
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
+
+    }
+
+    /**
+     * Retrieves project workspace {@link com.codenvy.client.model.Project}.
+     *
+     * @param workspaceId the workspace id.
+     * @param projectReference the project reference
+     * @return the workspace {@link com.codenvy.client.model.Project}
+     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     */
+    public Request<Project> getProject(String workspaceId, ProjectReference projectReference) {
+        checkNotNull(workspaceId);
+        checkNotNull(projectReference);
+
+        final Invocation request = getWebTarget().path(workspaceId)
+                                                 .path(projectReference.name())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
+
+    }
+
+
+    /**
+     * Creates a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
+     *
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference} to create.
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<Project> create(Project project) {
-        checkNotNull(project);
+    public Request<Project> create(ProjectReference projectReference) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
-                                                 .queryParam("name", project.name())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
+                                                 .queryParam("name", projectReference.name())
                                                  .request()
                                                  .accept(APPLICATION_JSON)
-                                                 .buildPost(json(project));
+                                                 .buildPost(json(projectReference));
 
         return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
     }
 
 
     /**
-     * Switch visibility for a {@link Project} in the given workspace.
+     * Switch visibility for a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
      *
-     * @param project the {@link Project} to change visibility.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference} to change visibility.
      * @param visibility the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<Void> switchVisibility(Project project, Visibility visibility) {
-        checkNotNull(project);
+    public Request<Void> switchVisibility(ProjectReference projectReference, Visibility visibility) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("switch_visibility")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .queryParam("visibility", visibility.name().toLowerCase())
                                                  .request()
                                                  .accept(APPLICATION_JSON)
-                                                 .buildPost(json(project));
+                                                 .buildPost(json(projectReference));
 
         return new SimpleRequest<>(request, Void.class, getAuthenticationManager());
     }
 
     /**
-     * Exports a resource in the given {@link Project}.
+     * Exports a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param resourcePath the path of the resource to export, must be a folder.
      * @return the resource {@link ZipInputStream} or {@code null} if the resource is not found.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<ZipInputStream> exportResources(Project project, String resourcePath) {
-        checkNotNull(project);
+    public Request<ZipInputStream> exportResources(ProjectReference projectReference, String resourcePath) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("export")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .path(resourcePath == null ? "" : resourcePath)
                                                  .request()
                                                  .accept("application/zip")
@@ -146,19 +192,19 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Deletes a resource in the given {@link Project}.
+     * Deletes a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      * 
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param resourcePath the path of the resource to delete.
      * @return the {@link Request} pointing to a {@link Void} result.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<Void> deleteResources(Project project, String resourcePath) {
-        checkNotNull(project);
+    public Request<Void> deleteResources(ProjectReference projectReference, String resourcePath) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
-                                                 .path(project.name())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
+                                                 .path(projectReference.name())
                                                  .path(resourcePath == null ? "" : resourcePath)
                                                  .request()
                                                  .buildDelete();
@@ -170,20 +216,20 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      * Upload a local ZIP folder.
      *
      * @param workspaceId the workspace id in which the ZIP folder will be imported.
-     * @param project the pre-existing {@link Project} in which the archive content should be imported.
+     * @param projectReference the pre-existing {@link com.codenvy.client.model.ProjectReference} in which the archive content should be imported.
      * @param archiveInputStream the archive {@link InputStream}.
      * @return the {@link Request} pointing to a {@link Void} result.
      * @throws NullPointerException if workspaceId, projectName or archiveInputStream parameters are {@code null}.
      */
     @Override
-    public Request<Void> importArchive(String workspaceId, Project project, InputStream archiveInputStream) {
+    public Request<Void> importArchive(String workspaceId, ProjectReference projectReference, InputStream archiveInputStream) {
         checkNotNull(workspaceId);
-        checkNotNull(project);
+        checkNotNull(projectReference);
         checkNotNull(archiveInputStream);
 
         final Invocation request = getWebTarget().path(workspaceId)
                                                  .path("import")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .request()
                                                  .buildPost(entity(archiveInputStream, "application/zip"));
 
@@ -191,22 +237,22 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Updates a resource in the given {@link Project}.
+     * Updates a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the path to the file to update.
      * @param fileInputStream the file {@link InputStream}.
      * @throws NullPointerException if project, filePath or fileInputStream parameter is {@code null}.
      */
     @Override
-    public Request<Void> updateFile(Project project, String filePath, InputStream fileInputStream) {
-        checkNotNull(project);
+    public Request<Void> updateFile(ProjectReference projectReference, String filePath, InputStream fileInputStream) {
+        checkNotNull(projectReference);
         checkNotNull(filePath);
         checkNotNull(fileInputStream);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("file")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .path(filePath)
                                                  .request()
                                                  .buildPut(text(fileInputStream));
@@ -215,20 +261,20 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Gets file content in the given {@link Project}.
+     * Gets file content in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the file path.
      * @return the file {@link InputStream} or {@code null} if not found.
      */
     @Override
-    public Request<InputStream> getFile(Project project, String filePath) {
-        checkNotNull(project);
+    public Request<InputStream> getFile(ProjectReference projectReference, String filePath) {
+        checkNotNull(projectReference);
         checkNotNull(filePath);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("file")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .path(filePath)
                                                  .request()
                                                  .accept(TEXT_PLAIN)
@@ -238,21 +284,21 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
     /**
-     * Returns if the given file exists in the given {@link Project}.
+     * Returns if the given file exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the file path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
     @Override
-    public Request<Boolean> hasFile(Project project, String filePath) {
-        checkNotNull(project);
+    public Request<Boolean> hasFile(ProjectReference projectReference, String filePath) {
+        checkNotNull(projectReference);
         checkNotNull(filePath);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("file")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .path(filePath)
                                                  .request()
                                                  .build("HEAD");
@@ -271,21 +317,21 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
 
 
     /**
-     * Returns if the given folder exists in the given {@link Project}.
+     * Returns if the given folder exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param folderPath the folder path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
     @Override
-    public Request<Boolean> hasFolder(Project project, String folderPath) {
-        checkNotNull(project);
+    public Request<Boolean> hasFolder(ProjectReference projectReference, String folderPath) {
+        checkNotNull(projectReference);
         checkNotNull(folderPath);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("children")
-                                                 .path(project.name())
+                                                 .path(projectReference.name())
                                                  .path(folderPath)
                                                  .request()
                                                  .build("HEAD");

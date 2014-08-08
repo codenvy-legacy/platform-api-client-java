@@ -11,6 +11,7 @@
 package com.codenvy.client;
 
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
 
 import java.io.InputStream;
@@ -23,99 +24,119 @@ import java.util.zip.ZipInputStream;
  */
 public interface ProjectClient {
     /**
-     * Retrieves all workspace {@link Project}.
+     * Retrieves all project references {@link com.codenvy.client.model.ProjectReference}.
      *
      * @param workspaceId the workspace id.
-     * @return the workspace {@link Project} list never {@code null}.
+     * @return the workspace {@link com.codenvy.client.model.ProjectReference} list never {@code null}.
      * @throws NullPointerException if workspaceId parameter is {@code null}.
      */
-    Request<List<Project>> getWorkspaceProjects(String workspaceId);
+    Request<List<ProjectReference>> getWorkspaceProjects(String workspaceId);
 
     /**
-     * Creates a {@link Project} in the given workspace.
+     * Retrieves project workspace {@link com.codenvy.client.model.Project}.
      *
-     * @param project the {@link Project} to create.
-     * @return the new {@link Project}, never {@code null}.
+     * @param workspaceId the workspace id.
+     * @param resourcePath the resource path
+     * @return the workspace {@link com.codenvy.client.model.Project}
+     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     */
+    Request<Project> getProject(String workspaceId, String resourcePath);
+
+    /**
+     * Retrieves project workspace {@link com.codenvy.client.model.Project}.
+     *
+     * @param workspaceId the workspace id.
+     * @param projectReference the project reference
+     * @return the workspace {@link com.codenvy.client.model.Project}
+     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     */
+    Request<Project> getProject(String workspaceId, ProjectReference projectReference);
+
+    /**
+     * Creates a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param projectReference the {@link com.codenvy.client.model.Project} to create.
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<Project> create(Project project);
+    Request<Project> create(ProjectReference projectReference);
 
     /**
-     * Exports a resource in the given {@link Project}.
+     * Exports a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param resourcePath the path of the resource to export, must be a folder.
      * @return the resource {@link java.util.zip.ZipInputStream} or {@code null} if the resource is not found.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<ZipInputStream> exportResources(Project project, String resourcePath);
+    Request<ZipInputStream> exportResources(ProjectReference projectReference, String resourcePath);
 
     /**
-     * Deletes a resource in the given {@link Project}.
+     * Deletes a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param resourcePath the path of the resource to delete.
      * @return the {@link com.codenvy.client.Request} pointing to a {@link Void} result.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<Void> deleteResources(Project project, String resourcePath);
+    Request<Void> deleteResources(ProjectReference projectReference, String resourcePath);
 
     /**
      * Upload a local ZIP folder.
      *
      * @param workspaceId the workspace id in which the ZIP folder will be imported.
-     * @param project the pre-exisiting {@link Project} in which the archive content should be imported.
+     * @param projectReference the pre-exisiting {@link com.codenvy.client.model.ProjectReference} in which the archive content should be imported.
      * @param archiveInputStream the archive {@link java.io.InputStream}.
      * @return the {@link com.codenvy.client.Request} pointing to a {@link Void} result.
      * @throws NullPointerException if workspaceId, projectName or archiveInputStrem parameters are {@code null}.
      */
-    Request<Void> importArchive(String workspaceId, Project project, InputStream archiveInputStream);
+    Request<Void> importArchive(String workspaceId, ProjectReference projectReference, InputStream archiveInputStream);
 
     /**
-     * Updates a resource in the given {@link Project}.
+     * Updates a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the path to the file to update.
      * @param fileInputStream the file {@link java.io.InputStream}.
      * @throws NullPointerException if project, filePath or fileInputStream parameter is {@code null}.
      */
-    Request<Void> updateFile(Project project, String filePath, InputStream fileInputStream);
+    Request<Void> updateFile(ProjectReference projectReference, String filePath, InputStream fileInputStream);
 
     /**
-     * Gets file content in the given {@link Project}.
+     * Gets file content in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the file path.
      * @return the file {@link java.io.InputStream} or {@code null} if not found.
      */
-    Request<InputStream> getFile(Project project, String filePath);
+    Request<InputStream> getFile(ProjectReference projectReference, String filePath);
 
     /**
-     * Returns if the given folder exists in the given {@link Project}.
+     * Returns if the given folder exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param folderPath the folder path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
-    Request<Boolean> hasFolder(Project project, String folderPath);
+    Request<Boolean> hasFolder(ProjectReference projectReference, String folderPath);
 
     /**
-     * Returns if the given file exists in the given {@link Project}.
+     * Returns if the given file exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param project the {@link Project}.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
      * @param filePath the file path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
      * @throws NullPointerException if project or resourcePath parameter is {@code null}.
      */
-    Request<Boolean> hasFile(Project project, String filePath);
+    Request<Boolean> hasFile(ProjectReference projectReference, String filePath);
 
     /**
-     * Switch visibility for a {@link Project} in the given workspace.
+     * Switch visibility for a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
      *
-     * @param project the {@link Project} to change visibility.
+     * @param projectReference the {@link com.codenvy.client.model.ProjectReference} to change visibility.
      * @param visibility the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<Void> switchVisibility(Project project, Visibility visibility);
+    Request<Void> switchVisibility(ProjectReference projectReference, Visibility visibility);
 }

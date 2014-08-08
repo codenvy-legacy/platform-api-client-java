@@ -37,5 +37,5 @@ public interface ProjectBuilder {
 
     ProjectBuilder withIdeUrl(String ideUrl);
 
-    Project build();
+    ProjectReference build();
 }

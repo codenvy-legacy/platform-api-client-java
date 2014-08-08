@@ -10,7 +10,7 @@
  *******************************************************************************/
 package com.codenvy.client;
 
-import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.RunnerStatus;
 
 import java.util.List;
@@ -22,49 +22,49 @@ public interface RunnerClient {
     /**
      * Runs the given project with a codenvy runner.
      *
-     * @param project the project to run.
+     * @param projectReference the project to run.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<RunnerStatus> run(Project project);
+    Request<RunnerStatus> run(ProjectReference projectReference);
 
     /**
      * Stops the project runner with the given process id.
      *
-     * @param project the project.
+     * @param projectReference the project.
      * @param processId the runner process id.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<RunnerStatus> stop(Project project, long processId);
+    Request<RunnerStatus> stop(ProjectReference projectReference, long processId);
 
     /**
      * Gets the project runner status with the given process id.
      *
-     * @param project the project.
+     * @param projectReference the project.
      * @param processId the runner process id.
      * @return the {@link RunnerStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<RunnerStatus> status(Project project, long processId);
+    Request<RunnerStatus> status(ProjectReference projectReference, long processId);
 
     /**
      * Gets the project runner logs with the given process id.
      *
-     * @param project the project.
+     * @param projectReference the project.
      * @param processId the runner process id.
      * @return the runner logs.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<String> logs(Project project, long processId);
+    Request<String> logs(ProjectReference projectReference, long processId);
 
     /**
      * Gets the project processes for the given project
-     * @param project the project.
+     * @param projectReference the project.
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    Request<List<RunnerStatus>> processes(Project project);
+    Request<List<RunnerStatus>> processes(ProjectReference projectReference);
 
 
 }

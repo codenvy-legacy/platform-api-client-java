@@ -8,27 +8,31 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
-
 package com.codenvy.client.model;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
 /**
- * Project description is containing the data of a project
- *
+ * This class represents the project resource on Codenvy.
  * @author Florent Benoit
  */
-public interface Project extends ProjectReference {
-
+public interface ProjectReference {
     /**
-     * @return user permissions for this project
+     * @return project ID
      */
-    List<String> userPermissions();
-
-    /**
-     * @return the attributes for this given project
-     */
-    Map<String, List<String>> attributes();
+    String id();
+    String url();
+    String visibility();
+    String projectTypeId();
+    String workspaceId();
+    String projectTypeName();
+    String name();
+    String description();
+    String workspaceName();
+    Date   modificationDate();
+    Date creationDate();
+    String ideUrl();
 
 }

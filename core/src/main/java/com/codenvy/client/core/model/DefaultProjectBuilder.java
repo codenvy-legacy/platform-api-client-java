@@ -91,8 +91,8 @@ public class DefaultProjectBuilder implements ProjectBuilder {
     }
 
     @Override
-    public DefaultProject build() {
-        return new DefaultProject(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName,
+    public DefaultProjectReference build() {
+        return new DefaultProjectReference(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName,
                                   null, new Date(), ideUrl);
     }
 }

@@ -8,53 +8,60 @@
  * Contributors:
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
+
 package com.codenvy.client.core.model;
 
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
  * This class represents the project resource on Codenvy.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
-public class DefaultProject implements Project {
-    private final String id;
-    private final String url;
-    private final String visibility;
-    private final String projectTypeId;
-    private final String workspaceId;
-    private final String projectTypeName;
-    private final String name;
-    private final String description;
-    private final String workspaceName;
-    private final Date   modificationDate;
-    private final Date   creationDate;
-    private final String ideUrl;
+public class DefaultProject extends DefaultProjectReference implements Project {
+
+    private final List<String>              userPermissions;
+    private       Map<String, List<String>> attributes;
+
 
     /**
-     * Constructs an instance of {@linkplain DefaultProject}.
-     * 
-     * @param url the project url.
-     * @param visibility the project visibility (private or public).
-     * @param projectTypeId the project type id (e.g. spring, java, ...).
-     * @param workspaceId the project workspace id.
-     * @param projectTypeName the project type name (e.g. Spring application, ...).
-     * @param name the project name.
-     * @param description the project description.
-     * @param workspaceName the project workspace name.
-     * @param modificationDate the project modification date.
-     * @param creationDate the project creation date.
-     * @param ideUrl the project ide url.
+     * Constructs an instance of {@linkplain com.codenvy.client.core.model.DefaultProject}.
+     *
+     * @param url
+     *         the project url.
+     * @param visibility
+     *         the project visibility (private or public).
+     * @param projectTypeId
+     *         the project type id (e.g. spring, java, ...).
+     * @param workspaceId
+     *         the project workspace id.
+     * @param projectTypeName
+     *         the project type name (e.g. Spring application, ...).
+     * @param name
+     *         the project name.
+     * @param description
+     *         the project description.
+     * @param workspaceName
+     *         the project workspace name.
+     * @param modificationDate
+     *         the project modification date.
+     * @param creationDate
+     *         the project creation date.
+     * @param ideUrl
+     *         the project ide url.
      */
     @JsonCreator
     public DefaultProject(
@@ -69,157 +76,26 @@ public class DefaultProject implements Project {
             @JsonProperty("workspaceName") String workspaceName,
             @JsonProperty("modificationDate") Date modificationDate,
             @JsonProperty("creationDate") Date creationDate,
-            @JsonProperty("ideUrl") String ideUrl) {
-
-        this.id = id;
-        this.url = url;
-        this.visibility = visibility;
-        this.projectTypeId = projectTypeId;
-        this.workspaceId = workspaceId;
-        this.projectTypeName = projectTypeName;
-        this.name = name;
-        this.description = description;
-        this.workspaceName = workspaceName;
-        this.modificationDate = modificationDate != null ? new Date(modificationDate.getTime()) : null;
-        this.creationDate = creationDate != null ? new Date(creationDate.getTime()) : null;
-        this.ideUrl = ideUrl;
+            @JsonProperty("ideUrl") String ideUrl,
+            @JsonProperty("currentUserPermissions") List<String> userPermissions,
+            @JsonProperty("attributes") Map<String, List<String>> attributes
+                         ) {
+        super(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName, modificationDate,
+              creationDate, ideUrl);
+        this.userPermissions = userPermissions;
+        this.attributes = attributes;
     }
 
-    @JsonProperty("id")
+    @JsonProperty("currentUserPermissions")
     @Override
-    public String id() {
-        return id;
+    public List<String> userPermissions() {
+        return userPermissions;
     }
 
-
-    @JsonProperty("url")
+    @JsonProperty("attributes")
     @Override
-    public String url() {
-        return url;
+    public Map<String, List<String>> attributes() {
+        return attributes;
     }
 
-    @JsonProperty("visibility")
-    @Override
-    public String visibility() {
-        return visibility;
-    }
-
-    @JsonProperty("projectTypeId")
-    @Override
-    public String projectTypeId() {
-        return projectTypeId;
-    }
-
-    @JsonProperty("workspaceId")
-    @Override
-    public String workspaceId() {
-        return workspaceId;
-    }
-
-    @JsonProperty("projectTypeName")
-    @Override
-    public String projectTypeName() {
-        return projectTypeName;
-    }
-
-    @JsonProperty("name")
-    @Override
-    public String name() {
-        return name;
-    }
-
-    @JsonProperty("description")
-    @Override
-    public String description() {
-        return description;
-    }
-
-    @JsonProperty("workspaceName")
-    @Override
-    public String workspaceName() {
-        return workspaceName;
-    }
-
-    @JsonProperty("modificationDate")
-    @Override
-    public Date modificationDate() {
-        return modificationDate;
-    }
-
-    @JsonProperty("creationDate")
-    @Override
-    public Date creationDate() {
-        return creationDate;
-    }
-
-    @JsonProperty("ideUrl")
-    @Override
-    public String ideUrl() {
-        return ideUrl;
-    }
-
-
-
-
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
-        result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((projectTypeId == null) ? 0 : projectTypeId.hashCode());
-        result = prime * result + ((workspaceId == null) ? 0 : workspaceId.hashCode());
-        return result;
-    }
-
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj) {
-            return true;
-        }
-        if (obj == null) {
-            return false;
-        }
-        if (getClass() != obj.getClass()) {
-            return false;
-        }
-        DefaultProject other = (DefaultProject)obj;
-        if (creationDate == null) {
-            if (other.creationDate != null) {
-                return false;
-            }
-        } else if (!creationDate.equals(other.creationDate)) {
-            return false;
-        }
-
-        if (name == null) {
-            if (other.name != null) {
-                return false;
-            }
-        } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
-            return false;
-        }
-        if (projectTypeId == null) {
-            if (other.projectTypeId != null) {
-                return false;
-            }
-        } else if (!projectTypeId.equals(other.projectTypeId)) {
-            return false;
-        }
-        if (workspaceId == null) {
-            if (other.workspaceId != null) {
-                return false;
-            }
-        } else if (!workspaceId.equals(other.workspaceId)) {
-            return false;
-        }
-        return true;
-    }
 }

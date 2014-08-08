@@ -12,8 +12,10 @@ package com.codenvy.client.core;
 
 import com.codenvy.client.core.model.DefaultProjectBuilder;
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.WorkspaceReference;
 
+import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -27,7 +29,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.util.Arrays;
+import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.zip.ZipInputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -43,7 +48,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class ProjectClientIT extends AbstractIT {
     private static WorkspaceReference workspace;
-    private static Project            projectPrj1;
+    private static ProjectReference   projectReferencePrj1;
 
     @BeforeClass
     public static void initialize() {
@@ -53,39 +58,39 @@ public class ProjectClientIT extends AbstractIT {
 
         assertNotNull(workspace);
 
-        projectPrj1 = new DefaultProjectBuilder().withProjectTypeId("maven")
-                                                 .withName("prj1")
-                                                 .withDescription("description")
-                                                 .withWorkspaceId(workspace.id())
-                                                 .withWorkspaceName(workspace.name())
-                                                 .build();
+        projectReferencePrj1 = new DefaultProjectBuilder().withProjectTypeId("maven")
+                                                          .withName("prj1")
+                                                          .withDescription("description")
+                                                          .withWorkspaceId(workspace.id())
+                                                          .withWorkspaceName(workspace.name())
+                                                          .build();
 
         codenvy.project()
-               .create(projectPrj1)
+               .create(projectReferencePrj1)
                .execute();
 
-        assertNotNull(projectPrj1);
+        assertNotNull(projectReferencePrj1);
 
 
         final URI uri = UriBuilder.fromUri(REST_API_URL).path("api/project").build();
         final WebTarget webTarget = ClientBuilder.newClient().target(uri);
-        webTarget.path(projectPrj1.workspaceId())
+        webTarget.path(projectReferencePrj1.workspaceId())
                  .path("folder")
-                 .path(projectPrj1.name())
+                 .path(projectReferencePrj1.name())
                  .path("src")
                  .request()
                  .post(null);
 
-        webTarget.path(projectPrj1.workspaceId())
+        webTarget.path(projectReferencePrj1.workspaceId())
                  .path("file")
-                 .path(projectPrj1.name())
+                 .path(projectReferencePrj1.name())
                  .queryParam("name", "src/file.txt")
                  .request()
                  .post(Entity.text(ProjectClientIT.class.getResourceAsStream("/file.txt")));
 
-        webTarget.path(projectPrj1.workspaceId())
+        webTarget.path(projectReferencePrj1.workspaceId())
                  .path("file")
-                 .path(projectPrj1.name())
+                 .path(projectReferencePrj1.name())
                  .queryParam("name", "src/file2.txt")
                  .request()
                  .post(Entity.text(ProjectClientIT.class.getResourceAsStream("/file.txt")));
@@ -100,18 +105,62 @@ public class ProjectClientIT extends AbstractIT {
 
     @Test
     public void testGetWorkspaceProjects() {
-        final List<Project> projects = codenvy.project()
+        final List<ProjectReference> projectReferences = codenvy.project()
                                               .getWorkspaceProjects(workspace.id())
                                               .execute();
 
-        assertNotNull(projects);
-        assertFalse(projects.isEmpty());
-        assertTrue(projects.size() == 1);
-        Project project = projects.get(0);
+        assertNotNull(projectReferences);
+        assertFalse(projectReferences.isEmpty());
+        assertTrue(projectReferences.size() == 1);
+        ProjectReference projectReference = projectReferences.get(0);
+        assertNotNull(projectReference);
+        assertNotNull("id", projectReference.id());
+        assertEquals("prj1", projectReference.name());
+    }
+
+    @Test
+    public void testGetWorkspaceProject() {
+        final Project project = codenvy.project()
+                                                                .getProject(workspace.id(), "prj1")
+                                                                .execute();
         assertNotNull(project);
-        assertNotNull("id", project.id());
         assertEquals("prj1", project.name());
     }
+
+    @Test
+    public void testGetWorkspaceProjectPermissions() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        List<String> permissions = project.userPermissions();
+        // Check we've the permissions
+        assertNotNull(permissions);
+        Collection<String> expected = Arrays.asList("read", "write", "update_acl", "build", "run");
+
+        assertTrue(permissions.containsAll(expected));
+    }
+
+    @Test
+    public void testGetWorkspaceProjectAttributes() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        Map<String, List<String>> attributes = project.attributes();
+        // Check we've the attributes
+        assertNotNull(attributes);
+
+        assertTrue(attributes.containsKey("language"));
+        assertTrue(attributes.containsKey("builder.name"));
+
+        // builder name
+        List<String> builders = attributes.get("builder.name");
+        assertEquals(1, builders.size());
+        assertEquals("maven", builders.get(0));
+
+    }
+
 
     @Test(expected = NullPointerException.class)
     public void testCreateWithNullProject() {
@@ -130,7 +179,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testExportResources() {
         final ZipInputStream zipInputStream = codenvy.project()
-                                                     .exportResources(projectPrj1, null)
+                                                     .exportResources(projectReferencePrj1, null)
                                                      .execute();
 
         assertNotNull(zipInputStream);
@@ -148,7 +197,7 @@ public class ProjectClientIT extends AbstractIT {
     public void testImportArchiveWithNullWorkspace() {
         codenvy.project()
                .importArchive(null,
-                              projectPrj1,
+                              projectReferencePrj1,
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();
     }
@@ -166,7 +215,7 @@ public class ProjectClientIT extends AbstractIT {
     public void testImportArchiveWithNullInputStream() {
         codenvy.project()
                .importArchive(workspace.id(),
-                              projectPrj1,
+                              projectReferencePrj1,
                               null)
                .execute();
     }
@@ -175,11 +224,11 @@ public class ProjectClientIT extends AbstractIT {
     public void testImportArchive() throws IOException {
         codenvy.project()
                .importArchive(workspace.id(),
-                              projectPrj1,
+                              projectReferencePrj1,
                               ProjectClientIT.class.getResourceAsStream("/archiveToImport.zip"))
                .execute();
 
-        assertTrue(codenvy.project().hasFile(projectPrj1, "/fileToImport.txt").execute());
+        assertTrue(codenvy.project().hasFile(projectReferencePrj1, "/fileToImport.txt").execute());
     }
 
     @Test(expected = NullPointerException.class)
@@ -192,14 +241,14 @@ public class ProjectClientIT extends AbstractIT {
     @Test(expected = NullPointerException.class)
     public void testUpdateFileWithNullFilePath() {
         codenvy.project()
-               .updateFile(projectPrj1, null, new ByteArrayInputStream(new byte[0]))
+               .updateFile(projectReferencePrj1, null, new ByteArrayInputStream(new byte[0]))
                .execute();
     }
 
     @Test(expected = NullPointerException.class)
     public void testUpdateFileWithNullInputStream() {
         codenvy.project()
-               .updateFile(projectPrj1, "dummyPath", null)
+               .updateFile(projectReferencePrj1, "dummyPath", null)
                .execute();
     }
 
@@ -213,18 +262,18 @@ public class ProjectClientIT extends AbstractIT {
     @Test(expected = NullPointerException.class)
     public void testGetFileWithNullFilePath() {
         codenvy.project()
-               .getFile(projectPrj1, null)
+               .getFile(projectReferencePrj1, null)
                .execute();
     }
 
     @Test
     public void testUpdateAndGetFile() throws IOException {
         codenvy.project()
-               .updateFile(projectPrj1, "src/file.txt", new ByteArrayInputStream("content2".getBytes()))
+               .updateFile(projectReferencePrj1, "src/file.txt", new ByteArrayInputStream("content2".getBytes()))
                .execute();
 
         final InputStream stream = codenvy.project()
-                                          .getFile(projectPrj1, "src/file.txt")
+                                          .getFile(projectReferencePrj1, "src/file.txt")
                                           .execute();
 
         final BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
@@ -250,21 +299,21 @@ public class ProjectClientIT extends AbstractIT {
     @Test(expected = NullPointerException.class)
     public void testHasFolderWithNullResourcePath() {
         codenvy.project()
-               .hasFolder(projectPrj1, null)
+               .hasFolder(projectReferencePrj1, null)
                .execute();
     }
 
     @Test(expected = NullPointerException.class)
     public void testHasFileWithNullResourcePath() {
         codenvy.project()
-               .hasFile(projectPrj1, null)
+               .hasFile(projectReferencePrj1, null)
                .execute();
     }
 
     @Test
     public void testHasFile() {
         final boolean result = codenvy.project()
-                                      .hasFile(projectPrj1, "src/file.txt")
+                                      .hasFile(projectReferencePrj1, "src/file.txt")
                                       .execute();
 
         assertTrue(result);
@@ -273,7 +322,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testHasFileNotExist() {
         final boolean result = codenvy.project()
-                                      .hasFile(projectPrj1, "src/filedoesnotexit.txt")
+                                      .hasFile(projectReferencePrj1, "src/filedoesnotexit.txt")
                                       .execute();
 
         assertFalse(result);
@@ -282,7 +331,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testHasFolder() {
         final boolean result = codenvy.project()
-                                      .hasFolder(projectPrj1, "src")
+                                      .hasFolder(projectReferencePrj1, "src")
                                       .execute();
 
         assertTrue(result);
@@ -291,7 +340,7 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testHasFolderNotExist() {
         final boolean result = codenvy.project()
-                                      .hasFolder(projectPrj1, "doesnotexist")
+                                      .hasFolder(projectReferencePrj1, "doesnotexist")
                                       .execute();
 
         assertFalse(result);
@@ -300,11 +349,11 @@ public class ProjectClientIT extends AbstractIT {
     @Test
     public void testDeleteAndIsResources() {
         codenvy.project()
-               .deleteResources(projectPrj1, "src/file2.txt")
+               .deleteResources(projectReferencePrj1, "src/file2.txt")
                .execute();
 
         final boolean exists = codenvy.project()
-                                      .hasFile(projectPrj1, "src/file2.txt")
+                                      .hasFile(projectReferencePrj1, "src/file2.txt")
                                       .execute();
 
         assertFalse(exists);

@@ -14,9 +14,8 @@ import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultBuilderStatus;
-import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.model.BuilderStatus;
-import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectReference;
 import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
@@ -46,22 +45,22 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
     }
 
     /**
-     * Builds the given {@link com.codenvy.client.core.model.DefaultProject} on codenvy.
+     * Builds the given {@link com.codenvy.client.core.model.DefaultProjectReference} on codenvy.
      * 
-     * @param project the project to build.
+     * @param projectReference the project to build.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<BuilderStatus> build(Project project) {
-        checkNotNull(project);
+    public Request<BuilderStatus> build(ProjectReference projectReference) {
+        checkNotNull(projectReference);
 
-        String projectPath = project.name();
+        String projectPath = projectReference.name();
         if (!projectPath.startsWith("/")) {
             projectPath = "/".concat(projectPath);
         }
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("build")
                                                  .queryParam("project", projectPath)
                                                  .request()
@@ -74,16 +73,16 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
     /**
      * Gets the status of the builder with the given task id.
      * 
-     * @param project the project.
+     * @param projectReference the project.
      * @param taskId the builder task id.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<BuilderStatus> status(Project project, long taskId) {
-        checkNotNull(project);
+    public Request<BuilderStatus> status(ProjectReference projectReference, long taskId) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("status")
                                                  .path(String.valueOf(taskId))
                                                  .request()
@@ -96,16 +95,16 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
     /**
      * Gets the logs of the builder with the given task id.
      * 
-     * @param project the project.
+     * @param projectReference the project.
      * @param taskId the builder task id.
      * @return the builder logs.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<String> logs(Project project, long taskId) {
-        checkNotNull(project);
+    public Request<String> logs(ProjectReference projectReference, long taskId) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("logs")
                                                  .path(String.valueOf(taskId))
                                                  .request()
@@ -118,16 +117,16 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
     /**
      * Cancels the builder with the given task id.
      * 
-     * @param project the project.
+     * @param projectReference the project.
      * @param taskId the builder task id.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
      * @throws NullPointerException if project parameter is {@code null}.
      */
     @Override
-    public Request<BuilderStatus> cancel(Project project, long taskId) {
-        checkNotNull(project);
+    public Request<BuilderStatus> cancel(ProjectReference projectReference, long taskId) {
+        checkNotNull(projectReference);
 
-        final Invocation request = getWebTarget().path(project.workspaceId())
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("cancel")
                                                  .path(String.valueOf(taskId))
                                                  .request()
@@ -139,14 +138,14 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Gets the project builds for the given project
-     * @param project the project.
+     * @param projectReference the project.
      * @return the different statuses.
      * @throws NullPointerException if project parameter is {@code null}.
      */
-    public Request<List<BuilderStatus>> builds(Project project) {
-        final Invocation request = getWebTarget().path(project.workspaceId())
+    public Request<List<BuilderStatus>> builds(ProjectReference projectReference) {
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
                                                  .path("builds")
-                                                 .queryParam("project", project.name())
+                                                 .queryParam("project", projectReference.name())
                                                  .request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
