@@ -11,11 +11,11 @@
 package com.codenvy.client.core.store;
 
 
-import org.junit.Assert;
-import org.junit.Test;
-
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.store.DataStoreFactory;
+
+import org.junit.Assert;
+import org.junit.Test;
 
 /**
  * {@link InMemoryDataStoreFactory} tests.

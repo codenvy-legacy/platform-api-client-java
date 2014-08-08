@@ -10,12 +10,12 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.codenvy.client.model.User;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class represents the user resource on Codenvy.
@@ -24,13 +24,13 @@ import com.fasterxml.jackson.annotation.JsonProperty;
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultUser implements User {
-    public String id;
-    public String password;
-    public String email;
+    private final String id;
+    private final String password;
+    private final String email;
 
     /**
      * Constructs an instance of {@linkplain DefaultUser}.
-     * 
+     *
      * @param id the user id.
      * @param password the user password.
      * @param email the user email.

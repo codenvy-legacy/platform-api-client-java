@@ -22,7 +22,7 @@ public class DefaultTokenBuilder implements TokenBuilder {
     /**
      * Value of the token.
      */
-    private String value;
+    private final String value;
 
     /**
      * Build a new token builder with the specified value

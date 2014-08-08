@@ -10,10 +10,10 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import com.codenvy.client.model.User;
+
 import org.junit.Assert;
 import org.junit.Test;
-
-import com.codenvy.client.model.User;
 
 /**
  * {@linkplain com.codenvy.client.core.DefaultUserClient UserService} tests.

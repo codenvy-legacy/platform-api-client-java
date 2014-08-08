@@ -10,15 +10,15 @@
  *******************************************************************************/
 package com.codenvy.client.core.store;
 
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.Test;
-
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
 import com.codenvy.client.core.auth.DefaultToken;
 import com.codenvy.client.store.DataStore;
 import com.codenvy.client.store.DataStoreFactory;
+
+import org.junit.Assert;
+import org.junit.Before;
+import org.junit.Test;
 
 /**
  * {@link InMemoryDataStore} tests.
@@ -31,13 +31,12 @@ public class InMemoryDataStoreTest {
     private static final String DUMMY_PASSWORD      = "dummyPassword";
     private static final String DUMMY_TOKEN         = "dummyToken";
 
-    private DataStoreFactory<String, Credentials> dataStoreFactory;
     private DataStore<String, Credentials> dataStore;
     private Credentials                    credentials;
 
     @Before
     public void before() {
-        this.dataStoreFactory = new InMemoryDataStoreFactory();
+        DataStoreFactory<String, Credentials> dataStoreFactory = new InMemoryDataStoreFactory();
         this.dataStore = dataStoreFactory.getDataStore(DUMMY_DATASTORE_KEY);
         this.credentials = new DefaultCredentialsBuilder().withPassword(DUMMY_PASSWORD)
                                                            .withToken(new DefaultToken(DUMMY_TOKEN))

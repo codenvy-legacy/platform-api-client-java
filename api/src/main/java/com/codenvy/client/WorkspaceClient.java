@@ -11,10 +11,10 @@
 package com.codenvy.client;
 
 
-import java.util.List;
-
 import com.codenvy.client.model.Workspace;
 import com.codenvy.client.model.WorkspaceReference;
+
+import java.util.List;
 
 /**
  *  The Codenvy workspace API client.

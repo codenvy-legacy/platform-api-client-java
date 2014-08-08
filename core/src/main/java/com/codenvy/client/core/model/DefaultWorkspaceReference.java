@@ -10,14 +10,14 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.codenvy.client.model.WorkspaceReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class represents the workspace reference resource on Codenvy.
@@ -27,10 +27,10 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @JsonInclude(NON_NULL)
 public class DefaultWorkspaceReference implements WorkspaceReference {
-    private final String id;
-    private final String name;
-    private final String organizationId;
-    private boolean temporary;
+    private final String  id;
+    private final String  name;
+    private final String  organizationId;
+    private final boolean temporary;
 
     /**
      * Constructs an instance of {@linkplain com.codenvy.client.model.WorkspaceReference}.
@@ -86,32 +86,39 @@ public class DefaultWorkspaceReference implements WorkspaceReference {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DefaultWorkspaceReference other = (DefaultWorkspaceReference)obj;
         if (organizationId == null) {
-            if (other.organizationId != null)
+            if (other.organizationId != null) {
                 return false;
-        } else if (!organizationId.equals(other.organizationId))
+            }
+        } else if (!organizationId.equals(other.organizationId)) {
             return false;
+        }
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
-        if (other.temporary != temporary)
-                return false;
+        }
+        return other.temporary == temporary;
 
-        return true;
     }
 
 }

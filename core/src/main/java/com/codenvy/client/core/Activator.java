@@ -10,26 +10,20 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import java.util.Dictionary;
-import java.util.Hashtable;
+import com.codenvy.client.CodenvyAPI;
+import com.codenvy.client.CodenvyClient;
 
 import org.osgi.framework.BundleActivator;
 import org.osgi.framework.BundleContext;
 
-import com.codenvy.client.CodenvyAPI;
-import com.codenvy.client.CodenvyClient;
+import java.util.Dictionary;
+import java.util.Properties;
 
 /**
  * OSGi Activator that will register the Codenvy Client
  * @author Florent Benoit
  */
 public class Activator implements BundleActivator {
-
-    /**
-     * Bundle context.
-     */
-    @SuppressWarnings("unused")
-    private BundleContext bundleContext;
 
 
     /**
@@ -49,7 +43,6 @@ public class Activator implements BundleActivator {
      * bundle's listeners, unregister all services registered by this bundle, and release all services used by this bundle.
      */
     public void start(BundleContext context) throws Exception {
-        this.bundleContext = context;
 
         // build implementation
         DefaultCodenvyClient defaultCodenvyClient = new DefaultCodenvyClient();
@@ -60,7 +53,7 @@ public class Activator implements BundleActivator {
         // Also register it as OSGi Service...
 
         // add as property the implementation name
-        Dictionary<String, String> props = new Hashtable<String, String>();
+        Dictionary props = new Properties();
         props.put(CodenvyClient.class.getName(), DefaultCodenvyClient.class.getName());
 
         // register

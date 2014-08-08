@@ -10,14 +10,13 @@
  *******************************************************************************/
 package com.codenvy.client.core.auth;
 
-import java.io.IOException;
+import com.codenvy.client.auth.Token;
 
 import javax.ws.rs.client.ClientRequestContext;
 import javax.ws.rs.client.ClientRequestFilter;
 import javax.ws.rs.core.UriBuilder;
 import javax.ws.rs.ext.Provider;
-
-import com.codenvy.client.auth.Token;
+import java.io.IOException;
 
 /**
  * Filter used to inject {@link Token} in client request.

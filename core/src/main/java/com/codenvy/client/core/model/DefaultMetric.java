@@ -25,17 +25,17 @@ public class DefaultMetric implements RunnerMetric, BuilderMetric {
     /**
      * Name of the metric.
      */
-    private String name;
+    private final String name;
 
     /**
      * Value of the metric.
      */
-    private String value;
+    private final String value;
 
     /**
-     * Desscription of the metric.
+     * Description of the metric.
      */
-    private String description;
+    private final String description;
 
     /**
      * Constructs an instance of both {@link com.codenvy.client.model.runner.RunnerMetric} and {@link com.codenvy.client.model.builder.BuilderMetric}.

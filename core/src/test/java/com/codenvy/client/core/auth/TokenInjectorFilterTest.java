@@ -10,21 +10,20 @@
  *******************************************************************************/
 package com.codenvy.client.core.auth;
 
+import org.junit.Assert;
+import org.junit.Test;
+
+import javax.ws.rs.client.ClientRequestContext;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+
 import static com.codenvy.client.core.auth.TokenInjectorFilter.TOKEN_PROPERTY_NAME;
 import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import java.io.IOException;
-import java.net.URI;
-import java.net.URISyntaxException;
-
-import javax.ws.rs.client.ClientRequestContext;
-
-import org.junit.Assert;
-import org.junit.Test;
 
 /**
  * {@link TokenInjectorFilter} tests.

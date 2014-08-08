@@ -10,27 +10,25 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static javax.ws.rs.core.Response.Status.FORBIDDEN;
-import static javax.ws.rs.core.Response.Status.OK;
-import static javax.ws.rs.core.Response.Status.UNAUTHORIZED;
-import static org.mockito.Mockito.mock;
-import static org.mockito.Mockito.times;
-import static org.mockito.Mockito.verify;
-import static org.mockito.Mockito.when;
+import com.codenvy.client.CodenvyUnknownHostException;
+import com.codenvy.client.core.auth.AuthenticationManager;
+import com.codenvy.client.core.auth.DefaultToken;
 
-import java.net.URISyntaxException;
-import java.net.UnknownHostException;
+import org.junit.Test;
 
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
+import java.net.URISyntaxException;
+import java.net.UnknownHostException;
 
-import org.junit.Test;
-
-import com.codenvy.client.CodenvyUnknownHostException;
-import com.codenvy.client.core.auth.AuthenticationManager;
-import com.codenvy.client.core.auth.DefaultToken;
+import static javax.ws.rs.core.Response.Status.FORBIDDEN;
+import static javax.ws.rs.core.Response.Status.OK;
+import static org.mockito.Mockito.mock;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 /**
  * {@link com.codenvy.client.core.SimpleRequest} tests.
@@ -81,7 +79,7 @@ public class SimpleRequestTest {
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         when(authenticationManager.getToken()).thenReturn(new DefaultToken("123123"));
 
-        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
         verify(authenticationManager, times(1)).getToken();
@@ -101,7 +99,7 @@ public class SimpleRequestTest {
         when(authenticationManager.getToken()).thenReturn(null);
         when(authenticationManager.authorize()).thenReturn(new DefaultToken("123123"));
 
-        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
         verify(authenticationManager, times(1)).getToken();
@@ -120,7 +118,7 @@ public class SimpleRequestTest {
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         when(authenticationManager.getToken()).thenReturn(new DefaultToken("123123"));
 
-        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
         verify(authenticationManager, times(1)).getToken();
@@ -140,7 +138,7 @@ public class SimpleRequestTest {
         when(authenticationManager.getToken()).thenReturn(null);
         when(authenticationManager.authorize()).thenReturn(new DefaultToken("123123"));
 
-        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<>(request, Response.class, authenticationManager);
         simpleRequest.execute();
 
         verify(authenticationManager, times(1)).getToken();
@@ -156,7 +154,7 @@ public class SimpleRequestTest {
         final AuthenticationManager authenticationManager = mock(AuthenticationManager.class);
         when(authenticationManager.getToken()).thenReturn(new DefaultToken("123123"));
 
-        final SimpleRequest<Response> simpleRequest = new SimpleRequest<Response>(request, Response.class, authenticationManager);
+        final SimpleRequest<Response> simpleRequest = new SimpleRequest<>(request, Response.class, authenticationManager);
         simpleRequest.execute();
     }
 }

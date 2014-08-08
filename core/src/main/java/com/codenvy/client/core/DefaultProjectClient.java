@@ -168,10 +168,10 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      * Upload a local ZIP folder.
      *
      * @param workspaceId the workspace id in which the ZIP folder will be imported.
-     * @param project the pre-exisiting {@link Project} in which the archive content should be imported.
+     * @param project the pre-existing {@link Project} in which the archive content should be imported.
      * @param archiveInputStream the archive {@link InputStream}.
      * @return the {@link Request} pointing to a {@link Void} result.
-     * @throws NullPointerException if workspaceId, projectName or archiveInputStrem parameters are {@code null}.
+     * @throws NullPointerException if workspaceId, projectName or archiveInputStream parameters are {@code null}.
      */
     @Override
     public Request<Void> importArchive(String workspaceId, Project project, InputStream archiveInputStream) {

@@ -10,14 +10,14 @@
  *******************************************************************************/
 package com.codenvy.client.core.store;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.codenvy.client.auth.Credentials;
+import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
+import com.codenvy.client.store.DataStore;
 
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.ConcurrentMap;
 
-import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
-import com.codenvy.client.store.DataStore;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link DataStore} implementation which stores user credentials in memory.

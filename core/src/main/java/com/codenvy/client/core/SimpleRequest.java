@@ -10,16 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static com.codenvy.client.core.auth.TokenInjectorFilter.TOKEN_PROPERTY_NAME;
-import static com.google.common.base.Preconditions.checkNotNull;
-
-import java.net.UnknownHostException;
-
-import javax.ws.rs.ProcessingException;
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.GenericType;
-import javax.ws.rs.core.Response.Status;
-
 import com.codenvy.client.CodenvyErrorException;
 import com.codenvy.client.CodenvyException;
 import com.codenvy.client.CodenvyUnknownHostException;
@@ -27,6 +17,15 @@ import com.codenvy.client.Request;
 import com.codenvy.client.Response;
 import com.codenvy.client.auth.Token;
 import com.codenvy.client.core.auth.AuthenticationManager;
+
+import javax.ws.rs.ProcessingException;
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
+import javax.ws.rs.core.Response.Status;
+import java.net.UnknownHostException;
+
+import static com.codenvy.client.core.auth.TokenInjectorFilter.TOKEN_PROPERTY_NAME;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link com.codenvy.client.Request} implementation reading the body of the {@link javax.ws.rs.core.Response}.
@@ -164,7 +163,7 @@ public class SimpleRequest<T> implements Request<T> {
             return response.readEntity(entityType);
         }
 
-        throw CodenvyErrorExceptioHelper.from(response);
+        throw CodenvyErrorExceptionHelper.from(response);
     }
 
     /**
@@ -180,6 +179,6 @@ public class SimpleRequest<T> implements Request<T> {
             return response.readEntity(genericEntityType);
         }
 
-        throw CodenvyErrorExceptioHelper.from(response);
+        throw CodenvyErrorExceptionHelper.from(response);
     }
 }

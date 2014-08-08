@@ -22,9 +22,9 @@ import java.util.Map;
  */
 public class DefaultResponseAdaptor<T, S> implements Response<T> {
 
-    private Response<S> wrappedResponse;
+    private final Response<S> wrappedResponse;
 
-    private Adaptor<T, S> adaptor;
+    private final Adaptor<T, S> adaptor;
 
     public DefaultResponseAdaptor(Adaptor<T, S> adaptor, Response<S> wrappedResponse) {
         this.adaptor = adaptor;

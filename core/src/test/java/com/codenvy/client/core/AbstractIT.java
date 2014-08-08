@@ -10,15 +10,15 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import java.io.IOException;
-import java.util.Properties;
+import com.codenvy.client.Codenvy;
+import com.codenvy.client.auth.Credentials;
+import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
 
 import org.junit.Assert;
 import org.junit.BeforeClass;
 
-import com.codenvy.client.Codenvy;
-import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
+import java.io.IOException;
+import java.util.Properties;
 
 
 /**

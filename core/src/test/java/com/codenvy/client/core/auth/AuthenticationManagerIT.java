@@ -10,6 +10,16 @@
  *******************************************************************************/
 package com.codenvy.client.core.auth;
 
+import com.codenvy.client.auth.CodenvyAuthenticationException;
+import com.codenvy.client.auth.Credentials;
+import com.codenvy.client.auth.CredentialsProvider;
+import com.codenvy.client.auth.Token;
+import com.codenvy.client.core.AbstractIT;
+import com.codenvy.client.store.DataStore;
+
+import org.junit.Assert;
+import org.junit.Test;
+
 import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyString;
 import static org.mockito.Matchers.eq;
@@ -17,16 +27,6 @@ import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
-
-import org.junit.Assert;
-import org.junit.Test;
-
-import com.codenvy.client.auth.CodenvyAuthenticationException;
-import com.codenvy.client.auth.Credentials;
-import com.codenvy.client.auth.CredentialsProvider;
-import com.codenvy.client.auth.Token;
-import com.codenvy.client.core.AbstractIT;
-import com.codenvy.client.store.DataStore;
 
 /**
  * {@link AuthenticationManager} tests.
@@ -38,6 +38,7 @@ public class AuthenticationManagerIT extends AbstractIT {
     private final Credentials credentialsWithToken;
 
     public AuthenticationManagerIT() {
+        super();
         this.credentials = new DefaultCredentialsBuilder().withUsername(DUMMY_USERNAME)
                                      .withPassword(DUMMY_PASSWORD)
                                      .build();

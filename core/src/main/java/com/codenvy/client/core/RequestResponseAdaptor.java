@@ -10,11 +10,11 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.codenvy.client.CodenvyException;
 import com.codenvy.client.Request;
 import com.codenvy.client.Response;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link com.codenvy.client.Request} implementation adapting an API request response to another type.
@@ -52,7 +52,7 @@ public class RequestResponseAdaptor<T, S> implements Request<T> {
         Response<S> details = adaptee.response();
 
         // adaptor is for the value
-        return new DefaultResponseAdaptor<T, S>(adaptor, details);
+        return new DefaultResponseAdaptor<>(adaptor, details);
     }
 
 

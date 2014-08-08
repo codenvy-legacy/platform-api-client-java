@@ -10,11 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.codenvy.client.core.model.DefaultLink.WEB_LINK_REL_ATTRIBUTE_VALUE;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import com.codenvy.client.model.Link;
 import com.codenvy.client.model.RunnerState;
 import com.codenvy.client.model.RunnerStatus;
@@ -24,6 +19,11 @@ import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableList;
+
+import java.util.ArrayList;
+import java.util.List;
+
+import static com.codenvy.client.core.model.DefaultLink.WEB_LINK_REL_ATTRIBUTE_VALUE;
 
 /**
  * The codenvy runner object model.

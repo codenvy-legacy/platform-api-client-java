@@ -10,14 +10,14 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static org.mockito.Mockito.mock;
-
-import org.junit.Test;
-
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.CredentialsProvider;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
+
+import org.junit.Test;
+
+import static org.mockito.Mockito.mock;
 
 /**
  * {@link com.codenvy.client.core.AbstractClient} tests.
@@ -28,6 +28,7 @@ public class AbstractClientIT extends AbstractIT {
     private final AuthenticationManager dummyAuthenticationManager;
 
     public AbstractClientIT() {
+        super();
         final Credentials dummyCredentials = new DefaultCredentialsBuilder().withUsername(DUMMY_USERNAME)
                                                                       .withPassword(DUMMY_PASSWORD)
                                                                       .build();

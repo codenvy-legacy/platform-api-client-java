@@ -10,28 +10,25 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
+import com.codenvy.client.core.model.DefaultProjectBuilder;
+import com.codenvy.client.model.Project;
+import com.codenvy.client.model.WorkspaceReference;
+
+import org.junit.BeforeClass;
+import org.junit.Test;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.Entity;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
 import java.util.List;
 import java.util.zip.ZipInputStream;
-
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.Entity;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.UriBuilder;
-
-import org.junit.Assert;
-import org.junit.BeforeClass;
-import org.junit.Test;
-
-import com.codenvy.client.core.model.DefaultProjectBuilder;
-import com.codenvy.client.model.Project;
-import com.codenvy.client.model.WorkspaceReference;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
@@ -175,7 +172,7 @@ public class ProjectClientIT extends AbstractIT {
     }
 
     @Test
-    public void testImportArchive() throws FileNotFoundException, IOException {
+    public void testImportArchive() throws IOException {
         codenvy.project()
                .importArchive(workspace.id(),
                               projectPrj1,

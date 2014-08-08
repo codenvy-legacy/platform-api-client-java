@@ -10,14 +10,14 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
-import javax.ws.rs.client.Invocation;
-
 import com.codenvy.client.Request;
 import com.codenvy.client.UserClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultUser;
+
+import javax.ws.rs.client.Invocation;
+
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * The Codenvy user API client.
@@ -47,6 +47,6 @@ public class DefaultUserClient extends AbstractClient implements UserClient {
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<DefaultUser>(request, DefaultUser.class, getAuthenticationManager());
+        return new SimpleRequest<>(request, DefaultUser.class, getAuthenticationManager());
     }
 }

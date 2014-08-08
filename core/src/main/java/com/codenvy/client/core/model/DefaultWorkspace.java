@@ -10,13 +10,13 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.codenvy.client.model.Workspace;
 import com.codenvy.client.model.WorkspaceReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class represents the workspace resource on Codenvy.
@@ -57,18 +57,23 @@ public class DefaultWorkspace implements Workspace {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DefaultWorkspace other = (DefaultWorkspace)obj;
         if (workspaceReference == null) {
-            if (other.workspaceReference != null)
+            if (other.workspaceReference != null) {
                 return false;
-        } else if (!workspaceReference.equals(other.workspaceReference))
+            }
+        } else if (!workspaceReference.equals(other.workspaceReference)) {
             return false;
+        }
         return true;
     }
 

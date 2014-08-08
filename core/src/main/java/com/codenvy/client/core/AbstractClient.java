@@ -10,15 +10,15 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import com.codenvy.client.core.auth.AuthenticationManager;
+import com.codenvy.client.core.auth.TokenInjectorFilter;
+import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.UriBuilder;
 
-import com.codenvy.client.core.auth.AuthenticationManager;
-import com.codenvy.client.core.auth.TokenInjectorFilter;
-import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Abstract client class.

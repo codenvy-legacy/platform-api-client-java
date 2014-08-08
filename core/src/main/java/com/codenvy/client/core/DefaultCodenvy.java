@@ -10,8 +10,6 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-
 import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Codenvy;
 import com.codenvy.client.UserClient;
@@ -20,6 +18,8 @@ import com.codenvy.client.auth.CredentialsProvider;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.store.DataStore;
 import com.codenvy.client.store.DataStoreFactory;
+
+import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Codenvy client API entry point.

@@ -26,17 +26,17 @@ public class DefaultResponse<T> implements Response<T> {
     /**
      * Wrapped object.
      */
-    private T value;
+    private final T value;
 
     /**
      * JAX-RS Response
      */
-    private javax.ws.rs.core.Response jaxRsResponse;
+    private final javax.ws.rs.core.Response jaxRsResponse;
 
 
     /**
      * Default constructor wrapping value and response
-     * @param jaxRsResponse the JAX-RS reponse
+     * @param jaxRsResponse the JAX-RS response
      * @param value the value unwrapped from the response
      */
     public DefaultResponse(javax.ws.rs.core.Response jaxRsResponse, T value) {

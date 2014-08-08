@@ -10,24 +10,23 @@
  *******************************************************************************/
 package com.codenvy.client.core.auth;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.ws.rs.client.Entity.json;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-
-import java.net.URI;
-
-import javax.ws.rs.client.ClientBuilder;
-import javax.ws.rs.client.WebTarget;
-import javax.ws.rs.core.Response;
-import javax.ws.rs.core.Response.Status;
-import javax.ws.rs.core.UriBuilder;
-
 import com.codenvy.client.auth.CodenvyAuthenticationException;
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.CredentialsProvider;
 import com.codenvy.client.auth.Token;
 import com.codenvy.client.store.DataStore;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
+
+import javax.ws.rs.client.ClientBuilder;
+import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Response;
+import javax.ws.rs.core.Response.Status;
+import javax.ws.rs.core.UriBuilder;
+import java.net.URI;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.ws.rs.client.Entity.json;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * Authentication manager used to authenticate an user with the Codenvy platform.
@@ -80,7 +79,7 @@ public class AuthenticationManager {
      * Authorises the contextual user with the Codenvy platform.
      * 
      * @return the authentication {@link Token}.
-     * @throws com.codenvy.client.auth.CodenvyAuthenticationException if there is a problem during the token negociation.
+     * @throws com.codenvy.client.auth.CodenvyAuthenticationException if there is a problem during the token negotiation.
      */
     public Token authorize() throws CodenvyAuthenticationException {
         return authorize(credentials);
@@ -91,7 +90,7 @@ public class AuthenticationManager {
      * 
      * @param credentials the user {@link Credentials}.
      * @return the authentication {@link Token}.
-     * @throws CodenvyAuthenticationException if there is a problem during the token negociation.
+     * @throws CodenvyAuthenticationException if there is a problem during the token negotiation.
      */
     private Token authorize(Credentials credentials) throws CodenvyAuthenticationException {
         if (credentials == null || credentials.password() == null) {

@@ -10,9 +10,9 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import java.util.Date;
-
 import com.codenvy.client.model.ProjectBuilder;
+
+import java.util.Date;
 
 /**
  * The Codenvy project builder.

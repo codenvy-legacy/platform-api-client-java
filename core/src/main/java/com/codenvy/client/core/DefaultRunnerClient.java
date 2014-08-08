@@ -10,23 +10,20 @@
  *******************************************************************************/
 package com.codenvy.client.core;
 
-import static com.google.common.base.Preconditions.checkNotNull;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
-
-import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.GenericType;
-
 import com.codenvy.client.Request;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultRunnerStatus;
-import com.codenvy.client.core.model.DefaultWorkspace;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.RunnerStatus;
-import com.codenvy.client.model.Workspace;
 
+import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.GenericType;
 import java.util.List;
+
+import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
+import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 /**
  * The Codenvy runner API client.

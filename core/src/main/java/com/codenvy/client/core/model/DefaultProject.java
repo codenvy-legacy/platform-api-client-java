@@ -10,15 +10,15 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
-import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
-
-import java.util.Date;
-
 import com.codenvy.client.model.Project;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import java.util.Date;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
  * This class represents the project resource on Codenvy.
@@ -80,8 +80,8 @@ public class DefaultProject implements Project {
         this.name = name;
         this.description = description;
         this.workspaceName = workspaceName;
-        this.modificationDate = modificationDate;
-        this.creationDate = creationDate;
+        this.modificationDate = modificationDate != null ? new Date(modificationDate.getTime()) : null;
+        this.creationDate = creationDate != null ? new Date(creationDate.getTime()) : null;
         this.ideUrl = ideUrl;
     }
 
@@ -174,38 +174,52 @@ public class DefaultProject implements Project {
 
     @Override
     public boolean equals(Object obj) {
-        if (this == obj)
+        if (this == obj) {
             return true;
-        if (obj == null)
+        }
+        if (obj == null) {
             return false;
-        if (getClass() != obj.getClass())
+        }
+        if (getClass() != obj.getClass()) {
             return false;
+        }
         DefaultProject other = (DefaultProject)obj;
         if (creationDate == null) {
-            if (other.creationDate != null)
+            if (other.creationDate != null) {
                 return false;
-        } else if (!creationDate.equals(other.creationDate))
+            }
+        } else if (!creationDate.equals(other.creationDate)) {
             return false;
+        }
+
         if (name == null) {
-            if (other.name != null)
+            if (other.name != null) {
                 return false;
-        } else if (!name.equals(other.name))
+            }
+        } else if (!name.equals(other.name)) {
             return false;
+        }
         if (id == null) {
-            if (other.id != null)
+            if (other.id != null) {
                 return false;
-        } else if (!id.equals(other.id))
+            }
+        } else if (!id.equals(other.id)) {
             return false;
+        }
         if (projectTypeId == null) {
-            if (other.projectTypeId != null)
+            if (other.projectTypeId != null) {
                 return false;
-        } else if (!projectTypeId.equals(other.projectTypeId))
+            }
+        } else if (!projectTypeId.equals(other.projectTypeId)) {
             return false;
+        }
         if (workspaceId == null) {
-            if (other.workspaceId != null)
+            if (other.workspaceId != null) {
                 return false;
-        } else if (!workspaceId.equals(other.workspaceId))
+            }
+        } else if (!workspaceId.equals(other.workspaceId)) {
             return false;
+        }
         return true;
     }
 }

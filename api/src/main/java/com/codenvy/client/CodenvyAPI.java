@@ -18,22 +18,34 @@ import java.util.ServiceLoader;
  */
 public class CodenvyAPI {
 
-    private static CodenvyClient client;
+    /**
+     * Unique instance of this client.
+     */
+    private static volatile CodenvyClient client;
 
-    public static CodenvyClient setClient(CodenvyClient codenvyClient) {
-        CodenvyClient previous = client;
-        client = codenvyClient;
+    /**
+     * Utility class so no public constructor.
+     */
+    private CodenvyAPI() {
+
+    }
+
+    public static synchronized CodenvyClient setClient(CodenvyClient codenvyClient) {
+        CodenvyClient previous = CodenvyAPI.client;
+        CodenvyAPI.client = codenvyClient;
         return previous;
     }
+
 
     /**
      * @return the Codenvy Client.
      */
-    public static CodenvyClient getClient() {
+    public static synchronized CodenvyClient getClient() {
         if (client == null) {
             // Use context classloader to find implementation
-            ServiceLoader<CodenvyClient> codenvyClient = ServiceLoader.load(CodenvyClient.class, Thread.currentThread().getContextClassLoader());
-            if (codenvyClient == null || !codenvyClient.iterator().hasNext()) {
+            ServiceLoader<CodenvyClient> codenvyClient =
+                    ServiceLoader.load(CodenvyClient.class, Thread.currentThread().getContextClassLoader());
+            if (!codenvyClient.iterator().hasNext()) {
                 throw new CodenvyException("Unable to find an implementation of '" + CodenvyClient.class.getName() + "'. Check Implementation bundle is available on the platform or that implementation jar contains META-INF/services/com.codenvy.client.CodenvyClient key.");
             }
 

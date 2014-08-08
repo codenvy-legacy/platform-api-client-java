@@ -50,7 +50,7 @@ public class DefaultCodenvyClient implements CodenvyClient {
     }
 
     /**
-     * @param value
+     * @param value the value of the token
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     @Override

@@ -10,12 +10,12 @@
  *******************************************************************************/
 package com.codenvy.client;
 
+import com.codenvy.client.model.Project;
+import com.codenvy.client.model.Visibility;
+
 import java.io.InputStream;
 import java.util.List;
 import java.util.zip.ZipInputStream;
-
-import com.codenvy.client.model.Project;
-import com.codenvy.client.model.Visibility;
 
 /**
  * Client API for dealing with Project REST API.
