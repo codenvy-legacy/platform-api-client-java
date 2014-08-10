@@ -11,7 +11,7 @@
 package com.codenvy.client;
 
 /**
- * The Codenvy user API client.
+ * The Codenvy API client.
  * @author Florent Benoit
  */
 public interface Codenvy {
@@ -52,4 +52,10 @@ public interface Codenvy {
      */
     WorkspaceClient workspace();
 
+    /**
+     * Returns the version API client.
+     *
+     * @return the version API client.
+     */
+    VersionClient version();
 }

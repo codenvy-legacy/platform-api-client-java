@@ -47,9 +47,15 @@ public abstract class AbstractClient {
 
         this.authenticationManager = authenticationManager;
 
-        final UriBuilder uriBuilder = UriBuilder.fromUri(url)
-                                                .path("api")
-                                                .path(apiName);
+        final UriBuilder uriBuilder;
+        if ("".equals(apiName)) {
+            uriBuilder = UriBuilder.fromUri(url)
+                                   .path("api");
+        } else {
+            uriBuilder = UriBuilder.fromUri(url)
+                                   .path("api")
+                                   .path(apiName);
+        }
 
         this.webTarget = ClientBuilder.newClient()
                                       .target(uriBuilder)

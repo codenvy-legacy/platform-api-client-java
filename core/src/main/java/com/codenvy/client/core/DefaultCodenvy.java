@@ -13,6 +13,7 @@ package com.codenvy.client.core;
 import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Codenvy;
 import com.codenvy.client.UserClient;
+import com.codenvy.client.VersionClient;
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.CredentialsProvider;
 import com.codenvy.client.core.auth.AuthenticationManager;
@@ -104,6 +105,16 @@ public class DefaultCodenvy implements Codenvy {
     @Override
     public DefaultWorkspaceClient workspace() {
         return new DefaultWorkspaceClient(url, authenticationManager);
+    }
+
+    /**
+     * Returns the version API client.
+     *
+     * @return the version API client.
+     */
+    @Override
+    public VersionClient version() {
+        return new DefaultVersionClient(url, authenticationManager);
     }
 
 
