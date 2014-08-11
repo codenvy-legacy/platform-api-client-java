@@ -30,7 +30,7 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * Authentication manager used to authenticate an user with the Codenvy platform.
- * 
+ *
  * @author Kevin Pollet
  */
 public class AuthenticationManager {
@@ -43,12 +43,18 @@ public class AuthenticationManager {
     /**
      * Constructs an instance of {@link AuthenticationManager}.
      *
-     * @param url the Codenvy platform URL.
-     * @param username the user name.
-     * @param credentials the provided {@link Credentials}.
-     * @param credentialsProvider provider used to provide credentials if they are not stored or provided.
-     * @param dataStore the {@link DataStore} used to store the user {@link Credentials}.
-     * @throws NullPointerException if url or username parameter is {@code null}.
+     * @param url
+     *         the Codenvy platform URL.
+     * @param username
+     *         the user name.
+     * @param credentials
+     *         the provided {@link Credentials}.
+     * @param credentialsProvider
+     *         provider used to provide credentials if they are not stored or provided.
+     * @param dataStore
+     *         the {@link DataStore} used to store the user {@link Credentials}.
+     * @throws NullPointerException
+     *         if url or username parameter is {@code null}.
      */
     public AuthenticationManager(String url,
                                  String username,
@@ -77,9 +83,10 @@ public class AuthenticationManager {
 
     /**
      * Authorises the contextual user with the Codenvy platform.
-     * 
+     *
      * @return the authentication {@link Token}.
-     * @throws com.codenvy.client.auth.CodenvyAuthenticationException if there is a problem during the token negotiation.
+     * @throws com.codenvy.client.auth.CodenvyAuthenticationException
+     *         if there is a problem during the token negotiation.
      */
     public Token authorize() throws CodenvyAuthenticationException {
         return authorize(credentials);
@@ -87,10 +94,12 @@ public class AuthenticationManager {
 
     /**
      * Authorises the user with the following {@link Credentials} on Codenvy platform.
-     * 
-     * @param credentials the user {@link Credentials}.
+     *
+     * @param credentials
+     *         the user {@link Credentials}.
      * @return the authentication {@link Token}.
-     * @throws CodenvyAuthenticationException if there is a problem during the token negotiation.
+     * @throws CodenvyAuthenticationException
+     *         if there is a problem during the token negotiation.
      */
     private Token authorize(Credentials credentials) throws CodenvyAuthenticationException {
         if (credentials == null || credentials.password() == null) {
@@ -117,7 +126,8 @@ public class AuthenticationManager {
         }
 
         if (token == null) {
-            throw new CodenvyAuthenticationException("Unable to negotiate a token for authentication :" + response.getStatusInfo().toString());
+            throw new CodenvyAuthenticationException(
+                    "Unable to negotiate a token for authentication :" + response.getStatusInfo().toString());
         }
 
         return token;
@@ -125,7 +135,7 @@ public class AuthenticationManager {
 
     /**
      * Retrieves the stored Codenvy API {@link Token} for the given user.
-     * 
+     *
      * @return the {@link Token} or {@code null} if none.
      */
     public Token getToken() {
@@ -143,8 +153,10 @@ public class AuthenticationManager {
 
     /**
      * Refresh the the Codenvy API {@link Token} for the given user.
+     *
      * @return the {@link Token}.
-     * @throws CodenvyAuthenticationException if there is a problem during the token negotiation.
+     * @throws CodenvyAuthenticationException
+     *         if there is a problem during the token negotiation.
      */
     public Token refreshToken() throws CodenvyAuthenticationException {
         return authorize(dataStore == null ? null : dataStore.get(username));
@@ -153,16 +165,18 @@ public class AuthenticationManager {
 
     /**
      * Stores the given {@link DefaultCredentials} in the {@link DataStore}.
-     * 
-     * @param credentials the {@link DefaultCredentials} to store.
-     * @param token the negotiated or retrieved {@link DefaultToken} to store.
+     *
+     * @param credentials
+     *         the {@link DefaultCredentials} to store.
+     * @param token
+     *         the negotiated or retrieved {@link DefaultToken} to store.
      */
     private void storeCredentials(Credentials credentials, Token token) {
         final Credentials credentialsToStore = new DefaultCredentialsBuilder().withUsername(credentials.username())
-                                                                        .withPassword(credentials.password())
-                                                                        .withToken(token)
-                                                                        .storeOnlyToken(credentials.isStoreOnlyToken())
-                                                                        .build();
+                                                                              .withPassword(credentials.password())
+                                                                              .withToken(token)
+                                                                              .storeOnlyToken(credentials.isStoreOnlyToken())
+                                                                              .build();
 
         dataStore.put(username, credentialsToStore);
     }

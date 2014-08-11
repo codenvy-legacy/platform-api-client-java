@@ -14,6 +14,7 @@ import com.codenvy.client.model.User;
 
 /**
  * The Codenvy user API client.
+ *
  * @author Florent Benoit
  */
 public interface UserClient {

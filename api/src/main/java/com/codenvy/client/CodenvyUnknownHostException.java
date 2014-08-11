@@ -14,7 +14,7 @@ import java.net.UnknownHostException;
 
 /**
  * Exceptions thrown if a request is done on an unknown host.
- * 
+ *
  * @author Kevin Pollet
  * @see UnknownHostException
  */
@@ -23,8 +23,9 @@ public class CodenvyUnknownHostException extends CodenvyException {
 
     /**
      * Constructs an instance of {@link CodenvyUnknownHostException} from an {@link UnknownHostException}.
-     * 
-     * @param e the {@link UnknownHostException} instance.
+     *
+     * @param e
+     *         the {@link UnknownHostException} instance.
      * @return the {@link CodenvyUnknownHostException} instance.
      */
     public static CodenvyUnknownHostException from(UnknownHostException e) {
@@ -33,9 +34,11 @@ public class CodenvyUnknownHostException extends CodenvyException {
 
     /**
      * Constructs an instance of {@link CodenvyUnknownHostException}.
-     * 
-     * @param message the exception message.
-     * @param cause the exception cause.
+     *
+     * @param message
+     *         the exception message.
+     * @param cause
+     *         the exception cause.
      */
     public CodenvyUnknownHostException(String message, Throwable cause) {
         super(message, cause);

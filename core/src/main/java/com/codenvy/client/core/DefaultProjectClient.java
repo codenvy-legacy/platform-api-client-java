@@ -47,9 +47,12 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Constructs an instance of {@link DefaultProjectClient}.
      *
-     * @param url the Codenvy platform URL.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url or authenticationManager parameter is {@code null}.
+     * @param url
+     *         the Codenvy platform URL.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url or authenticationManager parameter is {@code null}.
      */
     DefaultProjectClient(String url, AuthenticationManager authenticationManager) {
         super(url, "project", authenticationManager);
@@ -58,9 +61,11 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Retrieves all workspace {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param workspaceId the workspace id.
+     * @param workspaceId
+     *         the workspace id.
      * @return the workspace {@link com.codenvy.client.model.ProjectReference} list never {@code null}.
-     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     * @throws NullPointerException
+     *         if workspaceId parameter is {@code null}.
      */
     @Override
     public Request<List<ProjectReference>> getWorkspaceProjects(String workspaceId) {
@@ -71,17 +76,22 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        Type collectionType = new TypeToken<List<DefaultProjectReference>>(){}.getType();
-        return new SimpleRequest<>(request, new GenericType<List<ProjectReference>>(collectionType) { }, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultProjectReference>>() {
+        }.getType();
+        return new SimpleRequest<>(request, new GenericType<List<ProjectReference>>(collectionType) {
+        }, getAuthenticationManager());
     }
 
     /**
      * Retrieves project workspace {@link com.codenvy.client.model.Project}.
      *
-     * @param workspaceId the workspace id.
-     * @param resourcePath the resource path
+     * @param workspaceId
+     *         the workspace id.
+     * @param resourcePath
+     *         the resource path
      * @return the workspace {@link com.codenvy.client.model.Project}
-     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     * @throws NullPointerException
+     *         if workspaceId parameter is {@code null}.
      */
     @Override
     public Request<Project> getProject(String workspaceId, String resourcePath) {
@@ -100,10 +110,13 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Retrieves project workspace {@link com.codenvy.client.model.Project}.
      *
-     * @param workspaceId the workspace id.
-     * @param projectReference the project reference
+     * @param workspaceId
+     *         the workspace id.
+     * @param projectReference
+     *         the project reference
      * @return the workspace {@link com.codenvy.client.model.Project}
-     * @throws NullPointerException if workspaceId parameter is {@code null}.
+     * @throws NullPointerException
+     *         if workspaceId parameter is {@code null}.
      */
     public Request<Project> getProject(String workspaceId, ProjectReference projectReference) {
         checkNotNull(workspaceId);
@@ -122,9 +135,11 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Creates a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference} to create.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference} to create.
      * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<Project> create(ProjectReference projectReference) {
@@ -143,9 +158,12 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Switch visibility for a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference} to change visibility.
-     * @param visibility the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference} to change visibility.
+     * @param visibility
+     *         the {@link com.codenvy.client.model.Visibility} attribute to change visibility.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<Void> switchVisibility(ProjectReference projectReference, Visibility visibility) {
@@ -165,10 +183,13 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Exports a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param resourcePath the path of the resource to export, must be a folder.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param resourcePath
+     *         the path of the resource to export, must be a folder.
      * @return the resource {@link ZipInputStream} or {@code null} if the resource is not found.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<ZipInputStream> exportResources(ProjectReference projectReference, String resourcePath) {
@@ -193,11 +214,14 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
 
     /**
      * Deletes a resource in the given {@link com.codenvy.client.model.ProjectReference}.
-     * 
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param resourcePath the path of the resource to delete.
+     *
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param resourcePath
+     *         the path of the resource to delete.
      * @return the {@link Request} pointing to a {@link Void} result.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<Void> deleteResources(ProjectReference projectReference, String resourcePath) {
@@ -215,11 +239,15 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Upload a local ZIP folder.
      *
-     * @param workspaceId the workspace id in which the ZIP folder will be imported.
-     * @param projectReference the pre-existing {@link com.codenvy.client.model.ProjectReference} in which the archive content should be imported.
-     * @param archiveInputStream the archive {@link InputStream}.
+     * @param workspaceId
+     *         the workspace id in which the ZIP folder will be imported.
+     * @param projectReference
+     *         the pre-existing {@link com.codenvy.client.model.ProjectReference} in which the archive content should be imported.
+     * @param archiveInputStream
+     *         the archive {@link InputStream}.
      * @return the {@link Request} pointing to a {@link Void} result.
-     * @throws NullPointerException if workspaceId, projectName or archiveInputStream parameters are {@code null}.
+     * @throws NullPointerException
+     *         if workspaceId, projectName or archiveInputStream parameters are {@code null}.
      */
     @Override
     public Request<Void> importArchive(String workspaceId, ProjectReference projectReference, InputStream archiveInputStream) {
@@ -239,10 +267,14 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Updates a resource in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param filePath the path to the file to update.
-     * @param fileInputStream the file {@link InputStream}.
-     * @throws NullPointerException if project, filePath or fileInputStream parameter is {@code null}.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param filePath
+     *         the path to the file to update.
+     * @param fileInputStream
+     *         the file {@link InputStream}.
+     * @throws NullPointerException
+     *         if project, filePath or fileInputStream parameter is {@code null}.
      */
     @Override
     public Request<Void> updateFile(ProjectReference projectReference, String filePath, InputStream fileInputStream) {
@@ -263,8 +295,10 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Gets file content in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param filePath the file path.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param filePath
+     *         the file path.
      * @return the file {@link InputStream} or {@code null} if not found.
      */
     @Override
@@ -286,10 +320,13 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     /**
      * Returns if the given file exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param filePath the file path.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param filePath
+     *         the file path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
-     * @throws NullPointerException if project or resourcePath parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project or resourcePath parameter is {@code null}.
      */
     @Override
     public Request<Boolean> hasFile(ProjectReference projectReference, String filePath) {
@@ -315,14 +352,16 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
     }
 
 
-
     /**
      * Returns if the given folder exists in the given {@link com.codenvy.client.model.ProjectReference}.
      *
-     * @param projectReference the {@link com.codenvy.client.model.ProjectReference}.
-     * @param folderPath the folder path.
+     * @param projectReference
+     *         the {@link com.codenvy.client.model.ProjectReference}.
+     * @param folderPath
+     *         the folder path.
      * @return {@code true} if the given resource exists in the Codenvy project, {@code false} otherwise.
-     * @throws NullPointerException if project or resourcePath parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project or resourcePath parameter is {@code null}.
      */
     @Override
     public Request<Boolean> hasFolder(ProjectReference projectReference, String folderPath) {

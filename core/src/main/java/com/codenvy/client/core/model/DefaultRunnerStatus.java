@@ -27,7 +27,7 @@ import static com.codenvy.client.core.model.DefaultLink.WEB_LINK_REL_ATTRIBUTE_V
 
 /**
  * The codenvy runner object model.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -100,7 +100,6 @@ public class DefaultRunnerStatus implements RunnerStatus {
     }
 
 
-
     /**
      * Returns the web {@link DefaultLink}.
      *
@@ -135,7 +134,8 @@ public class DefaultRunnerStatus implements RunnerStatus {
     @Override
     public String toString() {
         return "CodenvyRunnerStatus [stopTime=" + stopTime + ", debugHost=" + debugHost + ", debugPort=" + debugPort + ", processId="
-               + processId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + ", runStats=" + runnerMetrics + ", buildStats=" + builderMetrics + "]";
+               + processId + ", startTime=" + startTime + ", status=" + status + ", links=" + links + ", runStats=" + runnerMetrics +
+               ", buildStats=" + builderMetrics + "]";
     }
 
 }

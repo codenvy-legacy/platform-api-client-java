@@ -13,7 +13,7 @@ package com.codenvy.client;
 
 /**
  * Exception thrown when something is wrong with the REST API.
- * 
+ *
  * @author Kevin Pollet
  */
 public class CodenvyErrorException extends RuntimeException {
@@ -23,9 +23,11 @@ public class CodenvyErrorException extends RuntimeException {
 
     /**
      * Constructs an instance of {@link CodenvyErrorException}.
-     * 
-     * @param status the HTTP status code.
-     * @param message the error message.
+     *
+     * @param status
+     *         the HTTP status code.
+     * @param message
+     *         the error message.
      */
     public CodenvyErrorException(int status, String message) {
         super(message);
@@ -35,7 +37,7 @@ public class CodenvyErrorException extends RuntimeException {
 
     /**
      * Returns the HTTP status code.
-     * 
+     *
      * @return the HTTP status code.
      */
     public int getStatus() {

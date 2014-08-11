@@ -15,5 +15,8 @@ package com.codenvy.client.auth;
  */
 public interface Token {
 
+    /**
+     * @return the Token's value
+     */
     String value();
 }

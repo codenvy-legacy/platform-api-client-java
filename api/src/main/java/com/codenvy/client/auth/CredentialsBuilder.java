@@ -12,6 +12,7 @@ package com.codenvy.client.auth;
 
 /**
  * Builder used to build a {@link Credentials} object.
+ *
  * @author Florent Benoit
  */
 public interface CredentialsBuilder {
@@ -19,7 +20,8 @@ public interface CredentialsBuilder {
     /**
      * Defines the user name.
      *
-     * @param username the user name.
+     * @param username
+     *         the user name.
      * @return the {@link com.codenvy.client.auth.CredentialsBuilder} instance.
      */
     CredentialsBuilder withUsername(String username);
@@ -27,7 +29,8 @@ public interface CredentialsBuilder {
     /**
      * Defines the user password.
      *
-     * @param password the user password.
+     * @param password
+     *         the user password.
      * @return the {@link com.codenvy.client.auth.CredentialsBuilder} instance.
      */
     CredentialsBuilder withPassword(String password);
@@ -35,7 +38,8 @@ public interface CredentialsBuilder {
     /**
      * Defines the authentication {@link com.codenvy.client.auth.Token}.
      *
-     * @param token the authentication {@link com.codenvy.client.auth.Token}.
+     * @param token
+     *         the authentication {@link com.codenvy.client.auth.Token}.
      * @return the {@link com.codenvy.client.auth.CredentialsBuilder} instance.
      */
     CredentialsBuilder withToken(Token token);
@@ -43,7 +47,8 @@ public interface CredentialsBuilder {
     /**
      * Defines if only the authentication {@link Token} must be stored.
      *
-     * @param storeOnlyToken {@code true} if only the authentication {@link com.codenvy.client.auth.Token} must be stored.
+     * @param storeOnlyToken
+     *         {@code true} if only the authentication {@link com.codenvy.client.auth.Token} must be stored.
      * @return the {@link com.codenvy.client.auth.CredentialsBuilder} instance.
      */
     CredentialsBuilder storeOnlyToken(boolean storeOnlyToken);

@@ -12,12 +12,13 @@ package com.codenvy.client.model;
 
 /**
  * State codes.
+ *
  * @author Florent Benoit
  */
 public enum BuilderState {
-        IN_QUEUE,
-        IN_PROGRESS,
-        SUCCESSFUL,
-        FAILED,
-        CANCELLED
+    IN_QUEUE,
+    IN_PROGRESS,
+    SUCCESSFUL,
+    FAILED,
+    CANCELLED
 }

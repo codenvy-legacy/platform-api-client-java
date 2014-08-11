@@ -14,6 +14,7 @@ import com.codenvy.client.model.Metric;
 
 /**
  * Metric that can be specific to a builder.
+ *
  * @author Florent Benoit
  */
 public interface BuilderMetric extends Metric {

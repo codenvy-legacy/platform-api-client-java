@@ -13,7 +13,7 @@ package com.codenvy.client.model;
 
 /**
  * The codenvy error envelope object model.
- * 
+ *
  * @author Kevin Pollet
  */
 public interface Error {

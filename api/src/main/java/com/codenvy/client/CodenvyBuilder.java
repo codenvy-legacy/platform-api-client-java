@@ -16,6 +16,7 @@ import com.codenvy.client.store.DataStoreFactory;
 
 /**
  * Builder used to build a {@link com.codenvy.client.Codenvy} client.
+ *
  * @author Florent Benoit
  */
 public interface CodenvyBuilder {
@@ -23,16 +24,19 @@ public interface CodenvyBuilder {
     /**
      * Provides the user {@link Credentials} used if they are not found in storage.
      *
-     * @param credentials the provided {@link Credentials}.
+     * @param credentials
+     *         the provided {@link Credentials}.
      * @return {@link CodenvyBuilder} instance.
-     * @throws IllegalArgumentException if provided {@link Credentials} doesn't match the given username.
+     * @throws IllegalArgumentException
+     *         if provided {@link Credentials} doesn't match the given username.
      */
     CodenvyBuilder withCredentials(Credentials credentials);
 
     /**
      * Defines the {@link DataStoreFactory} used to store the user {@link Credentials}.
      *
-     * @param credentialsStoreFactory the {@link DataStoreFactory} to use.
+     * @param credentialsStoreFactory
+     *         the {@link DataStoreFactory} to use.
      * @return {@link CodenvyBuilder} instance.
      */
     CodenvyBuilder withCredentialsStoreFactory(DataStoreFactory<String, Credentials> credentialsStoreFactory);
@@ -40,7 +44,8 @@ public interface CodenvyBuilder {
     /**
      * Defines the {@link CredentialsProvider} used to provide credentials if they are not stored or provided
      *
-     * @param credentialsProvider the credentials provider.
+     * @param credentialsProvider
+     *         the credentials provider.
      * @return {@link CodenvyBuilder} instance.
      */
     CodenvyBuilder withCredentialsProvider(CredentialsProvider credentialsProvider);

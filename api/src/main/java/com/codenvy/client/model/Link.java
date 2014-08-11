@@ -17,10 +17,29 @@ package com.codenvy.client.model;
  */
 public interface Link {
 
-    String        href();
-    String        rel();
-    String        produces();
-    String        consumes();
-    String        method();
+    /**
+     * @return URL of this link
+     */
+    String href();
+
+    /**
+     * @return name of this link
+     */
+    String rel();
+
+    /**
+     * @return producer of this link
+     */
+    String produces();
+
+    /**
+     * @return consumer of this link
+     */
+    String consumes();
+
+    /**
+     * @return name of the method of this link
+     */
+    String method();
 
 }

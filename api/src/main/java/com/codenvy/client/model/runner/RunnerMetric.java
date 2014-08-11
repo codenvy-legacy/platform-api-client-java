@@ -14,6 +14,7 @@ import com.codenvy.client.model.Metric;
 
 /**
  * Metric that is specific to a runner.
+ *
  * @author Florent Benoit
  */
 public interface RunnerMetric extends Metric {

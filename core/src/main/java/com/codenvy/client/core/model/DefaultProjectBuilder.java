@@ -36,6 +36,7 @@ public class DefaultProjectBuilder implements ProjectBuilder {
         this.id = id;
         return this;
     }
+
     @Override
     public ProjectBuilder withUrl(String url) {
         this.url = url;
@@ -92,7 +93,8 @@ public class DefaultProjectBuilder implements ProjectBuilder {
 
     @Override
     public DefaultProjectReference build() {
-        return new DefaultProjectReference(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName,
-                                  null, new Date(), ideUrl);
+        return new DefaultProjectReference(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description,
+                                           workspaceName,
+                                           null, new Date(), ideUrl);
     }
 }

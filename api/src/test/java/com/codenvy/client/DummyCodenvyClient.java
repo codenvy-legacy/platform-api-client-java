@@ -16,6 +16,7 @@ import com.codenvy.client.model.ProjectBuilder;
 
 /**
  * Dummy implementation used to check SPI loading.
+ *
  * @author Florent Benoit
  */
 public class DummyCodenvyClient implements CodenvyClient {

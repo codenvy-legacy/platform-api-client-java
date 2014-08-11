@@ -14,6 +14,7 @@ import java.util.ServiceLoader;
 
 /**
  * Entry point to get the codenvy client.
+ *
  * @author Florent Benoit
  */
 public class CodenvyAPI {
@@ -30,6 +31,13 @@ public class CodenvyAPI {
 
     }
 
+    /**
+     * Sets the Codenvy client {@link com.codenvy.client.CodenvyClient} instance.
+     *
+     * @param codenvyClient
+     *         the instance of the codenvy client
+     * @return the previous instance of {@link com.codenvy.client.CodenvyClient}
+     */
     public static synchronized CodenvyClient setClient(CodenvyClient codenvyClient) {
         CodenvyClient previous = CodenvyAPI.client;
         CodenvyAPI.client = codenvyClient;
@@ -46,7 +54,8 @@ public class CodenvyAPI {
             ServiceLoader<CodenvyClient> codenvyClient =
                     ServiceLoader.load(CodenvyClient.class, Thread.currentThread().getContextClassLoader());
             if (!codenvyClient.iterator().hasNext()) {
-                throw new CodenvyException("Unable to find an implementation of '" + CodenvyClient.class.getName() + "'. Check Implementation bundle is available on the platform or that implementation jar contains META-INF/services/com.codenvy.client.CodenvyClient key.");
+                throw new CodenvyException("Unable to find an implementation of '" + CodenvyClient.class.getName() +
+                                           "'. Check Implementation bundle is available on the platform or that implementation jar contains META-INF/services/com.codenvy.client.CodenvyClient key.");
             }
 
             // take first one
@@ -55,7 +64,6 @@ public class CodenvyAPI {
 
         return client;
     }
-
 
 
 }

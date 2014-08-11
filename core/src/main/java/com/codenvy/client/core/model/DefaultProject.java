@@ -12,7 +12,6 @@
 package com.codenvy.client.core.model;
 
 import com.codenvy.client.model.Project;
-import com.codenvy.client.model.ProjectReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;

@@ -12,9 +12,10 @@ package com.codenvy.client.model;
 
 /**
  * Project visibility
+ *
  * @author Florent Benoit
  */
 public enum Visibility {
-        PUBLIC,
-        PRIVATE
+    PUBLIC,
+    PRIVATE
 }

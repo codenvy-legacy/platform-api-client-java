@@ -16,6 +16,7 @@ import com.codenvy.client.model.ProjectBuilder;
 
 /**
  * Get builders for creating Codenvy objects.
+ *
  * @author Florent Benoit
  */
 public interface CodenvyClient {
@@ -27,8 +28,11 @@ public interface CodenvyClient {
 
     /**
      * Build a new Codenvy builder that will build {@link Codenvy} object connected to Codenvy platform.
-     * @param url the URL to connect to the system
-     * @param username the username to use to the connection
+     *
+     * @param url
+     *         the URL to connect to the system
+     * @param username
+     *         the username to use to the connection
      * @return {@link com.codenvy.client.CodenvyBuilder}
      */
     CodenvyBuilder newCodenvyBuilder(String url, String username);

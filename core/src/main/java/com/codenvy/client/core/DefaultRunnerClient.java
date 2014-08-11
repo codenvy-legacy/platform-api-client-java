@@ -29,16 +29,19 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 /**
  * The Codenvy runner API client.
- * 
+ *
  * @author Kevin Pollet
  */
 public class DefaultRunnerClient extends AbstractClient implements RunnerClient {
     /**
      * Constructs an instance of {@link RunnerClient}.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url or authenticationManager parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url or authenticationManager parameter is {@code null}.
      */
     DefaultRunnerClient(String url, AuthenticationManager authenticationManager) {
         super(url, "runner", authenticationManager);
@@ -46,10 +49,12 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
 
     /**
      * Runs the given project with a codenvy runner.
-     * 
-     * @param projectReference the project to run.
+     *
+     * @param projectReference
+     *         the project to run.
      * @return the {@link RunnerStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<RunnerStatus> run(ProjectReference projectReference) {
@@ -72,11 +77,14 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
 
     /**
      * Stops the project runner with the given process id.
-     * 
-     * @param projectReference the project.
-     * @param processId the runner process id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param processId
+     *         the runner process id.
      * @return the {@link RunnerStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<RunnerStatus> stop(ProjectReference projectReference, long processId) {
@@ -95,9 +103,12 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
 
     /**
      * Gets the project processes for the given project
-     * @param projectReference the project.
+     *
+     * @param projectReference
+     *         the project.
      * @return the different statuses.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     public Request<List<RunnerStatus>> processes(ProjectReference projectReference) {
         final Invocation request = getWebTarget().path(projectReference.workspaceId())
@@ -107,20 +118,25 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        Type collectionType = new TypeToken<List<DefaultRunnerStatus>>(){}.getType();
+        Type collectionType = new TypeToken<List<DefaultRunnerStatus>>() {
+        }.getType();
 
-        return new SimpleRequest<>(request, new GenericType<List<RunnerStatus>>(collectionType) {}, getAuthenticationManager());
+        return new SimpleRequest<>(request, new GenericType<List<RunnerStatus>>(collectionType) {
+        }, getAuthenticationManager());
 
 
     }
 
     /**
      * Gets the project runner status with the given process id.
-     * 
-     * @param projectReference the project.
-     * @param processId the runner process id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param processId
+     *         the runner process id.
      * @return the {@link RunnerStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<RunnerStatus> status(ProjectReference projectReference, long processId) {
@@ -138,11 +154,14 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
 
     /**
      * Gets the project runner logs with the given process id.
-     * 
-     * @param projectReference the project.
-     * @param processId the runner process id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param processId
+     *         the runner process id.
      * @return the runner logs.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<String> logs(ProjectReference projectReference, long processId) {

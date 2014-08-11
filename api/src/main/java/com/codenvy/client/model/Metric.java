@@ -12,6 +12,7 @@ package com.codenvy.client.model;
 
 /**
  * Metrics are used for example in runners and builders.
+ *
  * @author Florent Benoit
  */
 public interface Metric {

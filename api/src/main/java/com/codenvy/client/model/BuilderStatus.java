@@ -20,9 +20,25 @@ import java.util.List;
  * @author Florent Benoit
  */
 public interface BuilderStatus {
-    long       taskId();
-    long       startTime();
+
+    /**
+     * @return internal ID of this builder status
+     */
+    long taskId();
+
+    /**
+     * @return start time of this builder
+     */
+    long startTime();
+
+    /**
+     * @return {@link com.codenvy.client.model.BuilderState} status
+     */
     BuilderState status();
+
+    /**
+     * @return links of this runner
+     */
     List<Link> links();
 
     /**

@@ -20,7 +20,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class represents the workspace resource on Codenvy.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,8 +31,10 @@ public class DefaultWorkspace implements Workspace {
     /**
      * Constructs an instance of {@linkplain DefaultWorkspace}.
      *
-     * @param workspaceReference the workspace reference.
-     * @throws NullPointerException if workspaceRef parameter is {@code null}.
+     * @param workspaceReference
+     *         the workspace reference.
+     * @throws NullPointerException
+     *         if workspaceRef parameter is {@code null}.
      */
     @JsonCreator
     public DefaultWorkspace(@JsonProperty("workspaceReference") DefaultWorkspaceReference workspaceReference) {

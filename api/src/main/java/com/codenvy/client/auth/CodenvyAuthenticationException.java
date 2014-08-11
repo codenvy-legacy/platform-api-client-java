@@ -14,7 +14,7 @@ import com.codenvy.client.CodenvyException;
 
 /**
  * Exception thrown if the user cannot be authenticated.
- * 
+ *
  * @author Kevin Pollet
  */
 public class CodenvyAuthenticationException extends CodenvyException {
@@ -22,8 +22,9 @@ public class CodenvyAuthenticationException extends CodenvyException {
 
     /**
      * Constructs an instance of {@link CodenvyAuthenticationException}.
-     * 
-     * @param message the exception message.
+     *
+     * @param message
+     *         the exception message.
      */
     public CodenvyAuthenticationException(String message) {
         super(message);

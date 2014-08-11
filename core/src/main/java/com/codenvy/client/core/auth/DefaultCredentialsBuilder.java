@@ -19,15 +19,16 @@ import com.codenvy.client.auth.Token;
  * @author Kevin Pollet
  */
 public class DefaultCredentialsBuilder implements CredentialsBuilder {
-    private String       username;
-    private String       password;
-    private Token        token;
-    private boolean      storeOnlyToken;
+    private String  username;
+    private String  password;
+    private Token   token;
+    private boolean storeOnlyToken;
 
     /**
      * Defines the user name.
      *
-     * @param username the user name.
+     * @param username
+     *         the user name.
      * @return the {@link CredentialsBuilder} instance.
      */
     @Override
@@ -39,7 +40,8 @@ public class DefaultCredentialsBuilder implements CredentialsBuilder {
     /**
      * Defines the user password.
      *
-     * @param password the user password.
+     * @param password
+     *         the user password.
      * @return the {@link CredentialsBuilder} instance.
      */
     @Override
@@ -51,7 +53,8 @@ public class DefaultCredentialsBuilder implements CredentialsBuilder {
     /**
      * Defines the authentication {@link DefaultToken}.
      *
-     * @param token the authentication {@link DefaultToken}.
+     * @param token
+     *         the authentication {@link DefaultToken}.
      * @return the {@link CredentialsBuilder} instance.
      */
     @Override
@@ -63,7 +66,8 @@ public class DefaultCredentialsBuilder implements CredentialsBuilder {
     /**
      * Defines if only the authentication {@link DefaultToken} must be stored.
      *
-     * @param storeOnlyToken {@code true} if only the authentication {@link DefaultToken} must be stored.
+     * @param storeOnlyToken
+     *         {@code true} if only the authentication {@link DefaultToken} must be stored.
      * @return the {@link CredentialsBuilder} instance.
      */
     @Override

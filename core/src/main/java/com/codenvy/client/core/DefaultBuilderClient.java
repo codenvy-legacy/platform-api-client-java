@@ -29,16 +29,19 @@ import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
 /**
  * The Codenvy builder API client.
- * 
+ *
  * @author Kevin Pollet
  */
 public class DefaultBuilderClient extends AbstractClient implements BuilderClient {
     /**
      * Constructs an instance of {@link DefaultBuilderClient}.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url or authenticationManager parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url or authenticationManager parameter is {@code null}.
      */
     DefaultBuilderClient(String url, AuthenticationManager authenticationManager) {
         super(url, "builder", authenticationManager);
@@ -46,10 +49,12 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Builds the given {@link com.codenvy.client.core.model.DefaultProjectReference} on codenvy.
-     * 
-     * @param projectReference the project to build.
+     *
+     * @param projectReference
+     *         the project to build.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<BuilderStatus> build(ProjectReference projectReference) {
@@ -72,11 +77,14 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Gets the status of the builder with the given task id.
-     * 
-     * @param projectReference the project.
-     * @param taskId the builder task id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param taskId
+     *         the builder task id.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<BuilderStatus> status(ProjectReference projectReference, long taskId) {
@@ -94,11 +102,14 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Gets the logs of the builder with the given task id.
-     * 
-     * @param projectReference the project.
-     * @param taskId the builder task id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param taskId
+     *         the builder task id.
      * @return the builder logs.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<String> logs(ProjectReference projectReference, long taskId) {
@@ -116,11 +127,14 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Cancels the builder with the given task id.
-     * 
-     * @param projectReference the project.
-     * @param taskId the builder task id.
+     *
+     * @param projectReference
+     *         the project.
+     * @param taskId
+     *         the builder task id.
      * @return the {@link com.codenvy.client.core.model.DefaultBuilderStatus}.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     @Override
     public Request<BuilderStatus> cancel(ProjectReference projectReference, long taskId) {
@@ -138,9 +152,12 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
 
     /**
      * Gets the project builds for the given project
-     * @param projectReference the project.
+     *
+     * @param projectReference
+     *         the project.
      * @return the different statuses.
-     * @throws NullPointerException if project parameter is {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
      */
     public Request<List<BuilderStatus>> builds(ProjectReference projectReference) {
         final Invocation request = getWebTarget().path(projectReference.workspaceId())
@@ -150,8 +167,10 @@ public class DefaultBuilderClient extends AbstractClient implements BuilderClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        Type collectionType = new TypeToken<List<DefaultBuilderStatus>>(){}.getType();
-        return new SimpleRequest<>(request, new GenericType<List<BuilderStatus>>(collectionType) {}, getAuthenticationManager());
+        Type collectionType = new TypeToken<List<DefaultBuilderStatus>>() {
+        }.getType();
+        return new SimpleRequest<>(request, new GenericType<List<BuilderStatus>>(collectionType) {
+        }, getAuthenticationManager());
 
 
     }

@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Codenvy authentication token class.
- * 
+ *
  * @author Kevin Pollet
  */
 public class DefaultToken implements Token {
@@ -26,9 +26,11 @@ public class DefaultToken implements Token {
 
     /**
      * Constructs an instance of {@linkplain DefaultToken}.
-     * 
-     * @param value the authentication token.
-     * @throws NullPointerException if the value parameter is {@code null}.
+     *
+     * @param value
+     *         the authentication token.
+     * @throws NullPointerException
+     *         if the value parameter is {@code null}.
      */
     @JsonCreator
     public DefaultToken(@JsonProperty("value") String value) {
@@ -56,7 +58,7 @@ public class DefaultToken implements Token {
         if (getClass() != obj.getClass()) {
             return false;
         }
-        DefaultToken other = (DefaultToken) obj;
+        DefaultToken other = (DefaultToken)obj;
         if (value == null) {
             if (other.value != null) {
                 return false;

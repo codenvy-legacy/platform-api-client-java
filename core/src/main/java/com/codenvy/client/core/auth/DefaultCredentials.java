@@ -17,23 +17,43 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * User credentials used for authentication.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true, value = "token")
 public class DefaultCredentials implements Credentials {
-    private String       username;
-    private String       password;
+
+    /**
+     * Username used by this credentials.
+     */
+    private String username;
+
+    /**
+     * Password of this credentials
+     */
+    private String password;
+
+    /**
+     * Token of this credentials
+     */
     private Token token;
-    private boolean      storeOnlyToken;
+
+    /**
+     * True if the token is only for storing, else false.
+     */
+    private boolean storeOnlyToken;
 
     /**
      * Constructs an instance of {@link DefaultCredentials}.
      *
-     * @param username the user name.
-     * @param password the user password.
-     * @param token the user authentication {@link Token}.
-     * @param storeOnlyToken {@code true} if only the authentication {@link Token} must be stored.
+     * @param username
+     *         the user name.
+     * @param password
+     *         the user password.
+     * @param token
+     *         the user authentication {@link Token}.
+     * @param storeOnlyToken
+     *         {@code true} if only the authentication {@link Token} must be stored.
      */
     protected DefaultCredentials(String username, String password, Token token, boolean storeOnlyToken) {
         this.username = username;
@@ -42,6 +62,9 @@ public class DefaultCredentials implements Credentials {
         this.storeOnlyToken = storeOnlyToken;
     }
 
+    /**
+     * @return hash code of this object
+     */
     @Override
     public int hashCode() {
         final int prime = 31;
@@ -52,6 +75,13 @@ public class DefaultCredentials implements Credentials {
         return result;
     }
 
+    /**
+     * Returns true if the other object is equals to this object
+     *
+     * @param obj
+     *         the other object
+     * @return true if obj and this are equals, else false
+     */
     @Override
     public boolean equals(Object obj) {
         if (this == obj) {
@@ -89,45 +119,86 @@ public class DefaultCredentials implements Credentials {
     }
 
 
+    /**
+     * @return username of this credentials
+     */
     @JsonProperty("username")
     @Override
     public String username() {
         return username;
     }
 
+
+    /**
+     * Sets the username of this credentials
+     *
+     * @param username
+     *         the user name of this credentials
+     * @return {@link com.codenvy.client.auth.Credentials}
+     */
     @JsonProperty("username")
     public Credentials withUsername(String username) {
         this.username = username;
         return this;
     }
 
+    /**
+     * @return password of this credentials
+     */
     @JsonProperty("password")
     @Override
     public String password() {
         return password;
     }
 
+    /**
+     * Sets the password of this credentials
+     *
+     * @param password
+     *         the password of this credentials
+     * @return {@link com.codenvy.client.auth.Credentials}
+     */
     @JsonProperty("password")
     public Credentials withPassword(String password) {
         this.password = password;
         return this;
     }
 
+    /**
+     * @return token of this credentials
+     */
     @Override
     public Token token() {
         return token;
     }
 
+    /**
+     * Sets the token of this credentials
+     *
+     * @param token
+     *         the token of this credentials
+     * @return {@link com.codenvy.client.auth.Credentials}
+     */
     public Credentials withToken(Token token) {
         this.token = token;
         return this;
     }
 
+    /**
+     * @return true if the token of this credentials needs to be only stored
+     */
     @Override
     public boolean isStoreOnlyToken() {
         return storeOnlyToken;
     }
 
+    /**
+     * Sets the flag for storing the token of this credentials
+     *
+     * @param storeOnlyToken
+     *         the boolean value for storing or not the token of this credentials
+     * @return {@link com.codenvy.client.auth.Credentials}
+     */
     public Credentials withStoreOnlyToken(boolean storeOnlyToken) {
         this.storeOnlyToken = storeOnlyToken;
         return this;

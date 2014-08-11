@@ -18,7 +18,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The codenvy error envelope object model.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -28,9 +28,11 @@ public class DefaultError implements com.codenvy.client.model.Error {
 
     /**
      * Constructs an instance of {@link DefaultError}.
-     * 
-     * @param message the error message.
-     * @throws NullPointerException if message is {@code null}.
+     *
+     * @param message
+     *         the error message.
+     * @throws NullPointerException
+     *         if message is {@code null}.
      */
     @JsonCreator
     public DefaultError(@JsonProperty("status") int status, @JsonProperty("message") String message) {

@@ -12,6 +12,7 @@ package com.codenvy.client;
 
 /**
  * The Codenvy API client.
+ *
  * @author Florent Benoit
  */
 public interface Codenvy {

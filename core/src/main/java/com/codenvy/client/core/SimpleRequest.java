@@ -29,25 +29,30 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link com.codenvy.client.Request} implementation reading the body of the {@link javax.ws.rs.core.Response}.
- * 
+ *
+ * @param <T>
+ *         the {@linkplain java.lang.reflect.Type Type} of the {@link javax.ws.rs.core.Response} body.
  * @author Kevin Pollet
  * @author Stéphane Daviet
  * @author Florent Benoit
- * @param <T> the {@linkplain java.lang.reflect.Type Type} of the {@link javax.ws.rs.core.Response} body.
  */
 public class SimpleRequest<T> implements Request<T> {
-    private final Class<? extends T>              entityType;
-    private final GenericType<? extends T>        genericEntityType;
-    private final Invocation            request;
-    private final AuthenticationManager authenticationManager;
+    private final Class<? extends T>       entityType;
+    private final GenericType<? extends T> genericEntityType;
+    private final Invocation               request;
+    private final AuthenticationManager    authenticationManager;
 
     /**
      * Constructs an instance of {@link SimpleRequest}.
-     * 
-     * @param request the request to invoke.
-     * @param entityType the request response entity {@linkplain java.lang.reflect.Type Type}.
-     * @param authenticationManager the {@link AuthenticationManager} instance.
-     * @throws NullPointerException if request, entityType or authenticationManager parameter is {@code null}.
+     *
+     * @param request
+     *         the request to invoke.
+     * @param entityType
+     *         the request response entity {@linkplain java.lang.reflect.Type Type}.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager} instance.
+     * @throws NullPointerException
+     *         if request, entityType or authenticationManager parameter is {@code null}.
      */
     SimpleRequest(Invocation request, Class<? extends T> entityType, AuthenticationManager authenticationManager) {
         this(request, entityType, null, authenticationManager);
@@ -56,11 +61,15 @@ public class SimpleRequest<T> implements Request<T> {
 
     /**
      * Constructs an instance of {@link SimpleRequest}.
-     * 
-     * @param request the request to invoke.
-     * @param genericEntityType the request response entity {@link GenericType}.
-     * @param authenticationManager the {@link AuthenticationManager} instance.
-     * @throws NullPointerException if request, genericEntityType or authenticationManager parameter is {@code null}.
+     *
+     * @param request
+     *         the request to invoke.
+     * @param genericEntityType
+     *         the request response entity {@link GenericType}.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager} instance.
+     * @throws NullPointerException
+     *         if request, genericEntityType or authenticationManager parameter is {@code null}.
      */
     SimpleRequest(Invocation request, GenericType<? extends T> genericEntityType, AuthenticationManager authenticationManager) {
         this(request, null, genericEntityType, authenticationManager);
@@ -69,12 +78,17 @@ public class SimpleRequest<T> implements Request<T> {
 
     /**
      * Constructs an instance of {@link SimpleRequest}.
-     * 
-     * @param request the request to invoke.
-     * @param entityType the request response entity {@linkplain java.lang.reflect.Type Type}.
-     * @param genericEntityType the request response entity {@link GenericType}.
-     * @param authenticationManager the {@link AuthenticationManager} instance.
-     * @throws NullPointerException if request or authenticationManager parameter is {@code null}.
+     *
+     * @param request
+     *         the request to invoke.
+     * @param entityType
+     *         the request response entity {@linkplain java.lang.reflect.Type Type}.
+     * @param genericEntityType
+     *         the request response entity {@link GenericType}.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager} instance.
+     * @throws NullPointerException
+     *         if request or authenticationManager parameter is {@code null}.
      */
     private SimpleRequest(Invocation request,
                           Class<? extends T> entityType,
@@ -91,12 +105,12 @@ public class SimpleRequest<T> implements Request<T> {
     }
 
 
-
     /**
      * Executes the Codenvy API request.
      *
      * @return the API request result.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @throws CodenvyException
+     *         if something goes wrong with the API call.
      */
     @Override
     public T execute() throws CodenvyException {
@@ -140,7 +154,8 @@ public class SimpleRequest<T> implements Request<T> {
             if (genericEntityType != null) {
                 return new DefaultResponse(response, readEntity(response, genericEntityType));
             }
-            return new DefaultResponse(response, entityType.equals(javax.ws.rs.core.Response.class) ? entityType.cast(response) : readEntity(response, entityType));
+            return new DefaultResponse(response, entityType.equals(javax.ws.rs.core.Response.class) ? entityType.cast(response)
+                                                                                                    : readEntity(response, entityType));
 
         } catch (ProcessingException e) {
             if (e.getCause() instanceof UnknownHostException) {
@@ -152,11 +167,14 @@ public class SimpleRequest<T> implements Request<T> {
 
     /**
      * Reads the API {@link javax.ws.rs.core.Response} body entity.
-     * 
-     * @param response the API {@link javax.ws.rs.core.Response}.
-     * @param entityType the entity type to read in {@link javax.ws.rs.core.Response} body.
+     *
+     * @param response
+     *         the API {@link javax.ws.rs.core.Response}.
+     * @param entityType
+     *         the entity type to read in {@link javax.ws.rs.core.Response} body.
      * @return the entity type instance.
-     * @throws com.codenvy.client.CodenvyErrorException if something goes wrong with the API call.
+     * @throws com.codenvy.client.CodenvyErrorException
+     *         if something goes wrong with the API call.
      */
     private T readEntity(javax.ws.rs.core.Response response, Class<? extends T> entityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
@@ -168,11 +186,14 @@ public class SimpleRequest<T> implements Request<T> {
 
     /**
      * Reads the API {@link javax.ws.rs.core.Response} body entity.
-     * 
-     * @param response the API {@link javax.ws.rs.core.Response}.
-     * @param genericEntityType the entity type to read in {@link javax.ws.rs.core.Response} body.
+     *
+     * @param response
+     *         the API {@link javax.ws.rs.core.Response}.
+     * @param genericEntityType
+     *         the entity type to read in {@link javax.ws.rs.core.Response} body.
      * @return the entity type instance.
-     * @throws CodenvyErrorException if something goes wrong with the API call.
+     * @throws CodenvyErrorException
+     *         if something goes wrong with the API call.
      */
     private T readEntity(javax.ws.rs.core.Response response, GenericType<? extends T> genericEntityType) throws CodenvyErrorException {
         if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {

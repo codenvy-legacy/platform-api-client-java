@@ -22,17 +22,20 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * The Codenvy user API client.
- * 
+ *
  * @author Kevin Pollet
  * @author Stéphane Daviet
  */
 public class DefaultUserClient extends AbstractClient implements UserClient {
     /**
      * Constructs an instance of {@link DefaultUserClient}.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url or authenticationManager parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url or authenticationManager parameter is {@code null}.
      */
     DefaultUserClient(String url, AuthenticationManager authenticationManager) {
         super(url, "user", authenticationManager);
@@ -40,7 +43,7 @@ public class DefaultUserClient extends AbstractClient implements UserClient {
 
     /**
      * Returns the current user.
-     * 
+     *
      * @return the current user.
      */
     public Request<User> current() {

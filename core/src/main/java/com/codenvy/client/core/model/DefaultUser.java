@@ -19,7 +19,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * This class represents the user resource on Codenvy.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -31,10 +31,14 @@ public class DefaultUser implements User {
     /**
      * Constructs an instance of {@linkplain DefaultUser}.
      *
-     * @param id the user id.
-     * @param password the user password.
-     * @param email the user email.
-     * @throws NullPointerException if id, password or email parameter is {@code null}.
+     * @param id
+     *         the user id.
+     * @param password
+     *         the user password.
+     * @param email
+     *         the user email.
+     * @throws NullPointerException
+     *         if id, password or email parameter is {@code null}.
      */
     @JsonCreator
     public DefaultUser(@JsonProperty("id") String id, @JsonProperty("password") String password, @JsonProperty("email") String email) {

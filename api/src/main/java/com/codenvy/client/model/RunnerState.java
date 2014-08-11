@@ -12,12 +12,13 @@ package com.codenvy.client.model;
 
 /**
  * Runner state
+ *
  * @author Florent Benoit
  */
 public enum RunnerState {
-        NEW,
-        RUNNING,
-        CANCELLED,
-        FAILED,
-        STOPPED
+    NEW,
+    RUNNING,
+    CANCELLED,
+    FAILED,
+    STOPPED
 }

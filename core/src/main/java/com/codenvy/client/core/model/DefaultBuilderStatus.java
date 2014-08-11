@@ -26,7 +26,7 @@ import static com.codenvy.client.core.model.DefaultLink.DOWNLOAD_LINK_REL_ATTRIB
 
 /**
  * The codenvy runner object model.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -67,7 +67,8 @@ public class DefaultBuilderStatus implements BuilderStatus {
 
     @Override
     public String toString() {
-        return "CodenvyBuilderStatus [taskId=" + taskId + ", startTime=" + startTime + ", status=" + status + ", links=" + links  + ", buildStats=" + builderMetrics + "]";
+        return "CodenvyBuilderStatus [taskId=" + taskId + ", startTime=" + startTime + ", status=" + status + ", links=" + links +
+               ", buildStats=" + builderMetrics + "]";
     }
 
     /**

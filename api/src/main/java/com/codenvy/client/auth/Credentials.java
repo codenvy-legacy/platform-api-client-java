@@ -12,6 +12,7 @@ package com.codenvy.client.auth;
 
 /**
  * User credentials used for authentication.
+ *
  * @author Florent Benoit
  */
 public interface Credentials {

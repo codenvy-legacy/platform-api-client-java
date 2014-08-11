@@ -15,9 +15,10 @@ import java.util.Map;
 
 /**
  * The API response returned by the Codenvy client API.
- * 
+ *
+ * @param <T>
+ *         the API request return {@linkplain java.lang.reflect.Type Type}
  * @author Florent Benoit
- * @param <T> the API request return {@linkplain java.lang.reflect.Type Type}
  */
 public interface Response<T> {
 

@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link DataStoreFactory} implementation providing {@link DataStore} which stores user credentials in memory.
- * 
+ *
  * @author Kevin Pollet
  */
 public class InMemoryDataStoreFactory implements DataStoreFactory<String, Credentials> {

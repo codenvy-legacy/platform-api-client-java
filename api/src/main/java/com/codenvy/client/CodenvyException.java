@@ -13,7 +13,7 @@ package com.codenvy.client;
 
 /**
  * The base Codenvy exception.
- * 
+ *
  * @author Kevin Pollet
  */
 public class CodenvyException extends RuntimeException {
@@ -21,8 +21,9 @@ public class CodenvyException extends RuntimeException {
 
     /**
      * Constructs an instance of {@link CodenvyException} from an {@link Exception}.
-     * 
-     * @param e the {@link Exception} instance.
+     *
+     * @param e
+     *         the {@link Exception} instance.
      * @return the created {@link CodenvyException}.
      */
     public static CodenvyException from(Exception e) {
@@ -31,9 +32,11 @@ public class CodenvyException extends RuntimeException {
 
     /**
      * Constructs an instance of {@link CodenvyException}.
-     * 
-     * @param message the exception message.
-     * @param cause the {@link Throwable} cause
+     *
+     * @param message
+     *         the exception message.
+     * @param cause
+     *         the {@link Throwable} cause
      */
     public CodenvyException(String message, Throwable cause) {
         super(message, cause);
@@ -41,8 +44,9 @@ public class CodenvyException extends RuntimeException {
 
     /**
      * Constructs an instance of {@link CodenvyException}.
-     * 
-     * @param message the exception message.
+     *
+     * @param message
+     *         the exception message.
      */
     public CodenvyException(String message) {
         super(message);

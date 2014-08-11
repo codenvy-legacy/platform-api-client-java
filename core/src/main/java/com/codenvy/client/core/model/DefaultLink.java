@@ -17,19 +17,19 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * The link model class.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultLink implements Link {
-    public static final String WEB_LINK_REL_ATTRIBUTE_VALUE = "web url";
+    public static final String WEB_LINK_REL_ATTRIBUTE_VALUE      = "web url";
     public static final String DOWNLOAD_LINK_REL_ATTRIBUTE_VALUE = "download result";
 
-    private final String        href;
-    private final String        rel;
-    private final String        produces;
-    private final String        consumes;
-    private final String        method;
+    private final String href;
+    private final String rel;
+    private final String produces;
+    private final String consumes;
+    private final String method;
 
     @JsonCreator
     public DefaultLink(@JsonProperty("href") String href,

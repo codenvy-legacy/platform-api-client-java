@@ -12,9 +12,13 @@ package com.codenvy.client.model;
 
 /**
  * This interface represents the workspace resource on Codenvy.
+ *
  * @author Florent Benoit
  */
 public interface Workspace {
 
-   WorkspaceReference workspaceReference();
+    /**
+     * @return workspace reference of this workspace
+     */
+    WorkspaceReference workspaceReference();
 }

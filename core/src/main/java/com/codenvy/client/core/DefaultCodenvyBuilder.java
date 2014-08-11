@@ -35,9 +35,12 @@ public class DefaultCodenvyBuilder implements CodenvyBuilder {
     /**
      * Constructs an instance of {@link CodenvyBuilder}.
      *
-     * @param url the Codenvy platform URL.
-     * @param username the user name.
-     * @throws NullPointerException if url or username parameter is {@code null}.
+     * @param url
+     *         the Codenvy platform URL.
+     * @param username
+     *         the user name.
+     * @throws NullPointerException
+     *         if url or username parameter is {@code null}.
      */
     public DefaultCodenvyBuilder(String url, String username) {
         checkNotNull(url);
@@ -51,9 +54,11 @@ public class DefaultCodenvyBuilder implements CodenvyBuilder {
     /**
      * Provides the user {@link Credentials} used if they are not found in storage.
      *
-     * @param credentials the provided {@link Credentials}.
+     * @param credentials
+     *         the provided {@link Credentials}.
      * @return {@link CodenvyBuilder} instance.
-     * @throws IllegalArgumentException if provided {@link Credentials} doesn't match the given username.
+     * @throws IllegalArgumentException
+     *         if provided {@link Credentials} doesn't match the given username.
      */
     @Override
     public CodenvyBuilder withCredentials(Credentials credentials) {
@@ -66,7 +71,8 @@ public class DefaultCodenvyBuilder implements CodenvyBuilder {
     /**
      * Defines the {@link DataStoreFactory} used to store the user {@link Credentials}.
      *
-     * @param credentialsStoreFactory the {@link DataStoreFactory} to use.
+     * @param credentialsStoreFactory
+     *         the {@link DataStoreFactory} to use.
      * @return {@link CodenvyBuilder} instance.
      */
     @Override
@@ -78,7 +84,8 @@ public class DefaultCodenvyBuilder implements CodenvyBuilder {
     /**
      * Defines the {@link CredentialsProvider} used to provide credentials if they are not stored or provided
      *
-     * @param credentialsProvider the credentials provider.
+     * @param credentialsProvider
+     *         the credentials provider.
      * @return {@link CodenvyBuilder} instance.
      */
     @Override

@@ -12,17 +12,19 @@ package com.codenvy.client;
 
 /**
  * The API request contract returned by the Codenvy client API.
- * 
+ *
+ * @param <T>
+ *         the API request return {@linkplain java.lang.reflect.Type Type}
  * @author Kevin Pollet
- * @param <T> the API request return {@linkplain java.lang.reflect.Type Type}
  */
 public interface Request<T> {
 
     /**
      * Executes the Codenvy API request.
-     * 
+     *
      * @return the API request result.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @throws CodenvyException
+     *         if something goes wrong with the API call.
      */
     T execute() throws CodenvyException;
 
@@ -30,7 +32,8 @@ public interface Request<T> {
      * Executes the Codenvy API request and then return details on the response.
      *
      * @return the API response result.
-     * @throws CodenvyException if something goes wrong with the API call.
+     * @throws CodenvyException
+     *         if something goes wrong with the API call.
      */
     Response<T> response() throws CodenvyException;
 

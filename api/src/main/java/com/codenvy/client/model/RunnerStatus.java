@@ -22,18 +22,39 @@ import java.util.List;
  */
 public interface RunnerStatus {
 
+    /**
+     * @return Stop time of this runner
+     */
     long stopTime();
 
+    /**
+     * @return debug hostname of this runner
+     */
     String debugHost();
 
+    /**
+     * @return debug port of this runner
+     */
     long debugPort();
 
+    /**
+     * @return internal process ID of this runner
+     */
     long processId();
 
+    /**
+     * @return Start time of this runner
+     */
     long startTime();
 
+    /**
+     * @return {@link com.codenvy.client.model.RunnerState} state of this runner
+     */
     RunnerState status();
 
+    /**
+     * @return links of this runner
+     */
     List<Link> links();
 
     /**

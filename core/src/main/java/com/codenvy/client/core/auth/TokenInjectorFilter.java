@@ -20,7 +20,7 @@ import java.io.IOException;
 
 /**
  * Filter used to inject {@link Token} in client request.
- * 
+ *
  * @author Kevin Pollet
  */
 @Provider

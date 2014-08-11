@@ -21,7 +21,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link DataStore} implementation which stores user credentials in memory.
- * 
+ *
  * @author Kevin Pollet
  */
 public class InMemoryDataStore implements DataStore<String, Credentials> {
@@ -45,7 +45,7 @@ public class InMemoryDataStore implements DataStore<String, Credentials> {
 
         return data.putIfAbsent(key,
                                 credentials.isStoreOnlyToken() ? new DefaultCredentialsBuilder().withToken(credentials.token())
-                                                                                 .build()
+                                                                                                .build()
                                                                : credentials);
     }
 

@@ -24,6 +24,7 @@ import static org.junit.Assert.fail;
 
 /**
  * Test if API loading of {@link CodenvyAPI} is working
+ *
  * @author Florent Benoit
  */
 @RunWith(MockitoJUnitRunner.class)

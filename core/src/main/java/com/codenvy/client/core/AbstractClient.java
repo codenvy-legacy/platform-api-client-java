@@ -22,7 +22,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * Abstract client class.
- * 
+ *
  * @author Kevin Pollet
  */
 public abstract class AbstractClient {
@@ -31,11 +31,15 @@ public abstract class AbstractClient {
 
     /**
      * Constructs an instance of {@link AbstractClient}.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param apiName the API name.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url, apiName or authenticationManager parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param apiName
+     *         the API name.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url, apiName or authenticationManager parameter is {@code null}.
      */
     AbstractClient(String url,
                    String apiName,
@@ -65,7 +69,7 @@ public abstract class AbstractClient {
 
     /**
      * Returns the client {@link WebTarget} endpoint.
-     * 
+     *
      * @return the client {@link WebTarget} endpoint.
      */
     public WebTarget getWebTarget() {
@@ -74,7 +78,7 @@ public abstract class AbstractClient {
 
     /**
      * Returns the {@link AuthenticationManager} used to authenticate.
-     * 
+     *
      * @return the {@link AuthenticationManager} used for authentication.
      */
     public AuthenticationManager getAuthenticationManager() {

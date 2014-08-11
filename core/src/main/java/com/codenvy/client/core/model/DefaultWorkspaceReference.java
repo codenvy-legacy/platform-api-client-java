@@ -35,11 +35,16 @@ public class DefaultWorkspaceReference implements WorkspaceReference {
     /**
      * Constructs an instance of {@linkplain com.codenvy.client.model.WorkspaceReference}.
      *
-     * @param id the workspace reference id.
-     * @param name the workspace reference name.
-     * @param organizationId the workspace organization.
-     * @param temporary true if the workspace is temporary
-     * @throws NullPointerException if name parameter is {@code null}.
+     * @param id
+     *         the workspace reference id.
+     * @param name
+     *         the workspace reference name.
+     * @param organizationId
+     *         the workspace organization.
+     * @param temporary
+     *         true if the workspace is temporary
+     * @throws NullPointerException
+     *         if name parameter is {@code null}.
      */
     @JsonCreator
     public DefaultWorkspaceReference(@JsonProperty("id") String id, @JsonProperty("name") String name,

@@ -21,6 +21,7 @@ import com.codenvy.client.model.ProjectBuilder;
 
 /**
  * Default implementation of {@link com.codenvy.client.CodenvyClient} interface.
+ *
  * @author Florent Benoit
  */
 public class DefaultCodenvyClient implements CodenvyClient {
@@ -34,8 +35,11 @@ public class DefaultCodenvyClient implements CodenvyClient {
 
     /**
      * Build a new Codenvy builder that will build {@link com.codenvy.client.Codenvy} object connected to Codenvy platform.
-     * @param url the URL to connect to the system
-     * @param username the username to use to the connection
+     *
+     * @param url
+     *         the URL to connect to the system
+     * @param username
+     *         the username to use to the connection
      * @return {@link com.codenvy.client.CodenvyBuilder}
      */
     public CodenvyBuilder newCodenvyBuilder(String url, String username) {
@@ -50,7 +54,8 @@ public class DefaultCodenvyClient implements CodenvyClient {
     }
 
     /**
-     * @param value the value of the token
+     * @param value
+     *         the value of the token
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     @Override

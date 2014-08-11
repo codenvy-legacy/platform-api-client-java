@@ -17,47 +17,56 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import java.util.Date;
-import java.util.List;
-import java.util.Map;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
  * This class represents the project resource on Codenvy.
- * 
+ *
  * @author Kevin Pollet
  */
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultProjectReference implements ProjectReference {
-    private final String       id;
-    private final String       url;
-    private final String       visibility;
-    private final String       projectTypeId;
-    private final String       workspaceId;
-    private final String       projectTypeName;
-    private final String       name;
-    private final String       description;
-    private final String       workspaceName;
-    private final Date         modificationDate;
-    private final Date         creationDate;
-    private final String       ideUrl;
+    private final String id;
+    private final String url;
+    private final String visibility;
+    private final String projectTypeId;
+    private final String workspaceId;
+    private final String projectTypeName;
+    private final String name;
+    private final String description;
+    private final String workspaceName;
+    private final Date   modificationDate;
+    private final Date   creationDate;
+    private final String ideUrl;
 
 
     /**
      * Constructs an instance of {@linkplain DefaultProjectReference}.
      *
-     * @param url the project url.
-     * @param visibility the project visibility (private or public).
-     * @param projectTypeId the project type id (e.g. spring, java, ...).
-     * @param workspaceId the project workspace id.
-     * @param projectTypeName the project type name (e.g. Spring application, ...).
-     * @param name the project name.
-     * @param description the project description.
-     * @param workspaceName the project workspace name.
-     * @param modificationDate the project modification date.
-     * @param creationDate the project creation date.
-     * @param ideUrl the project ide url.
+     * @param url
+     *         the project url.
+     * @param visibility
+     *         the project visibility (private or public).
+     * @param projectTypeId
+     *         the project type id (e.g. spring, java, ...).
+     * @param workspaceId
+     *         the project workspace id.
+     * @param projectTypeName
+     *         the project type name (e.g. Spring application, ...).
+     * @param name
+     *         the project name.
+     * @param description
+     *         the project description.
+     * @param workspaceName
+     *         the project workspace name.
+     * @param modificationDate
+     *         the project modification date.
+     * @param creationDate
+     *         the project creation date.
+     * @param ideUrl
+     *         the project ide url.
      */
     @JsonCreator
     public DefaultProjectReference(

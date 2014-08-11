@@ -13,11 +13,12 @@ package com.codenvy.client.auth;
 
 /**
  * Token builder.
+ *
  * @author Florent Benoit
  */
 public interface TokenBuilder {
 
-     /**
+    /**
      * @return instance of {@link com.codenvy.client.auth.Token}
      */
     Token build();

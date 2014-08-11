@@ -15,6 +15,7 @@ import com.codenvy.client.auth.TokenBuilder;
 
 /**
  * Token builder.
+ *
  * @author Florent Benoit
  */
 public class DefaultTokenBuilder implements TokenBuilder {
@@ -26,7 +27,9 @@ public class DefaultTokenBuilder implements TokenBuilder {
 
     /**
      * Build a new token builder with the specified value
-     * @param value the value of the token
+     *
+     * @param value
+     *         the value of the token
      */
     public DefaultTokenBuilder(String value) {
         this.value = value;

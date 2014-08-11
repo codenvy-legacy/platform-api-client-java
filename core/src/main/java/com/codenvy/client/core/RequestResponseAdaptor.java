@@ -18,10 +18,12 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * {@link com.codenvy.client.Request} implementation adapting an API request response to another type.
- * 
+ *
+ * @param <T>
+ *         the {@linkplain java.lang.reflect.Type Type} of the adapted request response.
+ * @param <S>
+ *         the {@linkplain java.lang.reflect.Type Type} of the request response to adapt.
  * @author Kevin Pollet
- * @param <T> the {@linkplain java.lang.reflect.Type Type} of the adapted request response.
- * @param <S> the {@linkplain java.lang.reflect.Type Type} of the request response to adapt.
  */
 public class RequestResponseAdaptor<T, S> implements Request<T> {
     private final Request<S>    adaptee;
@@ -29,10 +31,13 @@ public class RequestResponseAdaptor<T, S> implements Request<T> {
 
     /**
      * Constructs an instance of {@link RequestResponseAdaptor}.
-     * 
-     * @param adaptee the {@link Request} to adapt.
-     * @param adaptor the {@link Request} response adaptor.
-     * @throws NullPointerException if adaptee or adaptor parameter is {@code null}.
+     *
+     * @param adaptee
+     *         the {@link Request} to adapt.
+     * @param adaptor
+     *         the {@link Request} response adaptor.
+     * @throws NullPointerException
+     *         if adaptee or adaptor parameter is {@code null}.
      */
     RequestResponseAdaptor(Request<S> adaptee, Adaptor<T, S> adaptor) {
         checkNotNull(adaptee);

@@ -12,15 +12,16 @@ package com.codenvy.client.auth;
 
 /**
  * Credentials provider contract.
- * 
+ *
  * @author Kevin Pollet
  */
 public interface CredentialsProvider {
 
     /**
      * Returns the {@link Credentials} for user authentication.
-     * 
-     * @param username the user name to load credentials for.
+     *
+     * @param username
+     *         the user name to load credentials for.
      * @return the loaded credentials or {@code null} if none.
      */
     Credentials getCredentials(String username);

@@ -13,7 +13,6 @@ package com.codenvy.client.core;
 import com.codenvy.client.Request;
 import com.codenvy.client.WorkspaceClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
-import com.codenvy.client.core.model.DefaultRunnerStatus;
 import com.codenvy.client.core.model.DefaultWorkspace;
 import com.codenvy.client.core.model.DefaultWorkspaceReference;
 import com.codenvy.client.model.Workspace;
@@ -31,17 +30,20 @@ import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 
 /**
  * The Codenvy workspace API client.
- * 
+ *
  * @author Kevin Pollet
  * @author Stéphane Daviet
  */
 public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceClient {
     /**
      * Constructs an instance of {@link DefaultWorkspaceClient}.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param authenticationManager the {@link AuthenticationManager}.
-     * @throws NullPointerException if url or authenticationManager parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager}.
+     * @throws NullPointerException
+     *         if url or authenticationManager parameter is {@code null}.
      */
     DefaultWorkspaceClient(String url, AuthenticationManager authenticationManager) {
         super(url, "workspace", authenticationManager);
@@ -49,7 +51,7 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
 
     /**
      * Retrieves all Codenvy workspaces of the user identified by the authentication token.
-     * 
+     *
      * @return all Codenvy workspaces never {@code null}.
      */
     @Override
@@ -58,17 +60,21 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
                                                  .request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
-        Type collectionType = new TypeToken<List<DefaultWorkspace>>(){}.getType();
+        Type collectionType = new TypeToken<List<DefaultWorkspace>>() {
+        }.getType();
 
-        return new SimpleRequest<>(request, new GenericType<List<Workspace>>(collectionType) {}, getAuthenticationManager());
+        return new SimpleRequest<>(request, new GenericType<List<Workspace>>(collectionType) {
+        }, getAuthenticationManager());
     }
 
     /**
      * Retrieves a Codenvy workspace by it's name.
-     * 
-     * @param name the workspace name.
+     *
+     * @param name
+     *         the workspace name.
      * @return the Codenvy workspace or {@code null} if none.
-     * @throws NullPointerException if name parameter is {@code null}.
+     * @throws NullPointerException
+     *         if name parameter is {@code null}.
      */
     @Override
     public Request<WorkspaceReference> withName(String name) {
@@ -84,10 +90,12 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
 
     /**
      * Creates the given workspace.
-     * 
-     * @param workspaceReference the workspace to create.
+     *
+     * @param workspaceReference
+     *         the workspace to create.
      * @return the created workspace.
-     * @throws NullPointerException if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
+     * @throws NullPointerException
+     *         if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
      */
     @Override
     public Request<WorkspaceReference> create(WorkspaceReference workspaceReference) {

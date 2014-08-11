@@ -12,12 +12,24 @@ package com.codenvy.client.model;
 
 /**
  * This class represents the user resource on Codenvy.
+ *
  * @author Florent Benoit
  */
 public interface User {
 
+    /**
+     * @return ID of this user.
+     */
     String id();
+
+    /**
+     * @return password of this user.
+     */
     String password();
+
+    /**
+     * @return e-mail of this user.
+     */
     String email();
 
 }

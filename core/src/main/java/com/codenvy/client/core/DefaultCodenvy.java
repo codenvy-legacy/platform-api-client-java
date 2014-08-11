@@ -24,7 +24,7 @@ import static com.google.common.base.Preconditions.checkNotNull;
 
 /**
  * The Codenvy client API entry point.
- * 
+ *
  * @author Kevin Pollet
  */
 public class DefaultCodenvy implements Codenvy {
@@ -34,19 +34,25 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Constructs an instance of {@link DefaultCodenvy} client API.
-     * 
-     * @param url the Codenvy platform URL.
-     * @param username the username.
-     * @param credentials the provided user {@link com.codenvy.client.core.auth.DefaultCredentials} might be {@code null}.
-     * @param credentialsStoreFactory the {@link DataStoreFactory}.
-     * @param credentialsProvider provider used to provide credentials if they are not stored or provided.
-     * @throws NullPointerException if url, username or credentialsProvider parameter is {@code null}.
+     *
+     * @param url
+     *         the Codenvy platform URL.
+     * @param username
+     *         the username.
+     * @param credentials
+     *         the provided user {@link com.codenvy.client.core.auth.DefaultCredentials} might be {@code null}.
+     * @param credentialsStoreFactory
+     *         the {@link DataStoreFactory}.
+     * @param credentialsProvider
+     *         provider used to provide credentials if they are not stored or provided.
+     * @throws NullPointerException
+     *         if url, username or credentialsProvider parameter is {@code null}.
      */
     protected DefaultCodenvy(String url,
-                           String username,
-                           Credentials credentials,
-                           CredentialsProvider credentialsProvider,
-                           DataStoreFactory<String, Credentials> credentialsStoreFactory) {
+                             String username,
+                             Credentials credentials,
+                             CredentialsProvider credentialsProvider,
+                             DataStoreFactory<String, Credentials> credentialsStoreFactory) {
 
         checkNotNull(url);
         checkNotNull(username);
@@ -59,7 +65,7 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Returns the user API client.
-     * 
+     *
      * @return the user API client.
      */
     @Override
@@ -69,7 +75,7 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Returns the builder API client.
-     * 
+     *
      * @return the builder API client.
      */
     @Override
@@ -79,7 +85,7 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Returns the runner API client.
-     * 
+     *
      * @return the runner API client.
      */
     @Override
@@ -89,7 +95,7 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Returns the project API client.
-     * 
+     *
      * @return the project API client.
      */
     @Override
@@ -99,7 +105,7 @@ public class DefaultCodenvy implements Codenvy {
 
     /**
      * Returns the workspace API client.
-     * 
+     *
      * @return the workspace API client.
      */
     @Override

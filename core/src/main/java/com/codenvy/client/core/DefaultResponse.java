@@ -19,6 +19,7 @@ import java.util.Map;
 /**
  * Implementation of {@link com.codenvy.client.Response}
  * It provides the data for providing the value, headers and status code
+ *
  * @author Florent Benoit
  */
 public class DefaultResponse<T> implements Response<T> {
@@ -36,8 +37,11 @@ public class DefaultResponse<T> implements Response<T> {
 
     /**
      * Default constructor wrapping value and response
-     * @param jaxRsResponse the JAX-RS response
-     * @param value the value unwrapped from the response
+     *
+     * @param jaxRsResponse
+     *         the JAX-RS response
+     * @param value
+     *         the value unwrapped from the response
      */
     public DefaultResponse(javax.ws.rs.core.Response jaxRsResponse, T value) {
         this.jaxRsResponse = jaxRsResponse;

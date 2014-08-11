@@ -18,6 +18,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
  * Metric used in Builders and Runners.
+ *
  * @author Florent Benoit
  */
 public class DefaultMetric implements RunnerMetric, BuilderMetric {
@@ -38,7 +39,8 @@ public class DefaultMetric implements RunnerMetric, BuilderMetric {
     private final String description;
 
     /**
-     * Constructs an instance of both {@link com.codenvy.client.model.runner.RunnerMetric} and {@link com.codenvy.client.model.builder.BuilderMetric}.
+     * Constructs an instance of both {@link com.codenvy.client.model.runner.RunnerMetric} and {@link
+     * com.codenvy.client.model.builder.BuilderMetric}.
      */
     @JsonCreator
     public DefaultMetric(

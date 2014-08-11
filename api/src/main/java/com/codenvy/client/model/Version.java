@@ -13,6 +13,7 @@ package com.codenvy.client.model;
 
 /**
  * Allow to get details about the version of the API
+ *
  * @author Florent Benoit
  */
 public interface Version {
