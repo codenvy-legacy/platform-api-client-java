@@ -55,6 +55,7 @@
 
     <modules>
         <module>api</module>
+        <module>dummy</module>
         <module>core</module>
         <module>assemblies</module>
     </modules>
