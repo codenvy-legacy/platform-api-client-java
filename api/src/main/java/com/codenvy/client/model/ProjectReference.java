@@ -18,10 +18,10 @@ import java.util.Date;
  * @author Florent Benoit
  */
 public interface ProjectReference {
+
     /**
-     * @return project ID
+     * Project ID shouldn't be used so don't get it.
      */
-    String id();
 
     /**
      * @return URL of the project

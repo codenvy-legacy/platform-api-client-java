@@ -28,7 +28,6 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 @JsonInclude(NON_NULL)
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultProjectReference implements ProjectReference {
-    private final String id;
     private final String url;
     private final String visibility;
     private final String projectTypeId;
@@ -70,7 +69,6 @@ public class DefaultProjectReference implements ProjectReference {
      */
     @JsonCreator
     public DefaultProjectReference(
-            @JsonProperty("id") String id,
             @JsonProperty("url") String url,
             @JsonProperty("visibility") String visibility,
             @JsonProperty("projectTypeId") String projectTypeId,
@@ -82,7 +80,6 @@ public class DefaultProjectReference implements ProjectReference {
             @JsonProperty("modificationDate") Date modificationDate,
             @JsonProperty("creationDate") Date creationDate,
             @JsonProperty("ideUrl") String ideUrl) {
-        this.id = id;
         this.url = url;
         this.visibility = visibility;
         this.projectTypeId = projectTypeId;
@@ -94,12 +91,6 @@ public class DefaultProjectReference implements ProjectReference {
         this.modificationDate = modificationDate != null ? new Date(modificationDate.getTime()) : null;
         this.creationDate = creationDate != null ? new Date(creationDate.getTime()) : null;
         this.ideUrl = ideUrl;
-    }
-
-    @JsonProperty("id")
-    @Override
-    public String id() {
-        return id;
     }
 
 
@@ -202,13 +193,6 @@ public class DefaultProjectReference implements ProjectReference {
                 return false;
             }
         } else if (!name.equals(other.name)) {
-            return false;
-        }
-        if (id == null) {
-            if (other.id != null) {
-                return false;
-            }
-        } else if (!id.equals(other.id)) {
             return false;
         }
         if (projectTypeId == null) {

@@ -33,19 +33,6 @@ public class DummyProjectBuilder implements ProjectBuilder {
 
 
     /**
-     * Specify the ID of the project that needs to be created.
-     *
-     * @param id
-     *         the project ID
-     * @return {@link com.codenvy.client.model.ProjectBuilder}
-     */
-    @Override
-    public DummyProjectBuilder withId(String id) {
-        dummyProject.setId(id);
-        return this;
-    }
-
-    /**
      * Specify the url of the project that needs to be created.
      *
      * @param url

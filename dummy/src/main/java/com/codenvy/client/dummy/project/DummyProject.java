@@ -30,7 +30,6 @@ public class DummyProject implements Project {
     private String workspaceName;
     private String visibility;
     private String projectTypeId;
-    private String id;
 
     public void setVisibility(String visibility) {
         this.visibility = visibility;
@@ -38,10 +37,6 @@ public class DummyProject implements Project {
 
     public void setProjectTypeId(String projectTypeId) {
         this.projectTypeId = projectTypeId;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public void setWorkspaceId(String workspaceId) {
@@ -53,11 +48,10 @@ public class DummyProject implements Project {
     }
 
     public DummyProject() {
-        this.id = UUID.randomUUID().toString();
     }
 
+
     protected DummyProject(String name, String workspaceId, String workspaceName) {
-        this();
         this.name = name;
         this.workspaceId = workspaceId;
         this.workspaceName = workspaceName;
@@ -87,14 +81,6 @@ public class DummyProject implements Project {
     @Override
     public Map<String, List<String>> attributes() {
         return null;
-    }
-
-    /**
-     * @return project ID
-     */
-    @Override
-    public String id() {
-        return id;
     }
 
     /**

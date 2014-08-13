@@ -46,8 +46,8 @@ public class BuilderTest {
         this.builderClient = codenvy.builder();
 
         // add a project
-        this.projectReference1 = codenvyClient.newProjectBuilder().withId("idFlorent1").withName("project1").build();
-        this.projectReference2 = codenvyClient.newProjectBuilder().withId("idFlorent2").withName("project2").build();
+        this.projectReference1 = codenvyClient.newProjectBuilder().withName("project1").build();
+        this.projectReference2 = codenvyClient.newProjectBuilder().withName("project2").build();
 
         // needs to create available status
         DummyBuilderStatus build1 = codenvyClient.newDummyBuilderStatus(1L).withLog("Hello").build();

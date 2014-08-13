@@ -114,7 +114,6 @@ public class ProjectClientIT extends AbstractIT {
         assertTrue(projectReferences.size() == 1);
         ProjectReference projectReference = projectReferences.get(0);
         assertNotNull(projectReference);
-        assertNotNull("id", projectReference.id());
         assertEquals("prj1", projectReference.name());
     }
 

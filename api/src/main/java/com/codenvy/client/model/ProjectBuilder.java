@@ -18,15 +18,6 @@ package com.codenvy.client.model;
 public interface ProjectBuilder {
 
     /**
-     * Specify the ID of the project that needs to be created.
-     *
-     * @param id
-     *         the project ID
-     * @return {@link com.codenvy.client.model.ProjectBuilder}
-     */
-    ProjectBuilder withId(String id);
-
-    /**
      * Specify the url of the project that needs to be created.
      *
      * @param url

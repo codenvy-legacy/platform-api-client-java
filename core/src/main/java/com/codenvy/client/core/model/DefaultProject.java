@@ -64,7 +64,6 @@ public class DefaultProject extends DefaultProjectReference implements Project {
      */
     @JsonCreator
     public DefaultProject(
-            @JsonProperty("id") String id,
             @JsonProperty("url") String url,
             @JsonProperty("visibility") String visibility,
             @JsonProperty("projectTypeId") String projectTypeId,
@@ -79,7 +78,7 @@ public class DefaultProject extends DefaultProjectReference implements Project {
             @JsonProperty("currentUserPermissions") List<String> userPermissions,
             @JsonProperty("attributes") Map<String, List<String>> attributes
                          ) {
-        super(id, url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName, modificationDate,
+        super(url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName, modificationDate,
               creationDate, ideUrl);
         this.userPermissions = userPermissions;
         this.attributes = attributes;
