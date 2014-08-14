@@ -12,6 +12,7 @@ package com.codenvy.client.core;
 
 import com.codenvy.client.BuilderClient;
 import com.codenvy.client.Codenvy;
+import com.codenvy.client.FactoryClient;
 import com.codenvy.client.UserClient;
 import com.codenvy.client.VersionClient;
 import com.codenvy.client.auth.Credentials;
@@ -121,6 +122,16 @@ public class DefaultCodenvy implements Codenvy {
     @Override
     public VersionClient version() {
         return new DefaultVersionClient(url, authenticationManager);
+    }
+
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    @Override
+    public FactoryClient factory() {
+        return new DefaultFactoryClient(url, authenticationManager);
     }
 
 

@@ -16,7 +16,8 @@ Export-Package com.codenvy.client;version=${project.version}, \
 
 Private-Package com.codenvy.client.core.*
 
-Import-Package org.glassfish.jersey.client, \
+Import-Package !org.glassfish.jersey.server.*, \
+               org.glassfish.jersey.client, \
 			   org.glassfish.jersey.message.internal, \
 			   ,*
 

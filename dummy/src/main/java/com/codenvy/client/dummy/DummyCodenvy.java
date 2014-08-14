@@ -12,6 +12,7 @@
 package com.codenvy.client.dummy;
 
 import com.codenvy.client.Codenvy;
+import com.codenvy.client.FactoryClient;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.UserClient;
 import com.codenvy.client.VersionClient;
@@ -96,6 +97,16 @@ public class DummyCodenvy implements Codenvy {
      */
     @Override
     public VersionClient version() {
+        return null;
+    }
+
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    @Override
+    public FactoryClient factory() {
         return null;
     }
 

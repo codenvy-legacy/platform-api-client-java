@@ -14,8 +14,15 @@ import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.auth.TokenInjectorFilter;
 import com.fasterxml.jackson.jaxrs.json.JacksonJsonProvider;
 
+import org.glassfish.jersey.client.ClientConfig;
+import org.glassfish.jersey.media.multipart.MultiPartFeature;
+import org.glassfish.jersey.media.multipart.internal.MultiPartReaderClientSide;
+import org.glassfish.jersey.media.multipart.internal.MultiPartWriter;
+
+import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.WebTarget;
+import javax.ws.rs.core.Configuration;
 import javax.ws.rs.core.UriBuilder;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -63,6 +70,8 @@ public abstract class AbstractClient {
 
         this.webTarget = ClientBuilder.newClient()
                                       .target(uriBuilder)
+                                      .register(MultiPartWriter.class)
+                                      .register(MultiPartReaderClientSide.class)
                                       .register(JacksonJsonProvider.class)
                                       .register(TokenInjectorFilter.class);
     }

@@ -59,4 +59,13 @@ public interface Codenvy {
      * @return the version API client.
      */
     VersionClient version();
+
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    FactoryClient factory();
+
+
 }

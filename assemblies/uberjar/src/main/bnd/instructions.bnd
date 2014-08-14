@@ -11,7 +11,8 @@
 
 Import-Package !com.sun.jdi.*, \
                !sun.misc.*, \
-			   ,*
+			   !org.glassfish.jersey.server.*, \
+			   *
 Export-Package com.codenvy.client;version=${project.version}, \
                com.codenvy.client.auth;version=${project.version}, \
                com.codenvy.client.model.*;version=${project.version}, \
@@ -34,6 +35,7 @@ Embed-Dependency codenvy-platform-api-client-java-core;inline=true, \
                  jersey-common;inline=true, \
                  jackson-jaxrs-base;inline=true, \
                  jackson-module-jaxb-annotations;inline=true, \
+                 jersey-media-multipart;inline=true, \
                  hk2-api;inline=true, \
                  hk2-utils;inline=true, \
                  javax.inject;inline=true, \
