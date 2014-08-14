@@ -71,7 +71,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(OK);
+        when(response.getStatus()).thenReturn(OK.getStatusCode());
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);
@@ -90,7 +90,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithoutStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(OK);
+        when(response.getStatus()).thenReturn(OK.getStatusCode());
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);
@@ -110,7 +110,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithRefreshAndStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(FORBIDDEN);
+        when(response.getStatus()).thenReturn(FORBIDDEN.getStatusCode());
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);
@@ -129,7 +129,7 @@ public class SimpleRequestTest {
     @Test
     public void testExecuteWithRefreshAndWithoutStoredCredentials() throws URISyntaxException {
         final Response response = mock(Response.class);
-        when(response.getStatusInfo()).thenReturn(FORBIDDEN);
+        when(response.getStatus()).thenReturn(FORBIDDEN.getStatusCode());
 
         final Invocation request = mock(Invocation.class);
         when(request.invoke()).thenReturn(response);
