@@ -13,6 +13,7 @@ package com.codenvy.client.dummy;
 
 import com.codenvy.client.Codenvy;
 import com.codenvy.client.FactoryClient;
+import com.codenvy.client.GitClient;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.UserClient;
 import com.codenvy.client.VersionClient;
@@ -107,6 +108,16 @@ public class DummyCodenvy implements Codenvy {
      */
     @Override
     public FactoryClient factory() {
+        return null;
+    }
+
+    /**
+     * Returns the Git API client.
+     *
+     * @return the Git API client.
+     */
+    @Override
+    public GitClient git() {
         return null;
     }
 

@@ -67,5 +67,11 @@ public interface Codenvy {
      */
     FactoryClient factory();
 
+    /**
+     * Returns the Git API client.
+     *
+     * @return the Git API client.
+     */
+    GitClient git();
 
 }
