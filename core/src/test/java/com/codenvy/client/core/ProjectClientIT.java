@@ -15,7 +15,6 @@ import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.WorkspaceReference;
 
-import org.junit.Assert;
 import org.junit.BeforeClass;
 import org.junit.Test;
 
@@ -38,6 +37,7 @@ import java.util.zip.ZipInputStream;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
 import static org.junit.Assert.assertTrue;
 
 /**
@@ -151,15 +151,51 @@ public class ProjectClientIT extends AbstractIT {
         assertNotNull(attributes);
 
         assertTrue(attributes.containsKey("language"));
-        assertTrue(attributes.containsKey("builder.name"));
 
-        // builder name
-        List<String> builders = attributes.get("builder.name");
-        assertEquals(1, builders.size());
-        assertEquals("maven", builders.get(0));
 
     }
 
+    @Test
+    public void testGetProjectRunner() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        String runner = project.runner();
+        assertNull(runner);
+    }
+
+
+    @Test
+    public void testGetProjectBuilder() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        String builder = project.builder();
+        assertNull(builder);
+    }
+
+
+    @Test
+    public void testGetProjectDefaultRunnerEnvironment() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        String defaultRunnerEnvironment = project.defaultRunnerEnvironment();
+        assertNull(defaultRunnerEnvironment);
+    }
+
+    @Test
+    public void testGetProjectDefaultBuilderEnvironment() {
+        final Project project = codenvy.project()
+                                       .getProject(workspace.id(), "prj1")
+                                       .execute();
+        assertNotNull(project);
+        String defaultBuilderEnvironment = project.defaultBuilderEnvironment();
+        assertNull(defaultBuilderEnvironment);
+    }
 
     @Test(expected = NullPointerException.class)
     public void testCreateWithNullProject() {

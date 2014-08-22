@@ -33,7 +33,11 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class DefaultProject extends DefaultProjectReference implements Project {
 
     private final List<String>              userPermissions;
-    private       Map<String, List<String>> attributes;
+    private final      Map<String, List<String>> attributes;
+    private final      String                    defaultRunnerEnvironment;
+    private final      String                    defaultBuilderEnvironment;
+    private final      String                    runner;
+    private final      String                    builder;
 
 
     /**
@@ -61,6 +65,14 @@ public class DefaultProject extends DefaultProjectReference implements Project {
      *         the project creation date.
      * @param ideUrl
      *         the project ide url.
+     * @param runner
+     *         the runner.
+     * @param builder
+     *         the builder.
+     * @param defaultBuilderEnvironment
+     *         the default builder environment.
+     * @param defaultRunnerEnvironment
+     *         the default runner environment.
      */
     @JsonCreator
     public DefaultProject(
@@ -76,12 +88,20 @@ public class DefaultProject extends DefaultProjectReference implements Project {
             @JsonProperty("creationDate") Date creationDate,
             @JsonProperty("ideUrl") String ideUrl,
             @JsonProperty("currentUserPermissions") List<String> userPermissions,
-            @JsonProperty("attributes") Map<String, List<String>> attributes
+            @JsonProperty("attributes") Map<String, List<String>> attributes,
+            @JsonProperty("runner") String runner,
+            @JsonProperty("builder") String builder,
+            @JsonProperty("defaultBuilderEnvironment") String defaultBuilderEnvironment,
+            @JsonProperty("defaultRunnerEnvironment") String defaultRunnerEnvironment
                          ) {
         super(url, visibility, projectTypeId, workspaceId, projectTypeName, name, description, workspaceName, modificationDate,
               creationDate, ideUrl);
         this.userPermissions = userPermissions;
         this.attributes = attributes;
+        this.runner = runner;
+        this.builder = builder;
+        this.defaultBuilderEnvironment = defaultBuilderEnvironment;
+        this.defaultRunnerEnvironment = defaultRunnerEnvironment;
     }
 
     @JsonProperty("currentUserPermissions")
@@ -94,6 +114,50 @@ public class DefaultProject extends DefaultProjectReference implements Project {
     @Override
     public Map<String, List<String>> attributes() {
         return attributes;
+    }
+
+    /**
+     * Returns runner
+     *
+     * @return the runner
+     */
+    @JsonProperty("runner")
+    @Override
+    public String runner() {
+        return runner;
+    }
+
+    /**
+     * Returns builder
+     *
+     * @return the builder
+     */
+    @Override
+    @JsonProperty("builder")
+    public String builder() {
+        return builder;
+    }
+
+    /**
+     * Returns builder environment
+     *
+     * @return the builder environment
+     */
+    @Override
+    @JsonProperty("defaultBuilderEnvironment")
+    public String defaultBuilderEnvironment() {
+        return defaultBuilderEnvironment;
+    }
+
+    /**
+     * Returns runner environment
+     *
+     * @return the runner environment
+     */
+    @Override
+    @JsonProperty("defaultRunnerEnvironment")
+    public String defaultRunnerEnvironment() {
+        return defaultRunnerEnvironment;
     }
 
 }

@@ -18,7 +18,6 @@ import com.codenvy.client.model.WorkspaceReference;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 
 /**
  * @author Florent Benoit
@@ -80,6 +79,46 @@ public class DummyProject implements Project {
      */
     @Override
     public Map<String, List<String>> attributes() {
+        return null;
+    }
+
+    /**
+     * Returns runner
+     *
+     * @return the runner
+     */
+    @Override
+    public String runner() {
+        return null;
+    }
+
+    /**
+     * Returns builder
+     *
+     * @return the builder
+     */
+    @Override
+    public String builder() {
+        return null;
+    }
+
+    /**
+     * Returns builder environment
+     *
+     * @return the builder environment
+     */
+    @Override
+    public String defaultBuilderEnvironment() {
+        return null;
+    }
+
+    /**
+     * Returns runner environment
+     *
+     * @return the runner environment
+     */
+    @Override
+    public String defaultRunnerEnvironment() {
         return null;
     }
 

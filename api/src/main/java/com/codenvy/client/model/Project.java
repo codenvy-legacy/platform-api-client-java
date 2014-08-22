@@ -31,4 +31,28 @@ public interface Project extends ProjectReference {
      */
     Map<String, List<String>> attributes();
 
+    /**
+     * Returns runner
+     * @return the runner
+     */
+    String runner();
+
+    /**
+     * Returns builder
+     * @return the builder
+     */
+    String builder();
+
+    /**
+     * Returns builder environment
+     * @return the builder environment
+     */
+    String defaultBuilderEnvironment();
+
+    /**
+     * Returns runner environment
+     * @return the runner environment
+     */
+    String defaultRunnerEnvironment();
+
 }
