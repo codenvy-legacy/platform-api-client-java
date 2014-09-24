@@ -58,7 +58,7 @@ public class ProjectClientIT extends AbstractIT {
 
         assertNotNull(workspace);
 
-        projectReferencePrj1 = new DefaultProjectBuilder().withProjectTypeId("maven")
+        projectReferencePrj1 = new DefaultProjectBuilder().withProjectTypeId("blank")
                                                           .withName("prj1")
                                                           .withDescription("description")
                                                           .withWorkspaceId(workspace.id())

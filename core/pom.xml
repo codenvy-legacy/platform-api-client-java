@@ -132,6 +132,7 @@
                                 <replace file="${codenvy.ide.path}/conf/server.xml" token="8005" value="${port3}" />
                                 <exec executable="sh" spawn="false">
                                     <arg value="${codenvy.ide.path}/bin/codenvy.sh" />
+                                    <!--<arg value="jpda" />-->
                                     <arg value="start" />
                                 </exec>
                                 <waitfor maxwait="1" maxwaitunit="minute">
