@@ -15,6 +15,7 @@ import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -71,6 +72,32 @@ public interface ProjectClient {
      *         if project parameter is {@code null}.
      */
     Request<Project> create(ProjectReference projectReference);
+
+    /**
+     * Imports a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param workspaceId
+     *         the workspace id.
+     * @param name
+     *         the name of the project to import.
+     * @param configurationPath the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    Request<Project> importProject(String workspaceId, String name, Path configurationPath);
+
+    /**
+     * Update project description of a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param projectReference
+     *         the project reference
+     * @param configurationPath the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    Request<Project> updateProject(ProjectReference projectReference, Path configurationPath);
 
     /**
      * Exports a resource in the given {@link com.codenvy.client.model.ProjectReference}.

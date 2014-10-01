@@ -24,10 +24,13 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
@@ -111,10 +114,16 @@ public class ProjectClientIT extends AbstractIT {
 
         assertNotNull(projectReferences);
         assertFalse(projectReferences.isEmpty());
-        assertTrue(projectReferences.size() == 1);
-        ProjectReference projectReference = projectReferences.get(0);
+        assertTrue(projectReferences.size() > 1);
+
+        ProjectReference projectReference = null;
+        for (ProjectReference tmpProjectReference : projectReferences) {
+            if ("prj1".equals(tmpProjectReference.name())) {
+                projectReference = tmpProjectReference;
+                break;
+            }
+        }
         assertNotNull(projectReference);
-        assertEquals("prj1", projectReference.name());
     }
 
     @Test
@@ -393,4 +402,26 @@ public class ProjectClientIT extends AbstractIT {
 
         assertFalse(exists);
     }
+
+
+    @Test
+    public void testImportAndUpdateFromFactory() throws URISyntaxException {
+
+        URL newProjectURL = ProjectClientIT.class.getResource("/new-project.json");
+        File file = new File(new URI(newProjectURL.toString()));
+
+        Project project = codenvy.project().importProject(workspace.id(), "my-jsp-sample", file.toPath()).execute();
+
+        assertNotNull(project);
+        assertEquals(project.name(), "my-jsp-sample");
+
+        // ok we will update project descriptor
+        Project updatedProject = codenvy.project().updateProject(project, file.toPath()).execute();
+        assertNotNull(updatedProject);
+        assertEquals(updatedProject.name(), "my-jsp-sample");
+        // description should have been updated
+        assertEquals(updatedProject.description(), "jsp sample app");
+
+    }
+
 }

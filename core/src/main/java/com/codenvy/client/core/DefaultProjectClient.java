@@ -20,12 +20,22 @@ import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
 import com.google.common.reflect.TypeToken;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
+import javax.json.JsonValue;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response;
 import javax.ws.rs.core.Response.Status;
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStream;
+import java.io.StringReader;
 import java.lang.reflect.Type;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.List;
 import java.util.zip.ZipInputStream;
 
@@ -131,6 +141,59 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
 
     }
 
+    /**
+     * Imports a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param workspaceId
+     *         the workspace id.
+     * @param name
+     *         the name of the project to import.
+     * @param configurationPath
+     *         the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<Project> importProject(String workspaceId, String name, Path configurationPath) {
+        JsonValue source = getJsonObject(configurationPath).get("source");
+
+        final Invocation request = getWebTarget().path(workspaceId)
+                                                 .path("import")
+                                                 .path(name)
+                                                 .queryParam("force", "false")
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildPost(json(source));
+
+        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
+    }
+
+    /**
+     * Update project description of a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param projectReference
+     *         the project reference
+     * @param configurationPath
+     *         the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<Project> updateProject(ProjectReference projectReference, Path configurationPath) {
+        checkNotNull(projectReference);
+
+        JsonValue projectNode = getJsonObject(configurationPath).get("project");
+
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
+                                                 .path(projectReference.name())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildPut(json(projectNode));
+        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
+
+    }
 
     /**
      * Creates a {@link com.codenvy.client.model.ProjectReference} in the given workspace.
@@ -143,6 +206,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      */
     @Override
     public Request<Project> create(ProjectReference projectReference) {
+
         checkNotNull(projectReference);
 
         final Invocation request = getWebTarget().path(projectReference.workspaceId())
@@ -384,5 +448,25 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                     return status != Status.NOT_FOUND;
                                                 }
                                             });
+    }
+
+    /**
+     * Reads the JSON from the given path
+     * @param configurationPath the path to the configuration file
+     * @return JSON object that has been read from that file
+     */
+    protected JsonObject getJsonObject(Path configurationPath) {
+        StringBuilder stringBuilder = new StringBuilder();
+        try (BufferedReader reader = Files.newBufferedReader(configurationPath, Charset.defaultCharset())) {
+            String line;
+            while ((line = reader.readLine()) != null) {
+                stringBuilder.append(line).append(System.lineSeparator());
+            }
+        } catch (IOException e) {
+            throw new IllegalArgumentException("Unable to read the content of the configuration file '" + configurationPath + "'.", e);
+        }
+
+        JsonReader jSonReader = Json.createReader(new StringReader(stringBuilder.toString()));
+        return jSonReader.readObject();
     }
 }

@@ -17,19 +17,12 @@ import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultFactory;
 import com.codenvy.client.model.Factory;
 
-import org.glassfish.jersey.media.multipart.BodyPart;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
-import org.glassfish.jersey.media.multipart.MultiPart;
 
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
-import javax.ws.rs.core.MediaType;
-import javax.ws.rs.core.MultivaluedHashMap;
-import javax.ws.rs.core.MultivaluedMap;
 
-import static javax.ws.rs.client.Entity.json;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
-import static javax.ws.rs.core.MediaType.APPLICATION_JSON_TYPE;
 import static javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA;
 
 /**
@@ -64,8 +57,6 @@ public class DefaultFactoryClient extends AbstractClient implements FactoryClien
 
     @Override
     public Request<Factory> save(String jsonContent) {
-
-        DefaultFactory factory = new DefaultFactory(null, "1.2");
         final FormDataMultiPart formDataMultiPart = new FormDataMultiPart().field("factoryUrl", jsonContent);
 
         final Invocation request = getWebTarget().request()

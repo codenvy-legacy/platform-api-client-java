@@ -17,9 +17,9 @@ import com.codenvy.client.dummy.DummyRequest;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
-import com.codenvy.client.model.WorkspaceReference;
 
 import java.io.InputStream;
+import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -147,6 +147,40 @@ public class DummyProjectClient implements ProjectClient {
 
         return new DummyRequest<Project>(dummyProject);
 
+    }
+
+    /**
+     * Imports a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param workspaceId
+     *         the workspace id.
+     * @param name
+     *         the name of the project to import.
+     * @param configurationPath
+     *         the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<Project> importProject(String workspaceId, String name, Path configurationPath) {
+        return null;
+    }
+
+    /**
+     * Update project description of a {@link com.codenvy.client.model.Project} in the given workspace.
+     *
+     * @param projectReference
+     *         the project reference
+     * @param configurationPath
+     *         the path to the configuration file
+     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<Project> updateProject(ProjectReference projectReference, Path configurationPath) {
+        return null;
     }
 
     /**
