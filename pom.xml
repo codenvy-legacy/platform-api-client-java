@@ -13,20 +13,17 @@
 -->
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
-
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>com.codenvy</groupId>
         <version>1.8.18-SNAPSHOT</version>
         <relativePath />
     </parent>
-
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java-parent</artifactId>
     <version>1.0.4-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Codenvy Platform API Client</name>
-
     <licenses>
         <license>
             <name>Eclipse Public License</name>
@@ -34,7 +31,6 @@
             <distribution>repo</distribution>
         </license>
     </licenses>
-
     <developers>
         <developer>
             <name>Kevin Pollet</name>
@@ -52,28 +48,27 @@
             <organizationUrl>http://www.serli.com</organizationUrl>
         </developer>
     </developers>
-
     <modules>
         <module>api</module>
         <module>dummy</module>
         <module>core</module>
         <module>assemblies</module>
     </modules>
-
     <scm>
         <connection>scm:git:git@github.com:codenvyplatform-api-client-java.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/platform-api-client-java.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
-
     <properties>
         <codenvy.ide.path>${project.build.directory}/tomcat-ide</codenvy.ide.path>
         <license_years>2014</license_years>
         <version.hk2>2.2.0</version.hk2>
         <version.jackson>2.3.2</version.jackson>
         <version.javax.annotation>1.2</version.javax.annotation>
+        <version.javax.json>1.0.4</version.javax.json>
         <version.javax.ws.rs-api>2.0</version.javax.ws.rs-api>
         <version.jersey-client>2.8</version.jersey-client>
+        <version.jsonp-jaxrs>1.0</version.jsonp-jaxrs>
         <version.maven-bundle-plugin>2.4.0</version.maven-bundle-plugin>
         <version.org.apache.karaf>3.0.1</version.org.apache.karaf>
     </properties>
@@ -131,6 +126,18 @@
                 <groupId>javax.ws.rs</groupId>
                 <artifactId>javax.ws.rs-api</artifactId>
                 <version>${version.javax.ws.rs-api}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>javax.json</artifactId>
+                <version>${version.javax.json}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish</groupId>
+                <artifactId>jsonp-jaxrs</artifactId>
+                <version>${version.jsonp-jaxrs}</version>
                 <scope>provided</scope>
             </dependency>
             <!-- HK2 -->
@@ -191,6 +198,12 @@
             <dependency>
                 <groupId>org.glassfish.jersey.core</groupId>
                 <artifactId>jersey-common</artifactId>
+                <version>${version.jersey-client}</version>
+                <scope>provided</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jersey.media</groupId>
+                <artifactId>jersey-media-json-processing</artifactId>
                 <version>${version.jersey-client}</version>
                 <scope>provided</scope>
             </dependency>
@@ -261,6 +274,14 @@
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.json</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>jsonp-jaxrs</artifactId>
+        </dependency>
         <!-- HK2 -->
         <dependency>
             <groupId>org.glassfish.hk2</groupId>
@@ -304,6 +325,10 @@
         </dependency>
         <dependency>
             <groupId>org.glassfish.jersey.media</groupId>
+            <artifactId>jersey-media-json-processing</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>org.glassfish.jersey.media</groupId>
             <artifactId>jersey-media-multipart</artifactId>
         </dependency>
         <dependency>
@@ -315,7 +340,6 @@
             <artifactId>mockito-all</artifactId>
         </dependency>
     </dependencies>
-
     <repositories>
         <repository>
             <id>codenvy-public-repo</id>
