@@ -13,6 +13,7 @@ package com.codenvy.client;
 import com.codenvy.client.auth.CredentialsBuilder;
 import com.codenvy.client.auth.TokenBuilder;
 import com.codenvy.client.model.ProjectBuilder;
+import com.codenvy.client.model.runner.RunOptionsBuilder;
 
 /**
  * Dummy implementation used to check SPI loading.
@@ -38,6 +39,14 @@ public class DummyCodenvyClient implements CodenvyClient {
 
     @Override
     public TokenBuilder newTokenBuilder(String value) {
+        return null;
+    }
+
+    /**
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder} instance
+     */
+    @Override
+    public RunOptionsBuilder newRunOptionsBuilder() {
         return null;
     }
 }

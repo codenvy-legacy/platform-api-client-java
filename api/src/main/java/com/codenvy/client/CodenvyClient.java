@@ -13,6 +13,7 @@ package com.codenvy.client;
 import com.codenvy.client.auth.CredentialsBuilder;
 import com.codenvy.client.auth.TokenBuilder;
 import com.codenvy.client.model.ProjectBuilder;
+import com.codenvy.client.model.runner.RunOptionsBuilder;
 
 /**
  * Get builders for creating Codenvy objects.
@@ -46,5 +47,10 @@ public interface CodenvyClient {
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     TokenBuilder newTokenBuilder(String value);
+
+    /**
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder} instance
+     */
+    RunOptionsBuilder newRunOptionsBuilder();
 
 }

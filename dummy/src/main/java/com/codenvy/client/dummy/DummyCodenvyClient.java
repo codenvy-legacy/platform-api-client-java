@@ -22,6 +22,7 @@ import com.codenvy.client.dummy.runner.DummyRunnerStatusBuilder;
 import com.codenvy.client.dummy.workspace.DummyWorkspaceBuilder;
 import com.codenvy.client.model.ProjectBuilder;
 import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.runner.RunOptionsBuilder;
 
 /**
  * @author Florent Benoit
@@ -66,6 +67,14 @@ public class DummyCodenvyClient implements CodenvyClient {
     @Override
     public TokenBuilder newTokenBuilder(String value) {
         return new DummyTokenBuilder(value);
+    }
+
+    /**
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder} instance
+     */
+    @Override
+    public RunOptionsBuilder newRunOptionsBuilder() {
+        return null;
     }
 
     public DummyBuilderStatusBuilder newDummyBuilderStatus(Long taskId) {

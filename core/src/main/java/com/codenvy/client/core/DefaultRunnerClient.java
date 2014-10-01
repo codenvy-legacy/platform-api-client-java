@@ -16,6 +16,7 @@ import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultRunnerStatus;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.RunnerStatus;
+import com.codenvy.client.model.runner.RunOptions;
 import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
@@ -24,6 +25,7 @@ import java.lang.reflect.Type;
 import java.util.List;
 
 import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.ws.rs.client.Entity.json;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.TEXT_PLAIN;
 
@@ -58,6 +60,22 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
      */
     @Override
     public Request<RunnerStatus> run(ProjectReference projectReference) {
+        return run(projectReference, null);
+    }
+
+    /**
+     * Runs the given project with a codenvy runner.
+     *
+     * @param projectReference
+     *         the project to run.
+     * @param runOptions
+     *         the options for the runner
+     * @return the {@link com.codenvy.client.model.RunnerStatus}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<RunnerStatus> run(ProjectReference projectReference, RunOptions runOptions) {
         checkNotNull(projectReference);
 
         String projectPath = projectReference.name();
@@ -70,7 +88,7 @@ public class DefaultRunnerClient extends AbstractClient implements RunnerClient 
                                                  .queryParam("project", projectPath)
                                                  .request()
                                                  .accept(APPLICATION_JSON)
-                                                 .buildPost(null);
+                                                 .buildPost(json(runOptions));
 
         return new SimpleRequest<RunnerStatus>(request, DefaultRunnerStatus.class, getAuthenticationManager());
     }

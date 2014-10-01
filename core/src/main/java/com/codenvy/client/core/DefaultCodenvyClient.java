@@ -17,7 +17,9 @@ import com.codenvy.client.auth.TokenBuilder;
 import com.codenvy.client.core.auth.DefaultCredentialsBuilder;
 import com.codenvy.client.core.auth.DefaultTokenBuilder;
 import com.codenvy.client.core.model.DefaultProjectBuilder;
+import com.codenvy.client.core.model.runner.DefaultRunOptionsBuilder;
 import com.codenvy.client.model.ProjectBuilder;
+import com.codenvy.client.model.runner.RunOptionsBuilder;
 
 /**
  * Default implementation of {@link com.codenvy.client.CodenvyClient} interface.
@@ -61,5 +63,13 @@ public class DefaultCodenvyClient implements CodenvyClient {
     @Override
     public TokenBuilder newTokenBuilder(String value) {
         return new DefaultTokenBuilder(value);
+    }
+
+    /**
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder} instance
+     */
+    @Override
+    public RunOptionsBuilder newRunOptionsBuilder() {
+        return new DefaultRunOptionsBuilder();
     }
 }

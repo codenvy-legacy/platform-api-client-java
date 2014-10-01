@@ -17,6 +17,7 @@ import com.codenvy.client.dummy.DummyRequest;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.RunnerState;
 import com.codenvy.client.model.RunnerStatus;
+import com.codenvy.client.model.runner.RunOptions;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -80,6 +81,22 @@ public class DummyRunnerClient implements RunnerClient {
             currents.add(runnerStatus);
         }
         return new DummyRequest<RunnerStatus>(runnerStatus);
+    }
+
+    /**
+     * Runs the given project with a codenvy runner.
+     *
+     * @param projectReference
+     *         the project to run.
+     * @param runOptions
+     *         the options for the runner
+     * @return the {@link com.codenvy.client.model.RunnerStatus}.
+     * @throws NullPointerException
+     *         if project parameter is {@code null}.
+     */
+    @Override
+    public Request<RunnerStatus> run(ProjectReference projectReference, RunOptions runOptions) {
+        return run(projectReference);
     }
 
     /**
