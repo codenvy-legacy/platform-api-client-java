@@ -13,6 +13,7 @@ package com.codenvy.client.core;
 import com.codenvy.client.CodenvyErrorException;
 import com.codenvy.client.core.model.DefaultError;
 
+import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -40,6 +41,12 @@ public class CodenvyErrorExceptionHelper {
      *         if response parameter is {@code null}.
      */
     public static CodenvyErrorException from(Response response) {
+
+        // Handle case where we recevied an internal error
+        MediaType mediaType = response.getMediaType();
+        if ("text".equals(mediaType.getType()) && "html".equals(mediaType.getSubtype())) {
+            return new CodenvyErrorException(response.getStatus(), response.getStatusInfo().getReasonPhrase().concat(":").concat(response.readEntity(String.class)));
+        }
         final com.codenvy.client.model.Error codenvyError = checkNotNull(response).readEntity(DefaultError.class);
         return new CodenvyErrorException(response.getStatus(), codenvyError.message());
     }
