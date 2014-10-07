@@ -16,6 +16,7 @@ import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultFactory;
 import com.codenvy.client.model.Factory;
+import com.codenvy.client.model.ProjectReference;
 
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
@@ -64,5 +65,23 @@ public class DefaultFactoryClient extends AbstractClient implements FactoryClien
                                                  .buildPost(Entity.entity(formDataMultiPart, MULTIPART_FORM_DATA));
 
         return new SimpleRequest<Factory>(request, DefaultFactory.class, getAuthenticationManager());
+    }
+
+    /**
+     * Returns factory content of a project
+     *
+     * @param projectReference@return
+     *         factory content.
+     */
+    @Override
+    public Request<String> export(ProjectReference projectReference) {
+
+        final Invocation request = getWebTarget().path(projectReference.workspaceId())
+                                                 .path(projectReference.name())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+
+        return new SimpleRequest<String>(request, getAuthenticationManager());
     }
 }

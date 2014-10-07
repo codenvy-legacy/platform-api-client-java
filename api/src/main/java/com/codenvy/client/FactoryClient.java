@@ -11,6 +11,7 @@
 package com.codenvy.client;
 
 import com.codenvy.client.model.Factory;
+import com.codenvy.client.model.ProjectReference;
 
 /**
  * The Codenvy Factory API client.
@@ -25,4 +26,12 @@ public interface FactoryClient {
      * @return factory information.
      */
     Request<Factory> save(String jsonContent);
+
+
+    /**
+     * Returns factory content of a project
+     * @param  {@link ProjectReference} the project to export
+     * @return factory content.
+     */
+    Request<String> export(ProjectReference projectReference);
 }
