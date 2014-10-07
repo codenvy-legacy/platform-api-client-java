@@ -18,10 +18,14 @@ import com.codenvy.client.Response;
 import com.codenvy.client.auth.Token;
 import com.codenvy.client.core.auth.AuthenticationManager;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonWriter;
 import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.GenericType;
 import javax.ws.rs.core.Response.Status;
+import java.io.StringWriter;
 import java.net.UnknownHostException;
 
 import static com.codenvy.client.core.auth.TokenInjectorFilter.TOKEN_PROPERTY_NAME;
@@ -41,6 +45,21 @@ public class SimpleRequest<T> implements Request<T> {
     private final GenericType<? extends T> genericEntityType;
     private final Invocation               request;
     private final AuthenticationManager    authenticationManager;
+    private final boolean                  wrapAsJSonObject;
+
+    /**
+     * Constructs an instance of {@link SimpleRequest}.
+     *
+     * @param request
+     *         the request to invoke.
+     * @param authenticationManager
+     *         the {@link AuthenticationManager} instance.
+     * @throws NullPointerException
+     *         if request, entityType or authenticationManager parameter is {@code null}.
+     */
+    SimpleRequest(Invocation request, AuthenticationManager authenticationManager) {
+        this(request, null, null, authenticationManager, true);
+    }
 
     /**
      * Constructs an instance of {@link SimpleRequest}.
@@ -55,7 +74,7 @@ public class SimpleRequest<T> implements Request<T> {
      *         if request, entityType or authenticationManager parameter is {@code null}.
      */
     SimpleRequest(Invocation request, Class<? extends T> entityType, AuthenticationManager authenticationManager) {
-        this(request, entityType, null, authenticationManager);
+        this(request, entityType, null, authenticationManager, false);
         checkNotNull(entityType);
     }
 
@@ -72,7 +91,7 @@ public class SimpleRequest<T> implements Request<T> {
      *         if request, genericEntityType or authenticationManager parameter is {@code null}.
      */
     SimpleRequest(Invocation request, GenericType<? extends T> genericEntityType, AuthenticationManager authenticationManager) {
-        this(request, null, genericEntityType, authenticationManager);
+        this(request, null, genericEntityType, authenticationManager, false);
         checkNotNull(genericEntityType);
     }
 
@@ -87,13 +106,16 @@ public class SimpleRequest<T> implements Request<T> {
      *         the request response entity {@link GenericType}.
      * @param authenticationManager
      *         the {@link AuthenticationManager} instance.
+     * @param wrapAsJsonObject
+     *         wrap the response as A JSON object
      * @throws NullPointerException
      *         if request or authenticationManager parameter is {@code null}.
      */
     private SimpleRequest(Invocation request,
                           Class<? extends T> entityType,
                           GenericType<? extends T> genericEntityType,
-                          AuthenticationManager authenticationManager) {
+                          AuthenticationManager authenticationManager,
+                          boolean wrapAsJsonObject) {
 
         checkNotNull(request);
         checkNotNull(authenticationManager);
@@ -102,6 +124,7 @@ public class SimpleRequest<T> implements Request<T> {
         this.entityType = entityType;
         this.genericEntityType = genericEntityType;
         this.authenticationManager = authenticationManager;
+        this.wrapAsJSonObject = wrapAsJsonObject;
     }
 
 
@@ -151,6 +174,23 @@ public class SimpleRequest<T> implements Request<T> {
             }
 
             // read response
+            if (wrapAsJSonObject) {
+                if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
+                    JsonObject jsonObject = response.readEntity(JsonObject.class);
+
+                    StringWriter stWriter = new StringWriter();
+                    JsonWriter jsonWriter = Json.createWriter(stWriter);
+                    jsonWriter.writeObject(jsonObject);
+                    jsonWriter.close();
+
+                    String jsonData = stWriter.toString();
+
+                    return new DefaultResponse(response, jsonData);
+                }
+                throw CodenvyErrorExceptionHelper.from(response);
+            }
+
+
             if (genericEntityType != null) {
                 return new DefaultResponse(response, readEntity(response, genericEntityType));
             }
