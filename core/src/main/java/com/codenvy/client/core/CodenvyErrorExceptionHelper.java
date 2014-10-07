@@ -44,7 +44,7 @@ public class CodenvyErrorExceptionHelper {
 
         // Handle case where we recevied an internal error
         MediaType mediaType = response.getMediaType();
-        if ("text".equals(mediaType.getType()) && "html".equals(mediaType.getSubtype())) {
+        if ("text".equals(mediaType.getType())) {
             return new CodenvyErrorException(response.getStatus(), response.getStatusInfo().getReasonPhrase().concat(":").concat(response.readEntity(String.class)));
         }
         final com.codenvy.client.model.Error codenvyError = checkNotNull(response).readEntity(DefaultError.class);
