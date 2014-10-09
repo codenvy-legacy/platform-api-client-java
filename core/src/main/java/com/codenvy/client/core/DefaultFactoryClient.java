@@ -18,10 +18,21 @@ import com.codenvy.client.core.model.DefaultFactory;
 import com.codenvy.client.model.Factory;
 import com.codenvy.client.model.ProjectReference;
 
+import org.glassfish.jersey.media.multipart.FormDataBodyPart;
+import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
+import javax.json.Json;
+import javax.json.JsonObject;
+import javax.json.JsonReader;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
+import javax.ws.rs.core.MediaType;
+import java.io.IOException;
+import java.io.StringReader;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLConnection;
 
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA;
@@ -58,7 +69,51 @@ public class DefaultFactoryClient extends AbstractClient implements FactoryClien
 
     @Override
     public Request<Factory> save(String jsonContent) {
+
+        // ok there we need to check if there is a logo element in the json content
+        // and if it's there we will add the image as binary content of the form
+        URL logoURL = null;
+        JsonReader jSonReader = Json.createReader(new StringReader(jsonContent));
+        JsonObject jsonObject = jSonReader.readObject();
+        if (jsonObject != null) {
+            JsonObject button = jsonObject.getJsonObject("button");
+            if (button != null) {
+                String type = button.getString("type");
+                if ("logo".equals(type)) {
+                    JsonObject attributes = button.getJsonObject("attributes");
+                    if (attributes != null) {
+                        String logoPath = attributes.getString("logo");
+                        if (logoPath != null && !logoPath.isEmpty()) {
+                            // found a logo
+                            try {
+                                logoURL = new URL(logoPath);
+                            } catch (MalformedURLException e) {
+                                throw new IllegalStateException("Invalid logo content found in the JSON file.", e);
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+
         final FormDataMultiPart formDataMultiPart = new FormDataMultiPart().field("factoryUrl", jsonContent);
+
+        // do we have a logo
+        if (logoURL != null) {
+            try  {
+                URLConnection urlConnection = logoURL.openConnection();
+                String contentType = urlConnection.getContentType();
+                FormDataBodyPart formDataBodyPart = new FormDataBodyPart(FormDataContentDisposition
+                                                                                 .name("image").fileName("example").build(),
+                                                                         logoURL.openStream(),
+                                                                         MediaType.valueOf(contentType));
+
+                formDataMultiPart.bodyPart(formDataBodyPart);
+            } catch (IOException e) {
+                throw new IllegalStateException("Invalid logo content found in the JSON file.", e);
+            }
+        }
 
         final Invocation request = getWebTarget().request()
                                                  .accept(APPLICATION_JSON)
