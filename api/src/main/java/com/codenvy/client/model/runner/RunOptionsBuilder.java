@@ -10,6 +10,8 @@
  *******************************************************************************/
 package com.codenvy.client.model.runner;
 
+import java.util.List;
+
 /**
  * The Codenvy Runner options builder.
  *
@@ -24,6 +26,22 @@ public interface RunOptionsBuilder {
      * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder}
      */
     RunOptionsBuilder withMemorySize(int memorySize);
+
+    /**
+     * Specify the name of the environment ID to use for this run.
+     *
+     * @param environmentId the name of the environment ID
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder}
+     */
+    RunOptionsBuilder withEnvironmentId(String environmentId);
+
+    /**
+     * Specify the list of script files to use for this run.
+     *
+     * @param scriptFiles the list of script files
+     * @return {@link com.codenvy.client.model.runner.RunOptionsBuilder}
+     */
+    RunOptionsBuilder withScriptFiles(List<String> scriptFiles);
 
     /**
      * @return instance of {@link com.codenvy.client.model.runner.RunOptions}

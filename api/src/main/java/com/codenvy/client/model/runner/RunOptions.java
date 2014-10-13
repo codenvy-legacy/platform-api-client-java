@@ -10,6 +10,9 @@
  *******************************************************************************/
 package com.codenvy.client.model.runner;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @author Florent Benoit
  */
@@ -19,4 +22,15 @@ public interface RunOptions {
      * @return in MB the size of the memory to use for this runner
      */
     int getMemorySize();
+
+    /**
+     * @return id of environment that should be used for running an application.
+     */
+    String getEnvironmentId();
+
+    /**
+     * @return recipes for the runner
+     */
+    List<String> getScriptFiles();
+
 }
