@@ -45,7 +45,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
-import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipInputStream;
 
@@ -397,18 +396,71 @@ public class ProjectClientIT extends AbstractIT {
 
 
     @Test
-    public void testImportAndUpdateFromFactory() throws URISyntaxException {
+    public void testImportAndUpdateFromFactory() throws URISyntaxException, IOException, ExecutionException, InterruptedException {
 
-        URL newProjectURL = ProjectClientIT.class.getResource("/new-project.json");
-        File file = new File(new URI(newProjectURL.toString()));
+        String factoryContent = "{\n" +
+                                "    \"v\" : \"2.0\",\n" +
+                                "    \"project\" : {\n" +
+                                "        \"attributes\" : {\n" +
+                                "            \"language\" : [ \"java\" ]\n" +
+                                "        },\n" +
+                                "        \"builder\" : \"maven\",\n" +
+                                "        \"builderEnvironmentConfigurations\" : {  },\n" +
+                                "        \"description\" : \"jsp sample app\",\n" +
+                                "        \"projectTypeId\" : \"maven\",\n" +
+                                "        \"runner\" : \"java-webapp-default\",\n" +
+                                "        \"runnerEnvironmentConfigurations\" : {  }\n" +
+                                "    },\n" +
+                                "    \"source\" : {\n" +
+                                "        \"location\" : \"$LOCATION$\",\n" +
+                                "        \"type\" : \"zip\"\n" +
+                                "    }\n" +
+                                "}\n";
 
-        Project project = codenvy.project().importProject(workspace.id(), "my-jsp-sample", file.toPath()).execute();
+
+        HttpServer httpServer = HttpServer.create(new InetSocketAddress(5000), 0);
+        httpServer.setExecutor(null);
+        HttpHandler httpHandler = new HttpHandler() {
+            @Override
+            public void handle(HttpExchange httpExchange) throws IOException {
+                URI uri = httpExchange.getRequestURI();
+
+                // needs to send the file
+                if ("/dummy/file1.zip".equals(uri.getPath())) {
+                    URL archiveURL = ProjectClientIT.class.getResource("/archiveToImport.zip");
+                    byte[] buf = new byte[1024];
+
+                    try (InputStream is = archiveURL.openStream(); ByteArrayOutputStream baos = new ByteArrayOutputStream();) {
+                        int n;
+                        while ((n = is.read(buf, 0, 1024)) > -1) {
+                            baos.write(buf, 0, n);
+                        }
+                        httpExchange.sendResponseHeaders(200, baos.toByteArray().length);
+                        httpExchange.getResponseBody().write(baos.toByteArray());
+                    }
+                }
+            }
+        };
+        httpServer.createContext("/dummy", httpHandler);
+        httpServer.start();
+
+        factoryContent = factoryContent.replace("$LOCATION$", "http://localhost:5000/dummy/file1.zip");
+
+        // Dump the content
+        Path factoryPath = Files.createTempFile(new File(System.getProperty("java.io.tmpdir")).toPath(), "factory", ".json");
+
+            // dump
+            Files.write(factoryPath, factoryContent.getBytes(Charset.defaultCharset()));
+
+
+        Project project = codenvy.project().importProject(workspace.id(), "my-jsp-sample", factoryPath).execute();
+
 
         assertNotNull(project);
         assertEquals(project.name(), "my-jsp-sample");
 
         // ok we will update project descriptor
-        Project updatedProject = codenvy.project().updateProject(project, file.toPath()).execute();
+        Project updatedProject = codenvy.project().updateProject(project, factoryPath).execute();
         assertNotNull(updatedProject);
         assertEquals(updatedProject.name(), "my-jsp-sample");
         // description should have been updated
