@@ -22,10 +22,11 @@ import java.util.Date;
 public class DefaultProjectBuilder implements ProjectBuilder {
     private String url;
     private String visibility;
-    private String projectTypeId;
+    private String type;
     private String workspaceId;
-    private String projectTypeName;
+    private String typeName;
     private String name;
+    private String path;
     private String description;
     private String workspaceName;
     private String ideUrl;
@@ -44,8 +45,8 @@ public class DefaultProjectBuilder implements ProjectBuilder {
     }
 
     @Override
-    public ProjectBuilder withProjectTypeId(String projectTypeId) {
-        this.projectTypeId = projectTypeId;
+    public ProjectBuilder withType(String projectTypeId) {
+        this.type = projectTypeId;
         return this;
     }
 
@@ -56,8 +57,8 @@ public class DefaultProjectBuilder implements ProjectBuilder {
     }
 
     @Override
-    public ProjectBuilder withProjectTypeName(String projectTypeName) {
-        this.projectTypeName = projectTypeName;
+    public ProjectBuilder withTypeName(String projectTypeName) {
+        this.typeName = projectTypeName;
         return this;
     }
 
@@ -86,9 +87,15 @@ public class DefaultProjectBuilder implements ProjectBuilder {
     }
 
     @Override
+    public ProjectBuilder withPath(String path) {
+        this.path = path;
+        return this;
+    }
+
+    @Override
     public DefaultProjectReference build() {
-        return new DefaultProjectReference(url, visibility, projectTypeId, workspaceId, projectTypeName, name, description,
+        return new DefaultProjectReference(url, visibility, type, workspaceId, typeName, name, path, description,
                                            workspaceName,
-                                           null, new Date(), ideUrl);
+                                           null, new Date(), ideUrl, null);
     }
 }

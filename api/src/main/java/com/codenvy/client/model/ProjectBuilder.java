@@ -42,7 +42,7 @@ public interface ProjectBuilder {
      *         the project Type ID
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
-    ProjectBuilder withProjectTypeId(String projectTypeId);
+    ProjectBuilder withType(String projectTypeId);
 
     /**
      * Specify the workspace ID of the project that needs to be created.
@@ -60,7 +60,7 @@ public interface ProjectBuilder {
      *         the project type name
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
-    ProjectBuilder withProjectTypeName(String projectTypeName);
+    ProjectBuilder withTypeName(String projectTypeName);
 
     /**
      * Specify the name of the project that needs to be created.
@@ -70,6 +70,15 @@ public interface ProjectBuilder {
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     ProjectBuilder withName(String name);
+
+    /**
+     * Specify the path of the project that needs to be created.
+     *
+     * @param path
+     *         the project's path
+     * @return {@link com.codenvy.client.model.ProjectBuilder}
+     */
+    ProjectBuilder withPath(String path);
 
     /**
      * Specify the description of the project that needs to be created.

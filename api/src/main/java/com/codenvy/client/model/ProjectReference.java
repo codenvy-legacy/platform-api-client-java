@@ -11,6 +11,7 @@
 package com.codenvy.client.model;
 
 import java.util.Date;
+import java.util.List;
 
 /**
  * This class represents the project resource on Codenvy.
@@ -18,10 +19,6 @@ import java.util.Date;
  * @author Florent Benoit
  */
 public interface ProjectReference {
-
-    /**
-     * Project ID shouldn't be used so don't get it.
-     */
 
     /**
      * @return URL of the project
@@ -36,12 +33,17 @@ public interface ProjectReference {
     /**
      * @return the type ID of the project
      */
-    String projectTypeId();
+    String type();
 
     /**
      * @return the project type name
      */
-    String projectTypeName();
+    String typeName();
+
+    /**
+     * @return path of the project
+     */
+    String path();
 
     /**
      * @return name of the project
@@ -77,5 +79,11 @@ public interface ProjectReference {
      * @return the workspace ID
      */
     String workspaceId();
+
+    /**
+     *
+     * @return the problems of the given project
+     */
+    List<ProjectProblem> getProblems();
 
 }

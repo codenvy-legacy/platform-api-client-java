@@ -65,7 +65,7 @@ public class DummyProjectBuilder implements ProjectBuilder {
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     @Override
-    public DummyProjectBuilder withProjectTypeId(String projectTypeId) {
+    public DummyProjectBuilder withType(String projectTypeId) {
         dummyProject.setProjectTypeId(projectTypeId);
         return this;
     }
@@ -91,7 +91,7 @@ public class DummyProjectBuilder implements ProjectBuilder {
      * @return {@link com.codenvy.client.model.ProjectBuilder}
      */
     @Override
-    public DummyProjectBuilder withProjectTypeName(String projectTypeName) {
+    public DummyProjectBuilder withTypeName(String projectTypeName) {
         return this;
     }
 
@@ -104,6 +104,18 @@ public class DummyProjectBuilder implements ProjectBuilder {
      */
     @Override
     public DummyProjectBuilder withName(String name) {
+        return this;
+    }
+
+    /**
+     * Specify the path of the project that needs to be created.
+     *
+     * @param path
+     *         the project's path
+     * @return {@link com.codenvy.client.model.ProjectBuilder}
+     */
+    @Override
+    public ProjectBuilder withPath(String path) {
         return this;
     }
 

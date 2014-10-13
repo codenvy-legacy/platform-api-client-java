@@ -10,18 +10,22 @@
  *******************************************************************************/
 package com.codenvy.client.core.model;
 
+import com.codenvy.client.model.ProjectProblem;
 import com.codenvy.client.model.ProjectReference;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.collect.ImmutableList;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
- * This class represents the project resource on Codenvy.
+ * This class represents the project reference resource on Codenvy.
  *
  * @author Kevin Pollet
  */
@@ -30,15 +34,17 @@ import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 public class DefaultProjectReference implements ProjectReference {
     private final String url;
     private final String visibility;
-    private final String projectTypeId;
+    private final String type;
     private final String workspaceId;
-    private final String projectTypeName;
+    private final String typeName;
     private final String name;
+    private final String path;
     private final String description;
     private final String workspaceName;
     private final Date   modificationDate;
     private final Date   creationDate;
     private final String ideUrl;
+    private final List<ProjectProblem> problems;
 
 
     /**
@@ -48,11 +54,11 @@ public class DefaultProjectReference implements ProjectReference {
      *         the project url.
      * @param visibility
      *         the project visibility (private or public).
-     * @param projectTypeId
+     * @param type
      *         the project type id (e.g. spring, java, ...).
      * @param workspaceId
      *         the project workspace id.
-     * @param projectTypeName
+     * @param typeName
      *         the project type name (e.g. Spring application, ...).
      * @param name
      *         the project name.
@@ -71,26 +77,31 @@ public class DefaultProjectReference implements ProjectReference {
     public DefaultProjectReference(
             @JsonProperty("url") String url,
             @JsonProperty("visibility") String visibility,
-            @JsonProperty("projectTypeId") String projectTypeId,
+            @JsonProperty("type") String type,
             @JsonProperty("workspaceId") String workspaceId,
-            @JsonProperty("projectTypeName") String projectTypeName,
+            @JsonProperty("typeName") String typeName,
             @JsonProperty("name") String name,
+            @JsonProperty("path") String path,
             @JsonProperty("description") String description,
             @JsonProperty("workspaceName") String workspaceName,
             @JsonProperty("modificationDate") Date modificationDate,
             @JsonProperty("creationDate") Date creationDate,
-            @JsonProperty("ideUrl") String ideUrl) {
+            @JsonProperty("ideUrl") String ideUrl,
+            @JsonProperty("problems") List<DefaultProjectProblem> problems) {
         this.url = url;
         this.visibility = visibility;
-        this.projectTypeId = projectTypeId;
+        this.type = type;
         this.workspaceId = workspaceId;
-        this.projectTypeName = projectTypeName;
+        this.typeName = typeName;
         this.name = name;
+        this.path = path;
         this.description = description;
         this.workspaceName = workspaceName;
         this.modificationDate = modificationDate != null ? new Date(modificationDate.getTime()) : null;
         this.creationDate = creationDate != null ? new Date(creationDate.getTime()) : null;
         this.ideUrl = ideUrl;
+
+        this.problems = ImmutableList.copyOf(problems == null ? new ArrayList<ProjectProblem>() : problems);
     }
 
 
@@ -106,10 +117,10 @@ public class DefaultProjectReference implements ProjectReference {
         return visibility;
     }
 
-    @JsonProperty("projectTypeId")
+    @JsonProperty("type")
     @Override
-    public String projectTypeId() {
-        return projectTypeId;
+    public String type() {
+        return type;
     }
 
     @JsonProperty("workspaceId")
@@ -118,10 +129,28 @@ public class DefaultProjectReference implements ProjectReference {
         return workspaceId;
     }
 
-    @JsonProperty("projectTypeName")
+    /**
+     * @return the problems of the given project
+     */
+    @JsonProperty("problems")
     @Override
-    public String projectTypeName() {
-        return projectTypeName;
+    public List<ProjectProblem> getProblems() {
+        return problems;
+    }
+
+    @JsonProperty("typeName")
+    @Override
+    public String typeName() {
+        return typeName;
+    }
+
+    /**
+     * @return path of the project
+     */
+    @JsonProperty("path")
+    @Override
+    public String path() {
+        return path;
     }
 
     @JsonProperty("name")
@@ -166,7 +195,7 @@ public class DefaultProjectReference implements ProjectReference {
         int result = 1;
         result = prime * result + ((creationDate == null) ? 0 : creationDate.hashCode());
         result = prime * result + ((name == null) ? 0 : name.hashCode());
-        result = prime * result + ((projectTypeId == null) ? 0 : projectTypeId.hashCode());
+        result = prime * result + ((type == null) ? 0 : type.hashCode());
         result = prime * result + ((workspaceId == null) ? 0 : workspaceId.hashCode());
         return result;
     }
@@ -195,11 +224,11 @@ public class DefaultProjectReference implements ProjectReference {
         } else if (!name.equals(other.name)) {
             return false;
         }
-        if (projectTypeId == null) {
-            if (other.projectTypeId != null) {
+        if (type == null) {
+            if (other.type != null) {
                 return false;
             }
-        } else if (!projectTypeId.equals(other.projectTypeId)) {
+        } else if (!type.equals(other.type)) {
             return false;
         }
         if (workspaceId == null) {

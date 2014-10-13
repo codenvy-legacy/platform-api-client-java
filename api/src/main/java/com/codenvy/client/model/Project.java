@@ -11,6 +11,9 @@
 
 package com.codenvy.client.model;
 
+import com.codenvy.client.model.project.BuildersDescription;
+import com.codenvy.client.model.project.RunnersDescription;
+
 import java.util.List;
 import java.util.Map;
 
@@ -24,35 +27,22 @@ public interface Project extends ProjectReference {
     /**
      * @return user permissions for this project
      */
-    List<String> userPermissions();
+    List<String> permissions();
 
     /**
      * @return the attributes for this given project
      */
     Map<String, List<String>> attributes();
 
-    /**
-     * Returns runner
-     * @return the runner
-     */
-    String runner();
 
     /**
-     * Returns builder
-     * @return the builder
+     * @return the description of the runners
      */
-    String builder();
+    RunnersDescription runners();
 
     /**
-     * Returns builder environment
-     * @return the builder environment
+     * @return the description of the builders
      */
-    String defaultBuilderEnvironment();
-
-    /**
-     * Returns runner environment
-     * @return the runner environment
-     */
-    String defaultRunnerEnvironment();
+    BuildersDescription builders();
 
 }

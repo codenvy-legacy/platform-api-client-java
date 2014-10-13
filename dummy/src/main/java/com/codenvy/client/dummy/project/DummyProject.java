@@ -12,8 +12,11 @@
 package com.codenvy.client.dummy.project;
 
 import com.codenvy.client.model.Project;
+import com.codenvy.client.model.ProjectProblem;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.project.BuildersDescription;
+import com.codenvy.client.model.project.RunnersDescription;
 
 import java.util.Date;
 import java.util.List;
@@ -70,7 +73,7 @@ public class DummyProject implements Project {
      * @return user permissions for this project
      */
     @Override
-    public List<String> userPermissions() {
+    public List<String> permissions() {
         return null;
     }
 
@@ -83,42 +86,18 @@ public class DummyProject implements Project {
     }
 
     /**
-     * Returns runner
-     *
-     * @return the runner
+     * @return the description of the runners
      */
     @Override
-    public String runner() {
+    public RunnersDescription runners() {
         return null;
     }
 
     /**
-     * Returns builder
-     *
-     * @return the builder
+     * @return the description of the builders
      */
     @Override
-    public String builder() {
-        return null;
-    }
-
-    /**
-     * Returns builder environment
-     *
-     * @return the builder environment
-     */
-    @Override
-    public String defaultBuilderEnvironment() {
-        return null;
-    }
-
-    /**
-     * Returns runner environment
-     *
-     * @return the runner environment
-     */
-    @Override
-    public String defaultRunnerEnvironment() {
+    public BuildersDescription builders() {
         return null;
     }
 
@@ -142,7 +121,7 @@ public class DummyProject implements Project {
      * @return the type ID of the project
      */
     @Override
-    public String projectTypeId() {
+    public String type() {
         return projectTypeId;
     }
 
@@ -150,7 +129,15 @@ public class DummyProject implements Project {
      * @return the project type name
      */
     @Override
-    public String projectTypeName() {
+    public String typeName() {
+        return null;
+    }
+
+    /**
+     * @return path of the project
+     */
+    @Override
+    public String path() {
         return null;
     }
 
@@ -208,5 +195,13 @@ public class DummyProject implements Project {
     @Override
     public String workspaceId() {
         return workspaceId;
+    }
+
+    /**
+     * @return the problems of the given project
+     */
+    @Override
+    public List<ProjectProblem> getProblems() {
+        return null;
     }
 }

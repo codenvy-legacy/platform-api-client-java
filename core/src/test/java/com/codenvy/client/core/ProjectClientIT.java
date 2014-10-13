@@ -14,6 +14,11 @@ import com.codenvy.client.core.model.DefaultProjectBuilder;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.project.BuildersDescription;
+import com.codenvy.client.model.project.RunnersDescription;
+import com.sun.net.httpserver.HttpExchange;
+import com.sun.net.httpserver.HttpHandler;
+import com.sun.net.httpserver.HttpServer;
 
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,17 +29,24 @@ import javax.ws.rs.client.WebTarget;
 import javax.ws.rs.core.UriBuilder;
 import java.io.BufferedReader;
 import java.io.ByteArrayInputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.net.InetSocketAddress;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.Callable;
+import java.util.concurrent.ExecutionException;
 import java.util.zip.ZipInputStream;
 
 import static org.junit.Assert.assertEquals;
@@ -61,7 +73,7 @@ public class ProjectClientIT extends AbstractIT {
 
         assertNotNull(workspace);
 
-        projectReferencePrj1 = new DefaultProjectBuilder().withProjectTypeId("blank")
+        projectReferencePrj1 = new DefaultProjectBuilder().withType("blank")
                                                           .withName("prj1")
                                                           .withDescription("description")
                                                           .withWorkspaceId(workspace.id())
@@ -141,7 +153,7 @@ public class ProjectClientIT extends AbstractIT {
                                        .getProject(workspace.id(), "prj1")
                                        .execute();
         assertNotNull(project);
-        List<String> permissions = project.userPermissions();
+        List<String> permissions = project.permissions();
         // Check we've the permissions
         assertNotNull(permissions);
         Collection<String> expected = Arrays.asList("read", "write", "update_acl", "build", "run");
@@ -170,8 +182,8 @@ public class ProjectClientIT extends AbstractIT {
                                        .getProject(workspace.id(), "prj1")
                                        .execute();
         assertNotNull(project);
-        String runner = project.runner();
-        assertNull(runner);
+        RunnersDescription runnersDescription = project.runners();
+        assertNull(runnersDescription);
     }
 
 
@@ -181,30 +193,10 @@ public class ProjectClientIT extends AbstractIT {
                                        .getProject(workspace.id(), "prj1")
                                        .execute();
         assertNotNull(project);
-        String builder = project.builder();
-        assertNull(builder);
+        BuildersDescription buildersDescription = project.builders();
+        assertNull(buildersDescription);
     }
 
-
-    @Test
-    public void testGetProjectDefaultRunnerEnvironment() {
-        final Project project = codenvy.project()
-                                       .getProject(workspace.id(), "prj1")
-                                       .execute();
-        assertNotNull(project);
-        String defaultRunnerEnvironment = project.defaultRunnerEnvironment();
-        assertNull(defaultRunnerEnvironment);
-    }
-
-    @Test
-    public void testGetProjectDefaultBuilderEnvironment() {
-        final Project project = codenvy.project()
-                                       .getProject(workspace.id(), "prj1")
-                                       .execute();
-        assertNotNull(project);
-        String defaultBuilderEnvironment = project.defaultBuilderEnvironment();
-        assertNull(defaultBuilderEnvironment);
-    }
 
     @Test(expected = NullPointerException.class)
     public void testCreateWithNullProject() {
