@@ -411,9 +411,9 @@ public class ProjectClientIT extends AbstractIT {
                                 "        \"runner\" : \"java-webapp-default\",\n" +
                                 "        \"runnerEnvironmentConfigurations\" : {  }\n" +
                                 "    },\n" +
-                                "    \"source\" : {\n" +
-                                "        \"location\" : \"$LOCATION$\",\n" +
-                                "        \"type\" : \"zip\"\n" +
+                                "\"source\" : { \"project\" : { \"location\" : \"$LOCATION$\",\n" +
+                                "          \"type\" : \"zip\"\n" +
+                                "        }\n" +
                                 "    }\n" +
                                 "}\n";
 
