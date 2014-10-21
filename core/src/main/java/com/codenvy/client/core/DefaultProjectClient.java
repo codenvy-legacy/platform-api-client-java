@@ -156,7 +156,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      */
     @Override
     public Request<Project> importProject(String workspaceId, String name, Path configurationPath) {
-        JsonValue source = getJsonObject(configurationPath).get("source");
+        JsonValue jsonValue = getJsonObject(configurationPath);
 
         final Invocation request = getWebTarget().path(workspaceId)
                                                  .path("import")
@@ -164,7 +164,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .queryParam("force", "false")
                                                  .request()
                                                  .accept(APPLICATION_JSON)
-                                                 .buildPost(json(source));
+                                                 .buildPost(json(jsonValue));
 
         return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
     }
