@@ -55,7 +55,7 @@
         <module>assemblies</module>
     </modules>
     <scm>
-        <connection>scm:git:git@github.com:codenvyplatform-api-client-java.git</connection>
+        <connection>scm:git:git@github.com:codenvy/platform-api-client-java.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/platform-api-client-java.git</developerConnection>
         <tag>HEAD</tag>
     </scm>
