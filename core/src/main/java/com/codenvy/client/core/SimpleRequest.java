@@ -176,14 +176,17 @@ public class SimpleRequest<T> implements Request<T> {
             // read response
             if (wrapAsJSonObject) {
                 if (Status.Family.SUCCESSFUL == response.getStatusInfo().getFamily()) {
+                    String jsonData = null;
                     JsonObject jsonObject = response.readEntity(JsonObject.class);
+                    if (jsonObject != null) {
 
-                    StringWriter stWriter = new StringWriter();
-                    JsonWriter jsonWriter = Json.createWriter(stWriter);
-                    jsonWriter.writeObject(jsonObject);
-                    jsonWriter.close();
+                        StringWriter stWriter = new StringWriter();
+                        JsonWriter jsonWriter = Json.createWriter(stWriter);
+                        jsonWriter.writeObject(jsonObject);
+                        jsonWriter.close();
 
-                    String jsonData = stWriter.toString();
+                        jsonData = stWriter.toString();
+                    }
 
                     return new DefaultResponse(response, jsonData);
                 }

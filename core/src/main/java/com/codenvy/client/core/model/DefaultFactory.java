@@ -11,8 +11,12 @@
 
 package com.codenvy.client.core.model;
 
+import com.codenvy.client.core.model.factory.DefaultFactoryCreator;
+import com.codenvy.client.core.model.factory.DefaultFactoryProject;
 import com.codenvy.client.model.Factory;
 import com.codenvy.client.model.Link;
+import com.codenvy.client.model.factory.FactoryCreator;
+import com.codenvy.client.model.factory.FactoryProject;
 import com.fasterxml.jackson.annotation.JsonCreator;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -29,18 +33,42 @@ import java.util.List;
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultFactory implements Factory {
 
+    /**
+     * Name of the factory.
+     */
+    private String name;
+
+    /**
+     * Version.
+     */
     private String version;
+
+    /**
+     * Links
+     */
     private final List<Link> links;
 
+    /**
+     * Creator
+     */
+    private FactoryCreator factoryCreator;
+
+    /**
+     * Creator
+     */
+    private FactoryProject factoryProject;
 
     /**
      * Constructs an instance of {@linkplain com.codenvy.client.model.Factory}.
      *
      */
     @JsonCreator
-    public DefaultFactory(@JsonProperty("links") List<DefaultLink> links, @JsonProperty("v") String version) {
+    public DefaultFactory(@JsonProperty("links") List<DefaultLink> links, @JsonProperty("v") String version,
+                          @JsonProperty("name") String name, @JsonProperty("creator") DefaultFactoryCreator factoryCreator, @JsonProperty("project") DefaultFactoryProject factoryProject) {
         this.links = ImmutableList.copyOf(links == null ? new ArrayList<Link>() : links);
         this.version = version;
+        this.factoryCreator = factoryCreator;
+        this.factoryProject = factoryProject;
     }
 
     @JsonProperty("v")
@@ -64,4 +92,22 @@ public class DefaultFactory implements Factory {
     public String getKeepdirectory() {
         return null;
     }
+
+
+    /**
+     * @return the creator
+     */
+    @Override
+    public FactoryCreator creator() {
+        return factoryCreator;
+    }
+
+    /**
+     * @return the project
+     */
+    @Override
+    public FactoryProject project() {
+        return factoryProject;
+    }
+
 }

@@ -17,25 +17,38 @@ import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultFactory;
 import com.codenvy.client.model.Factory;
 import com.codenvy.client.model.ProjectReference;
+import com.codenvy.client.model.User;
+import com.google.common.reflect.TypeToken;
 
 import org.glassfish.jersey.media.multipart.FormDataBodyPart;
 import org.glassfish.jersey.media.multipart.FormDataContentDisposition;
 import org.glassfish.jersey.media.multipart.FormDataMultiPart;
 
 import javax.json.Json;
+import javax.json.JsonArray;
 import javax.json.JsonObject;
 import javax.json.JsonReader;
+import javax.json.JsonStructure;
+import javax.json.JsonValue;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.client.Invocation;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.io.StringReader;
+import java.lang.reflect.Type;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.ArrayList;
+import java.util.List;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+import static javax.json.JsonValue.ValueType.ARRAY;
+import static javax.json.JsonValue.ValueType.OBJECT;
 import static javax.ws.rs.core.MediaType.APPLICATION_JSON;
 import static javax.ws.rs.core.MediaType.MULTIPART_FORM_DATA;
+import static javax.ws.rs.core.Response.Status.Family.SUCCESSFUL;
 
 /**
  * The Codenvy factory API client.
@@ -125,7 +138,8 @@ public class DefaultFactoryClient extends AbstractClient implements FactoryClien
     /**
      * Returns factory content of a project
      *
-     * @param projectReference@return
+     * @param projectReference
+     * @return
      *         factory content.
      */
     @Override
@@ -138,5 +152,115 @@ public class DefaultFactoryClient extends AbstractClient implements FactoryClien
                                                  .buildGet();
 
         return new SimpleRequest<String>(request, getAuthenticationManager());
+    }
+
+    /**
+     * Deletes a factory based on its id
+     *
+     * @param factoryId
+     *         the ID of the factory
+     * @return void request
+     */
+    @Override
+    public Request<Void> delete(String factoryId) {
+        final Invocation request = getWebTarget().path(factoryId)
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildDelete();
+
+        return new SimpleRequest<Void>(request, getAuthenticationManager());
+    }
+
+    /**
+     * Updates a factory by providing its id and JSON content
+     *
+     * @param factoryId
+     *         the ID of the factory
+     * @param jsonContent
+     *         the content of the JSON file
+     * @return void request
+     */
+    @Override
+    public Request<Void> update(String factoryId, String jsonContent) {
+
+        JsonReader jSonReader = Json.createReader(new StringReader(jsonContent));
+        JsonObject jsonObject = jSonReader.readObject();
+
+        final Invocation request = getWebTarget().path(factoryId)
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildPut(Entity.entity(jsonObject, APPLICATION_JSON));
+
+        return new SimpleRequest<Void>(request, getAuthenticationManager());
+
+    }
+
+    /**
+     * List factories ID available
+     * @param user the user to use for listing factories
+     * @return the list of factories
+     */
+    @Override
+    public Request<List<String>> list(User user) {
+        checkNotNull(user);
+
+        final Invocation request = getWebTarget().path("find").queryParam("creator.userId", user.id())
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+
+
+        Type collectionType = new TypeToken<List<String>>() {}.getType();
+
+
+        return new RequestResponseAdaptor<>(new SimpleRequest<>(request, Response.class, getAuthenticationManager()),
+                                            new Adaptor<List<String>, Response>() {
+                                                @Override
+                                                public List<String> adapt(Response response) {
+                                                    List<String> factories = new ArrayList<>();
+                                                    if (SUCCESSFUL == response.getStatusInfo().getFamily()) {
+                                                        JsonStructure jsonStructure  = response.readEntity(JsonStructure.class);
+                                                        if (jsonStructure != null) {
+                                                            if (ARRAY == jsonStructure.getValueType()) {
+                                                                JsonArray jsonArray = (JsonArray)jsonStructure;
+                                                                String substring = "/api/factory/";
+                                                                int substringLength = substring.length();
+                                                                for (JsonValue jsonValue : jsonArray) {
+                                                                    if (OBJECT == jsonValue.getValueType()) {
+                                                                        JsonObject jsonObject = (JsonObject) jsonValue;
+                                                                        String href = jsonObject.getString("href");
+                                                                        if (href != null) {
+                                                                            int indexOf = href.indexOf(substring);
+                                                                            if (indexOf > 0) {
+                                                                                factories.add(href.substring(indexOf + substringLength));
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        }
+                                                        return factories;
+                                                    }
+                                                    throw CodenvyErrorExceptionHelper.from(response);
+                                                }
+                                            });
+
+    }
+
+    /**
+     * Gets a factory based on its id
+     *
+     * @param factoryId
+     *         the ID of the factory
+     * @return factory information
+     */
+    @Override
+    public Request<Factory> get(String factoryId) {
+        final Invocation request = getWebTarget().path(factoryId)
+                                                 .request()
+                                                 .accept(APPLICATION_JSON)
+                                                 .buildGet();
+
+        return new SimpleRequest<Factory>(request, DefaultFactory.class, getAuthenticationManager());
     }
 }

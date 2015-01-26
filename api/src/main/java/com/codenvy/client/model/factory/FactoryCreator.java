@@ -9,34 +9,14 @@
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
 
-package com.codenvy.client.model;
-
-import com.codenvy.client.model.factory.FactoryCreator;
-import com.codenvy.client.model.factory.FactoryProject;
-
-import java.util.List;
+package com.codenvy.client.model.factory;
 
 /**
+ * Creator of a factory
  * @author Florent Benoit
  */
-public interface Factory {
+public interface FactoryCreator {
 
-    String getV();
-
-    List<Link> getLinks();
-
-    Factory withWarnonclose(boolean warnonclose);
-
-    String getKeepdirectory();
-
-    /**
-     * @return project
-     */
-    FactoryProject project();
-
-    /**
-     * @return the creator
-     */
-    FactoryCreator creator();
+    long created();
 
 }

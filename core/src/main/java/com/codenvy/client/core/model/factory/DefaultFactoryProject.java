@@ -9,34 +9,29 @@
  *   Codenvy, S.A. - initial API and implementation
  *******************************************************************************/
 
-package com.codenvy.client.model;
+package com.codenvy.client.core.model.factory;
 
-import com.codenvy.client.model.factory.FactoryCreator;
 import com.codenvy.client.model.factory.FactoryProject;
-
-import java.util.List;
+import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 /**
+ * Factory project
  * @author Florent Benoit
  */
-public interface Factory {
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class DefaultFactoryProject implements FactoryProject {
 
-    String getV();
+    private String name;
 
-    List<Link> getLinks();
+    @JsonCreator
+    public DefaultFactoryProject(@JsonProperty("name") String name) {
+        this.name = name;
+    }
 
-    Factory withWarnonclose(boolean warnonclose);
-
-    String getKeepdirectory();
-
-    /**
-     * @return project
-     */
-    FactoryProject project();
-
-    /**
-     * @return the creator
-     */
-    FactoryCreator creator();
-
+    @Override
+    public String name() {
+        return name;
+    }
 }
