@@ -13,16 +13,22 @@ package com.codenvy.client.core.model.project;
 import com.codenvy.client.model.project.RunnerConfiguration;
 import com.codenvy.client.model.project.RunnersDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.common.collect.ImmutableMap;
 
 import java.util.HashMap;
 import java.util.Map;
 
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
+
 /**
  * Defines default Runner and all runners configuration.
  * @author Florent Benoit
  */
+@JsonInclude(NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultRunnersDescription implements RunnersDescription {
 
     private String defaultRunner;

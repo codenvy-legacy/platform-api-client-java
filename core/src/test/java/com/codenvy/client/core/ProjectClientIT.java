@@ -170,7 +170,7 @@ public class ProjectClientIT extends AbstractIT {
         // Check we've the attributes
         assertNotNull(attributes);
 
-        assertTrue(attributes.containsKey("language"));
+        assertTrue(attributes.isEmpty());
 
 
     }
@@ -182,7 +182,9 @@ public class ProjectClientIT extends AbstractIT {
                                        .execute();
         assertNotNull(project);
         RunnersDescription runnersDescription = project.runners();
-        assertNull(runnersDescription);
+        assertNotNull(runnersDescription);
+        assertNull(runnersDescription.defaultRunner());
+        assertTrue(runnersDescription.configurations().isEmpty());
     }
 
 
@@ -193,7 +195,8 @@ public class ProjectClientIT extends AbstractIT {
                                        .execute();
         assertNotNull(project);
         BuildersDescription buildersDescription = project.builders();
-        assertNull(buildersDescription);
+        assertNotNull(buildersDescription);
+        assertNull(buildersDescription.defaultBuilder());
     }
 
 
@@ -457,7 +460,7 @@ public class ProjectClientIT extends AbstractIT {
 
 
         assertNotNull(project);
-        assertEquals(project.name(), "my-jsp-sample");
+        assertEquals("my-jsp-sample", project.name());
 
         // ok we will update project descriptor
         Project updatedProject = codenvy.project().updateProject(project, factoryPath).execute();

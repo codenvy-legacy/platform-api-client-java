@@ -13,12 +13,18 @@ package com.codenvy.client.core.model.project;
 
 import com.codenvy.client.model.project.BuildersDescription;
 import com.fasterxml.jackson.annotation.JsonCreator;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonProperty;
+
+import static com.fasterxml.jackson.annotation.JsonInclude.Include.NON_NULL;
 
 /**
  * Defines default builder.
  * @author Florent Benoit
  */
+@JsonInclude(NON_NULL)
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class DefaultBuildersDescription implements BuildersDescription {
 
     private String                           defaultBuilder;
