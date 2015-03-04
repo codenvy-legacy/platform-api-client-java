@@ -15,6 +15,7 @@ import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.WorkspaceReference;
 import com.codenvy.client.model.project.BuildersDescription;
+import com.codenvy.client.model.project.ImportResponse;
 import com.codenvy.client.model.project.RunnersDescription;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
@@ -404,15 +405,8 @@ public class ProjectClientIT extends AbstractIT {
         String factoryContent = "{\n" +
                                 "    \"v\" : \"2.0\",\n" +
                                 "    \"project\" : {\n" +
-                                "        \"attributes\" : {\n" +
-                                "            \"language\" : [ \"java\" ]\n" +
-                                "        },\n" +
-                                "        \"builder\" : \"maven\",\n" +
-                                "        \"builderEnvironmentConfigurations\" : {  },\n" +
                                 "        \"description\" : \"jsp sample app\",\n" +
-                                "        \"projectTypeId\" : \"maven\",\n" +
-                                "        \"runner\" : \"java-webapp-default\",\n" +
-                                "        \"runnerEnvironmentConfigurations\" : {  }\n" +
+                                "        \"type\" : \"blank\"\n" +
                                 "    },\n" +
                                 "\"source\" : { \"project\" : { \"location\" : \"$LOCATION$\",\n" +
                                 "          \"type\" : \"zip\"\n" +
@@ -456,7 +450,9 @@ public class ProjectClientIT extends AbstractIT {
             Files.write(factoryPath, factoryContent.getBytes(Charset.defaultCharset()));
 
 
-        Project project = codenvy.project().importProject(workspace.id(), "my-jsp-sample", factoryPath).execute();
+        ImportResponse importResponse = codenvy.project().importProject(workspace.id(), "my-jsp-sample", factoryPath).execute();
+
+        Project project = importResponse.project();
 
 
         assertNotNull(project);

@@ -13,6 +13,7 @@ package com.codenvy.client;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
+import com.codenvy.client.model.project.ImportResponse;
 
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -81,11 +82,11 @@ public interface ProjectClient {
      * @param name
      *         the name of the project to import.
      * @param configurationPath the path to the configuration file
-     * @return the new {@link com.codenvy.client.model.ProjectReference}, never {@code null}.
+     * @return the new {@link com.codenvy.client.model.project.ImportResponse}, never {@code null}.
      * @throws NullPointerException
      *         if project parameter is {@code null}.
      */
-    Request<Project> importProject(String workspaceId, String name, Path configurationPath);
+    Request<ImportResponse> importProject(String workspaceId, String name, Path configurationPath);
 
     /**
      * Update project description of a {@link com.codenvy.client.model.Project} in the given workspace.

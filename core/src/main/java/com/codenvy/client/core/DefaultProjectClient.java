@@ -15,9 +15,11 @@ import com.codenvy.client.Request;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultProject;
 import com.codenvy.client.core.model.DefaultProjectReference;
+import com.codenvy.client.core.model.project.DefaultImportResponse;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
+import com.codenvy.client.model.project.ImportResponse;
 import com.google.common.reflect.TypeToken;
 
 import javax.json.Json;
@@ -155,7 +157,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
      *         if project parameter is {@code null}.
      */
     @Override
-    public Request<Project> importProject(String workspaceId, String name, Path configurationPath) {
+    public Request<ImportResponse> importProject(String workspaceId, String name, Path configurationPath) {
         JsonValue jsonValue = getJsonObject(configurationPath);
 
         final Invocation request = getWebTarget().path(workspaceId)
@@ -166,7 +168,7 @@ public class DefaultProjectClient extends AbstractClient implements ProjectClien
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(json(jsonValue));
 
-        return new SimpleRequest<Project>(request, DefaultProject.class, getAuthenticationManager());
+        return new SimpleRequest<ImportResponse>(request, DefaultImportResponse.class, getAuthenticationManager());
     }
 
     /**

@@ -17,6 +17,7 @@ import com.codenvy.client.dummy.DummyRequest;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectReference;
 import com.codenvy.client.model.Visibility;
+import com.codenvy.client.model.project.ImportResponse;
 
 import java.io.InputStream;
 import java.nio.file.Path;
@@ -163,7 +164,7 @@ public class DummyProjectClient implements ProjectClient {
      *         if project parameter is {@code null}.
      */
     @Override
-    public Request<Project> importProject(String workspaceId, String name, Path configurationPath) {
+    public Request<ImportResponse> importProject(String workspaceId, String name, Path configurationPath) {
         return null;
     }
 
