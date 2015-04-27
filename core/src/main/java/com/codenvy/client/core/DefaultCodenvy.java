@@ -15,6 +15,7 @@ import com.codenvy.client.Codenvy;
 import com.codenvy.client.FactoryClient;
 import com.codenvy.client.GitClient;
 import com.codenvy.client.UserClient;
+import com.codenvy.client.VFSClient;
 import com.codenvy.client.VersionClient;
 import com.codenvy.client.auth.Credentials;
 import com.codenvy.client.auth.CredentialsProvider;
@@ -143,6 +144,16 @@ public class DefaultCodenvy implements Codenvy {
     @Override
     public GitClient git() {
         return new DefaultGitClient(url, authenticationManager);
+    }
+
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    @Override
+    public VFSClient vfs() {
+        return new DefaultVFSClient(url, authenticationManager);
     }
 
 

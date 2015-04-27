@@ -16,6 +16,7 @@ import com.codenvy.client.FactoryClient;
 import com.codenvy.client.GitClient;
 import com.codenvy.client.RunnerClient;
 import com.codenvy.client.UserClient;
+import com.codenvy.client.VFSClient;
 import com.codenvy.client.VersionClient;
 import com.codenvy.client.dummy.builder.DummyBuilderClient;
 import com.codenvy.client.dummy.project.DummyProjectClient;
@@ -118,6 +119,16 @@ public class DummyCodenvy implements Codenvy {
      */
     @Override
     public GitClient git() {
+        return null;
+    }
+
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    @Override
+    public VFSClient vfs() {
         return null;
     }
 

@@ -66,12 +66,20 @@ public class ProjectClientIT extends AbstractIT {
     private static ProjectReference   projectReferencePrj1;
 
     @BeforeClass
-    public static void initialize() {
+    public static void initialize() throws IOException {
         workspace = codenvy.workspace()
                            .withName(SDK_WORKSPACE_NAME)
                            .execute();
 
         assertNotNull(workspace);
+
+
+        // init the workspace VFS mapping
+        Path path = new File(System.getProperty("java.io.tmpdir")).toPath();
+        Path factoryPath = Files.createTempDirectory(path, "factory");
+        factoryPath.toFile().deleteOnExit();
+        factoryPath.toFile().mkdirs();
+        codenvy.vfs().directoryMapping(workspace.id(), factoryPath.toFile().getPath()).execute();
 
         projectReferencePrj1 = new DefaultProjectBuilder().withType("blank")
                                                           .withName("prj1")
@@ -79,6 +87,7 @@ public class ProjectClientIT extends AbstractIT {
                                                           .withWorkspaceId(workspace.id())
                                                           .withWorkspaceName(workspace.name())
                                                           .build();
+
 
         codenvy.project()
                .create(projectReferencePrj1)

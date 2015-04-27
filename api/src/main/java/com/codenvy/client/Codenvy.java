@@ -74,4 +74,11 @@ public interface Codenvy {
      */
     GitClient git();
 
+    /**
+     * Returns the factory API client.
+     *
+     * @return the factory API client.
+     */
+    VFSClient vfs();
+
 }
