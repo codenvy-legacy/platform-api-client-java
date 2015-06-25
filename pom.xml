@@ -16,12 +16,12 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>org.eclipse.che.depmgt</groupId>
-        <version>1.21.1-RC-SNAPSHOT</version>
+        <version>1.21.1</version>
         <relativePath />
     </parent>
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java-parent</artifactId>
-    <version>1.10.1-RC-SNAPSHOT</version>
+    <version>1.10.1-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Codenvy Platform API Client</name>
     <licenses>
