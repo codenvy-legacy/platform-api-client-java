@@ -16,7 +16,7 @@
     <parent>
         <artifactId>assemblies</artifactId>
         <groupId>com.codenvy.platform-api-client-java</groupId>
-        <version>3.11.1-SNAPSHOT</version>
+        <version>3.11.1</version>
     </parent>
     <artifactId>uberjar</artifactId>
     <packaging>bundle</packaging>
@@ -25,7 +25,7 @@
         <dependency>
             <groupId>com.codenvy.platform-api-client-java</groupId>
             <artifactId>codenvy-platform-api-client-java-core</artifactId>
-            <version>3.11.1-SNAPSHOT</version>
+            <version>3.11.1</version>
             <type>bundle</type>
             <scope>provided</scope>
         </dependency>
