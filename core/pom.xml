@@ -107,7 +107,7 @@
                                     <type>zip</type>
                                 </artifactItem>
                             </artifactItems>
-                            <outputDirectory>${codenvy.ide.path}</outputDirectory>
+                            <outputDirectory>${project.build.directory}</outputDirectory>
                         </configuration>
                     </execution>
                 </executions>
