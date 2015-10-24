@@ -101,7 +101,7 @@
                         <configuration>
                             <artifactItems>
                                 <artifactItem>
-                                    <groupId>org.eclipse.che.sdk</groupId>
+                                    <groupId>org.eclipse.che.ide</groupId>
                                     <artifactId>assembly-sdk</artifactId>
                                     <version>${che.sdk.version}</version>
                                     <type>zip</type>
