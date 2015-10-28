@@ -25,13 +25,11 @@
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>codenvy-platform-api-client-java-api</artifactId>
-            <version>${project.version}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
-            <version>${org.testng.version}</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
