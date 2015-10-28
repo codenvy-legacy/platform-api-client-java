@@ -25,7 +25,6 @@
         <dependency>
             <groupId>com.codenvy.platform-api-client-java</groupId>
             <artifactId>codenvy-platform-api-client-java-core</artifactId>
-            <version>3.13.2-SNAPSHOT</version>
             <type>bundle</type>
             <scope>provided</scope>
         </dependency>
