@@ -52,16 +52,16 @@ public class ProjectTest {
         this.workspace1 = codenvyClient.newWorkspaceBuilder("workspace1").build();
 
         // build a project with builder with official API
-        project1 = codenvyClient.newProjectBuilder().withWorkspaceId(workspace1.workspaceReference().id()).withWorkspaceName(workspace1.workspaceReference().name()).build();
+        project1 = codenvyClient.newProjectBuilder().withWorkspaceId(workspace1.id()).withWorkspaceName(workspace1.name()).build();
 
         // other with our API
-        project2 = codenvyClient.newProjectBuilder(workspace1.workspaceReference(), "project2").build();
+        project2 = codenvyClient.newProjectBuilder(workspace1, "project2").build();
     }
 
     @Test
     public void testNoProjects() {
         // check we don't have any workspaces
-        List<ProjectReference> projectReferences = projectClient.getWorkspaceProjects(workspace1.workspaceReference().id()).execute();
+        List<ProjectReference> projectReferences = projectClient.getWorkspaceProjects(workspace1.id()).execute();
         assertNotNull(projectReferences);
         assertTrue(projectReferences.isEmpty());
     }
@@ -85,7 +85,7 @@ public class ProjectTest {
     @Test(dependsOnMethods = "createProjects")
     public void testGetAllProjects() {
         // check we have it now
-        List<ProjectReference> projectReferences = projectClient.getWorkspaceProjects(workspace1.workspaceReference().id()).execute();
+        List<ProjectReference> projectReferences = projectClient.getWorkspaceProjects(workspace1.id()).execute();
         assertNotNull(projectReferences);
         assertEquals(projectReferences.size(), 2);
     }

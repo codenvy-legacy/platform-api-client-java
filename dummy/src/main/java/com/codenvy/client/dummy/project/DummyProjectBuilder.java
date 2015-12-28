@@ -12,7 +12,7 @@
 package com.codenvy.client.dummy.project;
 
 import com.codenvy.client.model.ProjectBuilder;
-import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.Workspace;
 
 /**
  * @author Florent Benoit
@@ -22,8 +22,8 @@ public class DummyProjectBuilder implements ProjectBuilder {
     private DummyProject dummyProject;
 
 
-    public DummyProjectBuilder(WorkspaceReference workspaceReference, String projectName) {
-        this.dummyProject = new DummyProject(workspaceReference, projectName);
+    public DummyProjectBuilder(Workspace workspace, String projectName) {
+        this.dummyProject = new DummyProject(workspace, projectName);
     }
 
 

@@ -16,17 +16,28 @@
     <parent>
         <artifactId>assemblies</artifactId>
         <groupId>com.codenvy.platform-api-client-java</groupId>
-        <version>3.14.0-SNAPSHOT</version>
+        <version>4.0.0-beta-2-SNAPSHOT</version>
     </parent>
     <artifactId>uberjar</artifactId>
     <packaging>bundle</packaging>
     <name>Codenvy Platform API Client :: Assemblies :: überjar</name>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>com.codenvy.platform-api-client-java</groupId>
+                <artifactId>codenvy-platform-api-client-java-core</artifactId>
+                <version>${project.version}</version>
+                <type>bundle</type>
+                <scope>provided</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <dependencies>
         <dependency>
             <groupId>com.codenvy.platform-api-client-java</groupId>
             <artifactId>codenvy-platform-api-client-java-core</artifactId>
             <type>bundle</type>
-            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>

@@ -14,9 +14,7 @@ import com.codenvy.client.Request;
 import com.codenvy.client.WorkspaceClient;
 import com.codenvy.client.core.auth.AuthenticationManager;
 import com.codenvy.client.core.model.DefaultWorkspace;
-import com.codenvy.client.core.model.DefaultWorkspaceReference;
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 import com.google.common.reflect.TypeToken;
 
 import javax.ws.rs.client.Invocation;
@@ -56,7 +54,7 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
      */
     @Override
     public Request<List<Workspace>> all() {
-        final Invocation request = getWebTarget().path("all")
+        final Invocation request = getWebTarget().path("")
                                                  .request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
@@ -77,7 +75,7 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
      *         if name parameter is {@code null}.
      */
     @Override
-    public Request<WorkspaceReference> withName(String name) {
+    public Request<Workspace> withName(String name) {
         checkNotNull(name);
 
         final Invocation request = getWebTarget().queryParam("name", name)
@@ -85,7 +83,7 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
                                                  .accept(APPLICATION_JSON)
                                                  .buildGet();
 
-        return new SimpleRequest<WorkspaceReference>(request, DefaultWorkspaceReference.class, getAuthenticationManager());
+        return new SimpleRequest<Workspace>(request, DefaultWorkspace.class, getAuthenticationManager());
     }
 
     /**
@@ -95,17 +93,17 @@ public class DefaultWorkspaceClient extends AbstractClient implements WorkspaceC
      *         the workspace to create.
      * @return the created workspace.
      * @throws NullPointerException
-     *         if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
+     *         if {@link com.codenvy.client.model.Workspace} parameter is {@code null}.
      */
     @Override
-    public Request<WorkspaceReference> create(WorkspaceReference workspaceReference) {
+    public Request<Workspace> create(Workspace workspaceReference) {
         checkNotNull(workspaceReference);
 
         final Invocation request = getWebTarget().request()
                                                  .accept(APPLICATION_JSON)
                                                  .buildPost(json(workspaceReference));
 
-        return new SimpleRequest<WorkspaceReference>(request, DefaultWorkspaceReference.class, getAuthenticationManager());
+        return new SimpleRequest<Workspace>(request, DefaultWorkspace.class, getAuthenticationManager());
 
     }
 }

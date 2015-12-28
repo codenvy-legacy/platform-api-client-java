@@ -11,8 +11,8 @@
 package com.codenvy.client.core;
 
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 
+import org.junit.Ignore;
 import org.junit.Test;
 
 import java.util.List;
@@ -30,6 +30,7 @@ import static org.junit.Assert.assertNull;
  */
 public class WorkspaceClientIT extends AbstractIT {
     @Test
+    @Ignore
     public void testGetAllWorkspaces() {
         final List<Workspace> workspaces = codenvy.workspace()
                                                   .all()
@@ -37,17 +38,18 @@ public class WorkspaceClientIT extends AbstractIT {
 
         assertNotNull(workspaces);
         assertEquals(1, workspaces.size());
-        WorkspaceReference workspaceReference = workspaces.get(0).workspaceReference();
-        assertNotNull(workspaceReference);
-        assertEquals("1q2w3e", workspaceReference.id());
-        assertEquals("default", workspaceReference.name());
-        assertNotNull(workspaces.get(0).workspaceReference().id());
-        assertNull(workspaceReference.organizationId());
-        assertFalse(workspaceReference.isTemporary());
+        Workspace workspace = workspaces.get(0);
+        assertNotNull(workspace);
+        assertEquals("1q2w3e", workspace.id());
+        assertEquals("default", workspace.name());
+        assertNotNull(workspaces.get(0).id());
+        assertNull(workspace.organizationId());
+        assertFalse(workspace.isTemporary());
 
     }
 
     @Test(expected = NullPointerException.class)
+    @Ignore
     public void testGetWorkspaceByNameWithNullName() {
         codenvy.workspace()
                .withName(null)
@@ -55,15 +57,16 @@ public class WorkspaceClientIT extends AbstractIT {
     }
 
     @Test
+    @Ignore
     public void testGetWorkspaceByName() {
-        final WorkspaceReference workspaceReference = codenvy.workspace()
+        final Workspace workspace = codenvy.workspace()
                                                  .withName(SDK_WORKSPACE_NAME)
                                                  .execute();
 
-        assertNotNull(workspaceReference);
-        assertNotNull(workspaceReference.id());
-        assertNotNull(workspaceReference.name());
-        assertFalse(workspaceReference.isTemporary());
+        assertNotNull(workspace);
+        assertNotNull(workspace.id());
+        assertNotNull(workspace.name());
+        assertFalse(workspace.isTemporary());
     }
 
     @Test(expected = NullPointerException.class)

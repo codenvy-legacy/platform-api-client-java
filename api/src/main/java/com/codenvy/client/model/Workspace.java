@@ -18,7 +18,22 @@ package com.codenvy.client.model;
 public interface Workspace {
 
     /**
-     * @return workspace reference of this workspace
+     * @return ID of this workspace
      */
-    WorkspaceReference workspaceReference();
+    String id();
+
+    /**
+     * @return name of this workspace reference
+     */
+    String name();
+
+    /**
+     * @return Organization ID
+     */
+    String organizationId();
+
+    /**
+     * @return true if the workspace is a temporary workspace
+     */
+    boolean isTemporary();
 }

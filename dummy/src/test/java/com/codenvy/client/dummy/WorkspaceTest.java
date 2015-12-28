@@ -13,7 +13,6 @@ package com.codenvy.client.dummy;
 
 import com.codenvy.client.WorkspaceClient;
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
@@ -57,9 +56,9 @@ public class WorkspaceTest {
     public void createWorkspace() {
 
         // Create it
-        WorkspaceReference builtWorkspaceReference = workspaceClient.create(workspace1.workspaceReference()).execute();
-        assertNotNull(builtWorkspaceReference);
-        assertEquals(builtWorkspaceReference.name(), workspace1.workspaceReference().name());
+        Workspace builtWorkspace = workspaceClient.create(workspace1).execute();
+        assertNotNull(builtWorkspace);
+        assertEquals(builtWorkspace.name(), workspace1.name());
     }
 
     @Test(dependsOnMethods = "createWorkspace")
@@ -68,16 +67,16 @@ public class WorkspaceTest {
         List<Workspace> workspaces = workspaceClient.all().execute();
         assertNotNull(workspaces);
         assertEquals(workspaces.size(), 1);
-        assertEquals(workspaces.get(0).workspaceReference().name(), workspace1.workspaceReference().name());
+        assertEquals(workspaces.get(0).name(), workspace1.name());
 
     }
 
     @Test(dependsOnMethods = "testGetAllWorkspaces")
     public void testGetWorkspaceByName() {
         // check we have it now
-        WorkspaceReference foundReference = workspaceClient.withName(workspace1.workspaceReference().name()).execute();
-        assertNotNull(foundReference);
-        assertEquals(foundReference.name(), workspace1.workspaceReference().name());
+        Workspace found = workspaceClient.withName(workspace1.name()).execute();
+        assertNotNull(found);
+        assertEquals(found.name(), workspace1.name());
     }
 
 

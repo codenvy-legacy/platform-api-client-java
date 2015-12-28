@@ -16,12 +16,11 @@
     <parent>
         <artifactId>maven-depmgt-pom</artifactId>
         <groupId>com.codenvy.che.depmgt</groupId>
-        <version>3.14.0-SNAPSHOT</version>
-        <relativePath />
+        <version>4.0.0-beta-2-SNAPSHOT</version>
     </parent>
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java-parent</artifactId>
-    <version>3.14.0-SNAPSHOT</version>
+    <version>4.0.0-beta-2-SNAPSHOT</version>
     <packaging>pom</packaging>
     <name>Codenvy Platform API Client</name>
     <licenses>
@@ -60,7 +59,7 @@
         <tag>HEAD</tag>
     </scm>
     <properties>
-        <codenvy.ide.path>${project.build.directory}/assembly-sdk-${che.sdk.version}</codenvy.ide.path>
+        <codenvy.ide.path>${project.build.directory}/eclipse-che-${che.ide.version}</codenvy.ide.path>
         <license_years>2014</license_years>
         <version.hk2>2.2.0</version.hk2>
         <version.jackson>2.3.2</version.jackson>
@@ -71,6 +70,7 @@
         <version.jsonp-jaxrs>1.0</version.jsonp-jaxrs>
         <version.maven-bundle-plugin>2.4.0</version.maven-bundle-plugin>
         <version.org.apache.karaf>3.0.1</version.org.apache.karaf>
+        <version.org.osgi.core>5.0.0</version.org.osgi.core>
     </properties>
     <dependencyManagement>
         <dependencies>

@@ -14,7 +14,7 @@ package com.codenvy.client.dummy.project;
 import com.codenvy.client.model.Project;
 import com.codenvy.client.model.ProjectProblem;
 import com.codenvy.client.model.ProjectReference;
-import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.Workspace;
 import com.codenvy.client.model.project.BuildersDescription;
 import com.codenvy.client.model.project.RunnersDescription;
 
@@ -59,8 +59,8 @@ public class DummyProject implements Project {
         this.workspaceName = workspaceName;
     }
 
-    public DummyProject(WorkspaceReference workspaceReference, String name) {
-        this(name, workspaceReference.id(), workspaceReference.name());
+    public DummyProject(Workspace workspace, String name) {
+        this(name, workspace.id(), workspace.name());
     }
 
     public DummyProject(ProjectReference projectReference) {

@@ -23,7 +23,7 @@ public class DummyWorkspaceBuilder {
 
     public DummyWorkspaceBuilder(String name) {
         this.dummyWorkspace = new DummyWorkspace(name);
-        this.dummyWorkspace.workspaceReference().setId(UUID.randomUUID().toString());
+        this.dummyWorkspace.setId(UUID.randomUUID().toString());
 
     }
 

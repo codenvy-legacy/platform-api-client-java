@@ -12,7 +12,6 @@ package com.codenvy.client;
 
 
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 
 import java.util.List;
 
@@ -38,16 +37,16 @@ public interface WorkspaceClient {
      * @throws NullPointerException
      *         if name parameter is {@code null}.
      */
-    Request<WorkspaceReference> withName(String name);
+    Request<Workspace> withName(String name);
 
     /**
      * Creates the given workspace.
      *
-     * @param workspaceReference
+     * @param workspace
      *         the workspace to create.
      * @return the created workspace.
      * @throws NullPointerException
-     *         if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
+     *         if {@link com.codenvy.client.model.Workspace} parameter is {@code null}.
      */
-    Request<WorkspaceReference> create(WorkspaceReference workspaceReference);
+    Request<Workspace> create(Workspace workspace);
 }

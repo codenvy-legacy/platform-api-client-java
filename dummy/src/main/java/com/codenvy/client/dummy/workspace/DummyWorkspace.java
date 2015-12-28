@@ -12,30 +12,52 @@
 package com.codenvy.client.dummy.workspace;
 
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 
 /**
  * @author Florent Benoit
  */
 public class DummyWorkspace implements Workspace {
 
-    private DummyWorkspaceReference dummyWorkspaceReference;
+    private String name;
+    private String id;
 
     public DummyWorkspace(String name) {
-        this.dummyWorkspaceReference = new DummyWorkspaceReference(name);
+        this.name = name;
     }
 
-    public DummyWorkspace(WorkspaceReference workspaceReference) {
-        this.dummyWorkspaceReference = new DummyWorkspaceReference(workspaceReference.name());
-        //TODO: needs to convert all values
+    public void setId(String id) {
+        this.id = id;
     }
-
 
     /**
-     * @return workspace reference of this workspace
+     * @return ID of this workspace
      */
     @Override
-    public DummyWorkspaceReference workspaceReference() {
-        return dummyWorkspaceReference;
+    public String id() {
+        return id;
+    }
+
+    /**
+     * @return name of this workspace reference
+     */
+    @Override
+    public String name() {
+        return name;
+    }
+
+    /**
+     * @return Organization ID
+     */
+    @Override
+    public String organizationId() {
+        return null;
+    }
+
+    /**
+     * @return true if the workspace is a temporary workspace
+     */
+    @Override
+    public boolean isTemporary() {
+        return false;
     }
 }

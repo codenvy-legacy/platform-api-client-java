@@ -15,7 +15,6 @@ import com.codenvy.client.Request;
 import com.codenvy.client.WorkspaceClient;
 import com.codenvy.client.dummy.DummyRequest;
 import com.codenvy.client.model.Workspace;
-import com.codenvy.client.model.WorkspaceReference;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -27,7 +26,7 @@ import java.util.Map;
  */
 public class DummyWorkspaceClient implements WorkspaceClient {
 
-    private Map<String, DummyWorkspace> workspaces;
+    private Map<String, Workspace> workspaces;
 
     public DummyWorkspaceClient() {
         this.workspaces = new HashMap<>();
@@ -43,7 +42,7 @@ public class DummyWorkspaceClient implements WorkspaceClient {
     public Request<List<Workspace>> all() {
 
         List<Workspace> workspacesToReturn = new ArrayList<>();
-        for (DummyWorkspace dummyWorkspace : workspaces.values()) {
+        for (Workspace dummyWorkspace : workspaces.values()) {
             workspacesToReturn.add(dummyWorkspace);
         }
 
@@ -60,10 +59,10 @@ public class DummyWorkspaceClient implements WorkspaceClient {
      *         if name parameter is {@code null}.
      */
     @Override
-    public Request<WorkspaceReference> withName(String name) {
-        for (Map.Entry<String, DummyWorkspace> entry : workspaces.entrySet()) {
+    public Request<Workspace> withName(String name) {
+        for (Map.Entry<String, Workspace> entry : workspaces.entrySet()) {
             if (name.equals(entry.getKey())) {
-                return new DummyRequest<WorkspaceReference>(entry.getValue().workspaceReference());
+                return new DummyRequest<Workspace>(entry.getValue());
             }
         }
         return new DummyRequest<>(null);
@@ -72,21 +71,20 @@ public class DummyWorkspaceClient implements WorkspaceClient {
     /**
      * Creates the given workspace.
      *
-     * @param workspaceReference
+     * @param workspace
      *         the workspace to create.
      * @return the created workspace.
      * @throws NullPointerException
-     *         if {@link com.codenvy.client.model.WorkspaceReference} parameter is {@code null}.
+     *         if {@link com.codenvy.client.model.Workspace} parameter is {@code null}.
      */
     @Override
-    public Request<WorkspaceReference> create(WorkspaceReference workspaceReference) {
-        DummyWorkspace dummyWorkspace = new DummyWorkspace(workspaceReference);
-        registerWorkspace(dummyWorkspace);
-        return new DummyRequest<WorkspaceReference>(dummyWorkspace.workspaceReference());
+    public Request<Workspace> create(Workspace workspace) {
+        registerWorkspace(workspace);
+        return new DummyRequest<Workspace>(workspace);
     }
 
 
-    public void registerWorkspace(DummyWorkspace workspace) {
-        workspaces.put(workspace.workspaceReference().name(), workspace);
+    public void registerWorkspace(Workspace workspace) {
+        workspaces.put(workspace.name(), workspace);
     }
 }

@@ -21,7 +21,7 @@ import com.codenvy.client.dummy.project.DummyProjectBuilder;
 import com.codenvy.client.dummy.runner.DummyRunnerStatusBuilder;
 import com.codenvy.client.dummy.workspace.DummyWorkspaceBuilder;
 import com.codenvy.client.model.ProjectBuilder;
-import com.codenvy.client.model.WorkspaceReference;
+import com.codenvy.client.model.Workspace;
 import com.codenvy.client.model.runner.RunOptionsBuilder;
 
 /**
@@ -89,8 +89,8 @@ public class DummyCodenvyClient implements CodenvyClient {
         return new DummyWorkspaceBuilder(name);
     }
 
-    public DummyProjectBuilder newProjectBuilder(WorkspaceReference workspaceReference, String projectName) {
-        return new DummyProjectBuilder(workspaceReference, projectName);
+    public DummyProjectBuilder newProjectBuilder(Workspace workspace, String projectName) {
+        return new DummyProjectBuilder(workspace, projectName);
     }
 
 

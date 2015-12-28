@@ -16,16 +16,27 @@
     <parent>
         <artifactId>assemblies-karaf</artifactId>
         <groupId>com.codenvy.platform-api-client-java</groupId>
-        <version>3.14.0-SNAPSHOT</version>
+        <version>4.0.0-beta-2-SNAPSHOT</version>
     </parent>
     <artifactId>assemblies-karaf-uberjar</artifactId>
     <packaging>feature</packaging>
     <name>Codenvy Platform API Client :: Assemblies :: Karaf : überjar</name>
+
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>${project.groupId}</groupId>
+                <artifactId>uberjar</artifactId>
+                <version>${project.version}</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
+
     <dependencies>
         <dependency>
             <groupId>${project.groupId}</groupId>
             <artifactId>uberjar</artifactId>
-            <version>${project.version}</version>
         </dependency>
     </dependencies>
 
