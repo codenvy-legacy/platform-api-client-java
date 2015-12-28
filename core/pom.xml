@@ -163,7 +163,7 @@
                                     <arg value="${codenvy.ide.path}/bin/che.sh" />
                                     <arg value="stop" />
                                 </exec>
-                                <replace file="${codenvy.ide.path}/tomcat/bin/che.sh" token="CHE_PID" value="CATALINA_PID" />
+                                <replace file="${codenvy.ide.path}/tomcat/bin/catalina.sh" token="CHE_PID" value="CATALINA_PID" />
                                 <replace file="${codenvy.ide.path}/tomcat/bin/setenv.sh" token="${port1}" value="8080" />
                                 <replace file="${codenvy.ide.path}/tomcat/conf/server.xml" token="${port1}" value="8080" />
                                 <replace file="${codenvy.ide.path}/tomcat/conf/server.xml" token="${port2}" value="8009" />
