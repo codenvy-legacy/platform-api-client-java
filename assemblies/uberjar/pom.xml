@@ -16,7 +16,7 @@
     <parent>
         <artifactId>assemblies</artifactId>
         <groupId>com.codenvy.platform-api-client-java</groupId>
-        <version>4.0.0-beta-2-SNAPSHOT</version>
+        <version>4.0.0-beta-2</version>
     </parent>
     <artifactId>uberjar</artifactId>
     <packaging>bundle</packaging>

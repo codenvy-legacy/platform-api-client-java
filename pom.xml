@@ -20,7 +20,7 @@
     </parent>
     <groupId>com.codenvy.platform-api-client-java</groupId>
     <artifactId>codenvy-platform-api-client-java-parent</artifactId>
-    <version>4.0.0-beta-2-SNAPSHOT</version>
+    <version>4.0.0-beta-2</version>
     <packaging>pom</packaging>
     <name>Codenvy Platform API Client</name>
     <licenses>
@@ -56,7 +56,7 @@
     <scm>
         <connection>scm:git:git@github.com:codenvy/platform-api-client-java.git</connection>
         <developerConnection>scm:git:git@github.com:codenvy/platform-api-client-java.git</developerConnection>
-        <tag>HEAD</tag>
+        <tag>4.0.0-beta-2</tag>
     </scm>
     <properties>
         <codenvy.ide.path>${project.build.directory}/eclipse-che-${che.ide.version}</codenvy.ide.path>
