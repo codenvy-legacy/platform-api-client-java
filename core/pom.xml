@@ -119,7 +119,7 @@
                                         <artifactItem>
                                             <groupId>org.eclipse.che.ide</groupId>
                                             <artifactId>assembly-ide</artifactId>
-                                            <version>${che.ide.version}</version>
+                                            <version>${che.version}</version>
                                             <type>tar.gz</type>
                                         </artifactItem>
                                     </artifactItems>
