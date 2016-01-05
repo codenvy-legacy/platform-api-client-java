@@ -118,7 +118,7 @@
                                     <artifactItems>
                                         <artifactItem>
                                             <groupId>org.eclipse.che</groupId>
-                                            <artifactId>assembly-ide</artifactId>
+                                            <artifactId>assembly-main</artifactId>
                                             <version>${che.version}</version>
                                             <type>tar.gz</type>
                                         </artifactItem>
