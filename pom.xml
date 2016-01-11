@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!--
 
-    Copyright (c) 2014 Codenvy, S.A.
+    Copyright (c) 2012-2016 Codenvy, S.A.
     All rights reserved. This program and the accompanying materials
     are made available under the terms of the Eclipse Public License v1.0
     which accompanies this distribution, and is available at
@@ -60,7 +60,6 @@
     </scm>
     <properties>
         <codenvy.ide.path>${project.build.directory}/eclipse-che-${che.version}</codenvy.ide.path>
-        <license_years>2014</license_years>
         <version.hk2>2.2.0</version.hk2>
         <version.jackson>2.3.2</version.jackson>
         <version.javax.annotation>1.2</version.javax.annotation>
