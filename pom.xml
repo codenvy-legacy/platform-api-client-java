@@ -69,6 +69,9 @@
         <version.javax.ws.rs-api>2.0</version.javax.ws.rs-api>
         <version.jersey-client>2.8</version.jersey-client>
         <version.jsonp-jaxrs>1.0</version.jsonp-jaxrs>
+        <version.license.header.artifactid>che-eclipse-license-resource-bundle</version.license.header.artifactid>
+        <version.license.header.groupid>org.eclipse.che.dev</version.license.header.groupid>
+        <version.license.header.version>${version.resource-bundle}</version.license.header.version>
         <version.maven-bundle-plugin>2.4.0</version.maven-bundle-plugin>
         <version.org.apache.karaf>3.0.1</version.org.apache.karaf>
     </properties>
